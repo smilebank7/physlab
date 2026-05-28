@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/training/ppo.py", line 419, in main
+    result = train(
+             ^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/training/ppo.py", line 93, in train
+    env = make(config.task, "mujoco", seed=config.seed)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/registry.py", line 40, in make
+    raise TaskNotRegisteredError(f"task {name!r} is not registered; available: {available}")
+physlab.registry.TaskNotRegisteredError: "task 'nope' is not registered; available: cartpole, franka_pick"

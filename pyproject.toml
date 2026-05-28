@@ -21,6 +21,7 @@ classifiers = [
 dependencies = [
   "mujoco>=3.2,<4",
   "numpy>=1.26",
+  "torch>=2.3",
 ]
 
 [project.scripts]
@@ -42,6 +43,16 @@ test = [
 docs = [
   "pdoc>=15.0",
 ]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", marker = "sys_platform == 'linux'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/physlab", "examples"]
@@ -68,3 +79,6 @@ ignore_missing_imports = true
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-ra"
+markers = [
+  "slow: extended RL convergence checks",
+]

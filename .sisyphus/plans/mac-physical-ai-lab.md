@@ -1709,7 +1709,7 @@ Wave classification table:
   - Files: src/<ship_name>/tasks/franka_pick.py, src/<ship_name>/assets/franka_pick.xml, tests/integration/test_franka_pick.py, NOTICE (Franka Menagerie attribution)
   - Pre-commit: `pytest tests/integration/test_franka_pick.py -v`
 
-- [ ] 14. **Minimal RL Trainer (PPO, Small-Scale)**
+- [x] 14. **Minimal RL Trainer (PPO, Small-Scale)**
 
   **What to do**:
   - Implement `src/<ship_name>/training/ppo.py`:
