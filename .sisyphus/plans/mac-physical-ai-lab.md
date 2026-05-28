@@ -1514,7 +1514,7 @@ Wave classification table:
   - Files: mcp-server/src/tools/sim.ts, mcp-server/src/worker.ts, mcp-server/tests/sim_tools.test.ts, tools/gen_schemas.py
   - Pre-commit: `bun test mcp-server/tests/sim_tools.test.ts && python tools/gen_schemas.py --check`
 
-- [ ] 12. **Vertical Slice Integration Test (CLI → MCP → MuJoCo → Cartpole)**
+- [x] 12. **Vertical Slice Integration Test (CLI → MCP → MuJoCo → Cartpole)**
 
   **What to do**:
   - Create `examples/hello_cartpole.py`:

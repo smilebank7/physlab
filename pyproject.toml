@@ -23,6 +23,9 @@ dependencies = [
   "numpy>=1.26",
 ]
 
+[project.scripts]
+physlab-hello = "examples.hello_cartpole:main"
+
 [project.optional-dependencies]
 dev = [
   "mypy>=1.18",
@@ -41,7 +44,7 @@ docs = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/physlab"]
+packages = ["src/physlab", "examples"]
 
 [tool.ruff]
 line-length = 100
