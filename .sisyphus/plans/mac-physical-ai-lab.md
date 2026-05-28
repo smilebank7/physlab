@@ -1802,7 +1802,7 @@ Wave classification table:
   - Files: src/<ship_name>/training/ppo.py, src/<ship_name>/training/__init__.py, tests/unit/test_ppo.py
   - Pre-commit: `ruff check . && pytest tests/unit/test_ppo.py -v -m "not slow"`
 
-- [ ] 15. **LLM Client Wrapper (opencode Integration)**
+- [x] 15. **LLM Client Wrapper (opencode Integration)**
 
   **What to do**:
   - Implement `src/<ship_name>/llm/client.py`:

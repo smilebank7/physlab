@@ -1,0 +1,1 @@
+opencode not found on PATH

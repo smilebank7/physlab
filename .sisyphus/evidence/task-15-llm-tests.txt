@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 6 items
+
+tests/unit/test_llm_client.py::test_mock_llm_client_round_trip_and_protocol PASSED [ 16%]
+tests/unit/test_llm_client.py::test_cache_hit_uses_file_and_does_not_invoke_twice PASSED [ 33%]
+tests/unit/test_llm_client.py::test_telemetry_records_metadata_without_prompt_text PASSED [ 50%]
+tests/unit/test_llm_client.py::test_opencode_client_subprocess_is_mocked PASSED [ 66%]
+tests/unit/test_llm_client.py::test_probe_missing_opencode_returns_nonzero PASSED [ 83%]
+tests/unit/test_llm_client.py::test_probe_success_uses_opencode_client PASSED [100%]
+
+============================== 6 passed in 0.03s ===============================
