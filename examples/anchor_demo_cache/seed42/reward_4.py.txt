@@ -1,0 +1,93 @@
+def reward_fn(obs: np.ndarray, action: np.ndarray, info: dict) -> float:
+    """
+    Dense shaped reward for the Franka pick-place anchor task.
+
+    Base signature (per spec):
+        reward = -distance(cube, target) + 1_success
+        success = (cube_z > 0.5) and (distance(cube, target) < 0.1)
+
+    Additional dense shaping for learnability:
+        - Approach : gripper -> cube (smooth, bounded)
+        - Lift    : raise cube once gripper is close
+        - Place   : smooth proximity to target once airborne
+        - Action  : small L2 penalty for smoother trajectories
+        - Bonus   : sparse completion bonus to lock in success
+    """
+    obs_arr = np.asarray(obs, dtype=np.float64).ravel()
+    act_arr = np.asarray(action, dtype=np.float64).ravel()
+
+    # ------------------------------------------------------------------
+    # Robust 3-vector extraction: prefer info dict, fall back to obs slice.
+    # Typical 24-dim layout: 7 qpos + 7 qvel + 3 ee + 3 cube + 3 target + 1 grip
+    # ------------------------------------------------------------------
+    def _vec3(keys, fb_slice):
+        if isinstance(info, dict):
+            for k in keys:
+                v = info.get(k)
+                if v is not None:
+                    arr = np.asarray(v, dtype=np.float64).ravel()
+                    if arr.size >= 3 and np.all(np.isfinite(arr[:3])):
+                        return arr[:3]
+        if obs_arr.size >= fb_slice.stop:
+            seg = obs_arr[fb_slice]
+            if np.all(np.isfinite(seg)):
+                return seg
+        return np.zeros(3, dtype=np.float64)
+
+    ee_pos     = _vec3(['ee_pos', 'eef_pos', 'hand_pos', 'gripper_pos', 'tcp_pos'],
+                       slice(14, 17))
+    cube_pos   = _vec3(['cube_pos', 'object_pos', 'block_pos', 'obj_pos'],
+                       slice(17, 20))
+    target_pos = _vec3(['target_pos', 'goal_pos', 'goal', 'place_target'],
+                       slice(20, 23))
+
+    # ------------------------------------------------------------------
+    # Core scalars driving the reward
+    # ------------------------------------------------------------------
+    d_cube_target = float(np.linalg.norm(cube_pos - target_pos))
+    d_ee_cube     = float(np.linalg.norm(ee_pos   - cube_pos))
+    cube_z        = float(cube_pos[2])
+
+    is_success = (cube_z > 0.5) and (d_cube_target < 0.1)
+
+    # ------------------------------------------------------------------
+    # Base reward -- exactly matches prescribed signature
+    # ------------------------------------------------------------------
+    base = -d_cube_target + (1.0 if is_success else 0.0)
+
+    # ------------------------------------------------------------------
+    # Dense shaping (each term roughly in [0, 1])
+    # ------------------------------------------------------------------
+    # 1) Approach: reach the cube
+    approach = 1.0 - np.tanh(10.0 * d_ee_cube)
+
+    # 2) Lift: reward height once gripper is close to cube
+    near_cube = d_ee_cube < 0.06
+    lift = float(np.clip(cube_z / 0.5, 0.0, 1.1)) if near_cube else 0.0
+
+    # 3) Place: smooth target proximity, only after lifting off
+    airborne = cube_z > 0.1
+    place = (1.0 - np.tanh(5.0 * d_cube_target)) if airborne else 0.0
+
+    # 4) Action regularization
+    action_pen = -1e-3 * float(np.dot(act_arr, act_arr))
+
+    # 5) Sparse completion bonus
+    completion = 5.0 if is_success else 0.0
+
+    # ------------------------------------------------------------------
+    # Weighted combination
+    # ------------------------------------------------------------------
+    total = (
+        base
+        + 0.3 * approach
+        + 1.0 * lift
+        + 1.0 * place
+        + action_pen
+        + completion
+    )
+
+    # Safety: guarantee a finite, bounded scalar
+    if not np.isfinite(total):
+        return -10.0
+    return float(np.clip(total, -25.0, 25.0))

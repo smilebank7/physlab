@@ -2471,7 +2471,7 @@ Wave classification table:
   - Files: `.sisyphus/evidence/task-21-feasibility-gate.md`, possibly tuned `examples/eureka_franka.py` defaults
   - Pre-commit: `cat .sisyphus/evidence/task-21-feasibility-gate.md | grep -q "VERDICT:"`
 
-- [ ] 22. **Anchor Demo Final Polish + Evidence Capture**
+- [x] 22. **Anchor Demo Final Polish + Evidence Capture**
 
   **What to do**:
   - Apply tuning from T21 if any

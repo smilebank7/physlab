@@ -3,9 +3,13 @@
 ## Eureka Franka
 
 `python examples/eureka_franka.py --seed=42` runs the local Eureka-style Franka
-pick-place anchor demo. On M5 Pro, this is expected to run in about 25-30 minutes
-with `--iterations=5 --train-steps-per-iter=30000`; expect best success_rate >=0.70
-by iteration 5 when using cached/reproducible LLM responses, with small variance for
-live opencode responses.
+pick-place anchor demo. On the reference M5 Pro feasibility run, live opencode
+completed in 14m25s with best success_rate 1.0 and 0 errored iterations.
+
+Use the committed cache for deterministic offline replay:
+
+```bash
+python examples/eureka_franka.py --seed=42 --iterations=5 --llm=opencode --use-cache
+```
 
 Use `--llm=mock` for the fast deterministic smoke path used by CI.

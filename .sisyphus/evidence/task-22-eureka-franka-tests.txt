@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 4 items
+
+tests/integration/test_eureka_franka_smoke.py::test_eureka_franka_mock_smoke PASSED [ 25%]
+tests/integration/test_eureka_franka_smoke.py::test_eureka_franka_missing_opencode_reports_path_error PASSED [ 50%]
+tests/integration/test_eureka_franka_smoke.py::test_eureka_franka_opencode_cache_replay_smoke PASSED [ 75%]
+tests/integration/test_eureka_franka_smoke.py::test_timeout_wrapper_passes_timeout_to_live_llm PASSED [100%]
+
+============================== 4 passed in 2.83s ===============================

@@ -1,0 +1,66 @@
+# ruff: noqa
+def reward_fn(obs: np.ndarray, action: np.ndarray, info: dict) -> float:
+    # ---- Extract positions: prefer info dict, fall back to obs layout ----
+    def _from_info(*keys):
+        for k in keys:
+            v = info.get(k)
+            if v is not None:
+                arr = np.asarray(v, dtype=np.float64).reshape(-1)
+                if arr.size >= 3:
+                    return arr[:3]
+        return None
+
+    cube_pos = _from_info('cube_pos', 'object_pos', 'block_pos', 'obj_pos')
+    target_pos = _from_info('target_pos', 'goal_pos', 'target_position')
+    ee_pos = _from_info('ee_pos', 'end_effector_pos', 'hand_pos', 'eef_pos', 'gripper_pos')
+
+    # Fallback obs layout: [qpos(7), qvel(7), ee_pos(3), cube_pos(3), target_pos(3), gripper(1)]
+    obs_arr = np.asarray(obs, dtype=np.float64).reshape(-1)
+    if obs_arr.size >= 24:
+        if ee_pos is None:
+            ee_pos = obs_arr[14:17]
+        if cube_pos is None:
+            cube_pos = obs_arr[17:20]
+        if target_pos is None:
+            target_pos = obs_arr[20:23]
+
+    if cube_pos is None:
+        cube_pos = np.zeros(3)
+    if target_pos is None:
+        target_pos = np.zeros(3)
+    if ee_pos is None:
+        ee_pos = cube_pos.copy()
+
+    # ---- Key distances ----
+    reach_d = float(np.linalg.norm(ee_pos - cube_pos))
+    place_d = float(np.linalg.norm(cube_pos - target_pos))
+    cube_z = float(cube_pos[2])
+
+    # ---- Reward composition ----
+    # Spec base: -distance(cube, target)
+    reward = -place_d
+
+    # Reaching: dense gradient pulling EE toward cube + close-range exponential bonus
+    reward += -0.4 * reach_d + 0.25 * np.exp(-25.0 * reach_d)
+
+    # Lifting: encourage raising cube above the table (success needs cube_z > 0.5)
+    reward += 0.4 * np.tanh(6.0 * max(0.0, cube_z - 0.05))
+
+    # Placement proximity: smooth bonus as cube approaches target
+    reward += 0.5 * np.exp(-12.0 * place_d)
+
+    # Composite grasp-and-lift bonus only when EE is essentially on the cube
+    if reach_d < 0.05:
+        reward += 0.3 + 0.4 * min(1.0, cube_z / 0.5)
+
+    # Spec success bonus
+    if cube_z > 0.5 and place_d < 0.1:
+        reward += 1.0
+
+    # Light action regularization for smoothness (does not dominate signal)
+    act = np.asarray(action, dtype=np.float64).reshape(-1)
+    reward += -5e-4 * float(np.sum(np.square(act)))
+
+    if not np.isfinite(reward):
+        return 0.0
+    return float(reward)

@@ -1,0 +1,13 @@
+{"version": 2, "width": 100, "height": 24, "timestamp": 1780000000, "env": {"SHELL": "zsh", "TERM": "xterm-256color"}}
+[0.000, "o", "$ python examples/eureka_franka.py --seed=42 --iterations=5 --llm=opencode --use-cache --run-id=anchor-v0.1-canonical\\n"]
+[0.080, "o", "| iteration | success_rate | wall_clock | reward_signature |\\n"]
+[0.160, "o", "| --- | ---: | ---: | --- |\\n"]
+[0.240, "o", "| 0 | 1.0000 | 6.53s | `a11135172f89e147d6496ffb0733bfc95a86c5033b55e95572f8cc3ea8e445e2` |\\n"]
+[0.320, "o", "| 1 | 1.0000 | 6.80s | `8645ef05f32b75acafc9dc92d851205330b1f3ccc15136605e7b9578f050f1e1` |\\n"]
+[0.400, "o", "| 2 | 1.0000 | 6.68s | `8a3709934ab8987ea7e3dca1c2f44ce51fb6d73b82094925c472e264f0f13466` |\\n"]
+[0.480, "o", "| 3 | 1.0000 | 6.65s | `78b0316a9651d3c86f895b1ca329ecbafd72045f597b50a77c9a2a389b457e48` |\\n"]
+[0.560, "o", "| 4 | 1.0000 | 6.90s | `e8e2e11a494ef078932866b5ee51945816cbdf6a7ecaf2e31dff39e43f4b3832` |\\n"]
+[0.640, "o", "run_dir=runs/anchor-v0.1-canonical\\n"]
+[0.720, "o", "best_iteration=0 best_success_rate=1.0000\\n"]
+[0.800, "o", "exit_status=0\\n"]
+[0.880, "o", "wall_clock_s=33\\n"]

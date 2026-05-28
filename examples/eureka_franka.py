@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "eureka_franka_seed42_mock_llm.json"
+ANCHOR_CACHE_ROOT = Path(__file__).resolve().parent / "anchor_demo_cache"
 
 
 class FixtureLLM:
@@ -44,6 +45,37 @@ class TimeoutLLM:
         return str(self._inner.name())
 
 
+class AnchorCacheLLM:
+    def __init__(self, cache_root: Path, seed: int) -> None:
+        cache_dir = cache_root / f"seed{seed}"
+        manifest_path = cache_dir / "manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        responses = manifest.get("responses", [])
+        if not isinstance(responses, list) or not responses:
+            raise ValueError(f"anchor cache {manifest_path} must contain responses")
+        self._cache_dir = cache_dir
+        self._responses = [item for item in responses if isinstance(item, dict)]
+        self._reward_idx = 0
+        self._reflection_idx = 0
+
+    def complete(self, prompt: str, system: str | None = None, **kwargs: object) -> str:
+        del prompt, system
+        if kwargs.get("purpose") == "reflection":
+            entry = self._entry(self._reflection_idx)
+            self._reflection_idx += 1
+            return (self._cache_dir / str(entry["reflection"])).read_text(encoding="utf-8")
+        entry = self._entry(self._reward_idx)
+        self._reward_idx += 1
+        code = (self._cache_dir / str(entry["reward"])).read_text(encoding="utf-8").strip()
+        return f"```python\n{code}\n```"
+
+    def name(self) -> str:
+        return "anchor-cache"
+
+    def _entry(self, idx: int) -> dict[str, object]:
+        return self._responses[min(idx, len(self._responses) - 1)]
+
+
 class MockFrankaEvaluator:
     def __init__(self) -> None:
         self._idx = 0
@@ -78,6 +110,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--llm", choices=["opencode", "mock"], default="opencode")
     parser.add_argument("--llm-timeout", type=float, default=600.0)
+    parser.add_argument("--use-cache", nargs="?", const=True, default=False, type=_parse_bool)
     parser.add_argument("--train-steps-per-iter", type=int, default=30_000)
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--runs-dir", type=Path, default=Path("runs"))
@@ -86,8 +119,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    use_cache = bool(args.use_cache)
 
-    if args.llm == "opencode" and shutil.which("opencode") is None:
+    if args.llm == "opencode" and not use_cache and shutil.which("opencode") is None:
         print(
             "opencode not found on PATH; install opencode or rerun with --llm=mock",
             file=sys.stderr,
@@ -104,7 +138,9 @@ def main(argv: list[str] | None = None) -> int:
     run_dir = store.path_for(run_id)
 
     evaluator = None
-    if args.llm == "mock":
+    if use_cache:
+        llm = AnchorCacheLLM(ANCHOR_CACHE_ROOT, seed=int(args.seed))
+    elif args.llm == "mock":
         llm = FixtureLLM()
         evaluator = MockFrankaEvaluator()
     else:
@@ -129,7 +165,13 @@ def main(argv: list[str] | None = None) -> int:
         print(str(exc), file=sys.stderr)
         return 2
 
-    _write_outputs(run_dir, controller, result.best_iteration, result.best_success_rate)
+    _write_outputs(
+        run_dir,
+        controller,
+        result.run.iterations,
+        result.best_iteration,
+        result.best_success_rate,
+    )
     print(_summary_table(result.run.iterations))
     print(f"run_dir={run_dir}")
     print(
@@ -139,9 +181,19 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
+def _parse_bool(value: str) -> bool:
+    normalized = value.strip().lower()
+    if normalized in {"1", "true", "yes", "on"}:
+        return True
+    if normalized in {"0", "false", "no", "off"}:
+        return False
+    raise argparse.ArgumentTypeError("expected true or false")
+
+
 def _write_outputs(
     run_dir: Path,
     controller: object,
+    iterations: object,
     best_iteration: int | None,
     best_success_rate: float,
 ) -> None:
@@ -152,23 +204,43 @@ def _write_outputs(
         f"- best_iteration: {best_iteration}",
         f"- best_success_rate: {best_success_rate:.6f}",
         "",
-        _summary_table(controller.store.read(run_dir.name).iterations),
+        _summary_table(iterations),
         "",
     ]
     (run_dir / "SUMMARY.md").write_text("\n".join(summary), encoding="utf-8")
     best = controller.best_reward_so_far
-    best_code = "" if best is None else best.code + "\n"
+    best_code = "" if best is None else _attributed_reward(best.code)
     (run_dir / "BEST_REWARD.py").write_text(best_code, encoding="utf-8")
+    for reward_path in sorted(run_dir.glob("iter_*/reward.py")):
+        reward_path.write_text(_artifact_reward(reward_path.read_text(encoding="utf-8")))
 
 
 def _summary_table(iterations: object) -> str:
-    rows = ["iteration | success_rate | wall_clock | reward_signature"]
+    rows = [
+        "| iteration | success_rate | wall_clock | reward_signature |",
+        "| --- | ---: | ---: | --- |",
+    ]
     for iteration in iterations:
         success_rate = iteration.eval_metrics.get("success_rate", 0.0)
         wall_clock = iteration.eval_metrics.get("wall_clock_s", 0.0)
         signature = str(iteration.metadata.get("reward_hash", ""))
-        rows.append(f"{iteration.idx} | {success_rate:.4f} | {wall_clock:.2f}s | {signature}")
+        rows.append(f"| {iteration.idx} | {success_rate:.4f} | {wall_clock:.2f}s | `{signature}` |")
     return "\n".join(rows)
+
+
+def _attributed_reward(code: str) -> str:
+    return (
+        "# Generated by physlab anchor demo from local opencode reward search.\n"
+        "# Source: examples/eureka_franka.py, seed=42.\n"
+        "# ruff: noqa\n\n"
+        f"{code.rstrip()}\n"
+    )
+
+
+def _artifact_reward(code: str) -> str:
+    if code.startswith("# ruff: noqa"):
+        return code
+    return f"# ruff: noqa\n{code.rstrip()}\n"
 
 
 if __name__ == "__main__":

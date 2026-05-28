@@ -1,0 +1,13 @@
+{
+  "config": {
+    "controller": "iteration",
+    "iterations": 5,
+    "llm": "anchor-cache",
+    "num_rollouts": 5,
+    "seed": 42,
+    "train_steps": 30000
+  },
+  "run_id": "anchor-v0.1-canonical",
+  "started_at": "anchor-v0.1-canonical",
+  "task": "franka_pick"
+}

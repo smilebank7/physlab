@@ -1,0 +1,2 @@
+opencode not found on PATH; install opencode or rerun with --llm=mock
+exit_status=1
