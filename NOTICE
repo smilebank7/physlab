@@ -1,0 +1,10 @@
+physlab includes an optional runtime dependency on MuJoCo.
+
+MuJoCo
+Copyright 2021 DeepMind Technologies Limited
+License: Apache License, Version 2.0
+Source: https://github.com/google-deepmind/mujoco
+
+Cartpole task conventions are informed by DeepMind Control Suite cartpole
+and Gymnasium CartPole. The MJCF shipped in physlab is authored for this
+project.

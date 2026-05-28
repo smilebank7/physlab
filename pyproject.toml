@@ -19,8 +19,12 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
+  "mujoco>=3.2,<4",
   "numpy>=1.26",
 ]
+
+[project.scripts]
+physlab-hello = "examples.hello_cartpole:main"
 
 [project.optional-dependencies]
 dev = [
@@ -40,7 +44,7 @@ docs = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/physlab"]
+packages = ["src/physlab", "examples"]
 
 [tool.ruff]
 line-length = 100
@@ -55,6 +59,10 @@ python_version = "3.11"
 strict = true
 files = ["src", "tests", "tools"]
 exclude = ["\\.venv/", "mcp-server/node_modules/"]
+
+[[tool.mypy.overrides]]
+module = ["mujoco"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

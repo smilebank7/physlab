@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 8 items
+
+tests/integration/test_backend_contract.py::test_reset_determinism[MuJoCoBackend] PASSED [ 12%]
+tests/integration/test_backend_contract.py::test_reset_determinism[MockBackend] PASSED [ 25%]
+tests/integration/test_backend_contract.py::test_action_shape_validation[MuJoCoBackend] PASSED [ 37%]
+tests/integration/test_backend_contract.py::test_action_shape_validation[MockBackend] PASSED [ 50%]
+tests/integration/test_backend_contract.py::test_step_monotonic_time[MuJoCoBackend] PASSED [ 62%]
+tests/integration/test_backend_contract.py::test_step_monotonic_time[MockBackend] PASSED [ 75%]
+tests/integration/test_backend_contract.py::test_close_releases[MuJoCoBackend] PASSED [ 87%]
+tests/integration/test_backend_contract.py::test_close_releases[MockBackend] PASSED [100%]
+
+============================== 8 passed in 0.10s ===============================

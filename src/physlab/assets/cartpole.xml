@@ -1,0 +1,21 @@
+<mujoco model="physlab_cartpole">
+  <compiler angle="radian"/>
+  <option timestep="0.02" integrator="RK4"/>
+  <default>
+    <joint damping="0.001" armature="0.0"/>
+    <geom friction="0.8 0.1 0.1"/>
+  </default>
+  <worldbody>
+    <body name="cart" pos="0 0 0">
+      <joint name="slider" type="slide" axis="1 0 0" limited="true" range="-2.4 2.4"/>
+      <geom name="cart_box" type="box" size="0.16 0.08 0.05" mass="1.0"/>
+      <body name="pole" pos="0 0 0.05">
+        <joint name="hinge" type="hinge" axis="0 1 0" damping="0.001"/>
+        <geom name="pole_capsule" type="capsule" fromto="0 0 0 0 0 0.6" size="0.02" mass="0.1"/>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="cart_motor" joint="slider" gear="10" ctrllimited="true" ctrlrange="-1 1"/>
+  </actuator>
+</mujoco>

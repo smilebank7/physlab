@@ -1,0 +1,43 @@
+# tools/list count
+[
+  "ping",
+  "sim.make",
+  "sim.reset",
+  "sim.step",
+  "sim.observe",
+  "task.list"
+]
+# make
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "handle_id": "env-78aefc5ec4d64c509a67948860f9f972",
+    "obs_spec": {
+      "shape": [
+        4
+      ],
+      "dtype": "float64",
+      "low": null,
+      "high": null
+    },
+    "action_spec": {
+      "shape": [
+        1
+      ],
+      "dtype": "float64",
+      "low": [
+        -1
+      ],
+      "high": [
+        1
+      ]
+    }
+  }
+}
+# reset observation length
+4
+# step reward
+1
+# observe latency ms single-call
+23.085

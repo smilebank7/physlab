@@ -1,0 +1,17 @@
+bun test v1.3.10 (30e609e0)
+
+tests/sim_tools.test.ts:
+{"level":30,"time":1779931641411,"pid":62977,"hostname":"MacBook-Pro-3.local","name":"physlab-mcp","host":"127.0.0.1","port":64110,"msg":"listening on stdio + http"}
+(pass) tools/list returns ping and sim tools [6.36ms]
+{"level":30,"time":1779931641414,"pid":62977,"hostname":"MacBook-Pro-3.local","name":"physlab-mcp","host":"127.0.0.1","port":64112,"msg":"listening on stdio + http"}
+(pass) task.list includes cartpole and sim step returns observation [124.75ms]
+{"level":30,"time":1779931641539,"pid":62977,"hostname":"MacBook-Pro-3.local","name":"physlab-mcp","host":"127.0.0.1","port":64114,"msg":"listening on stdio + http"}
+(pass) stale handle returns JSON-RPC -32602 [93.78ms]
+{"level":30,"time":1779931641633,"pid":62977,"hostname":"MacBook-Pro-3.local","name":"physlab-mcp","host":"127.0.0.1","port":64116,"msg":"listening on stdio + http"}
+(pass) ten concurrent handles are isolated [111.08ms]
+
+ 4 pass
+ 0 fail
+ 38 expect() calls
+Ran 4 tests across 1 file. [411.00ms]
+mcp-server/src/generated/schemas.json is up to date

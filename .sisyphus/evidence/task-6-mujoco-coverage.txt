@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collected 9 items
+
+tests/unit/test_mujoco_backend.py .........                              [100%]
+
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.11.14-final-0 _______________
+
+Name                               Stmts   Miss  Cover   Missing
+----------------------------------------------------------------
+src/physlab/backends/__init__.py       3      0   100%
+src/physlab/backends/mock.py         107     69    36%   38-40, 43-66, 74-85, 88-100, 110, 113, 116, 119-120, 124-130, 134-143, 147-148, 152-154, 158-160, 164
+src/physlab/backends/mujoco.py       101      1    99%   111
+----------------------------------------------------------------
+TOTAL                                211     70    67%
+============================== 9 passed in 0.16s ===============================

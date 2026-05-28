@@ -901,7 +901,7 @@ Wave classification table:
   - Files: src/<ship_name>/protocols.py, src/<ship_name>/py.typed, tests/unit/test_protocols.py
   - Pre-commit: `ruff check . && mypy --strict src/<ship_name>/protocols.py && pytest tests/unit/test_protocols.py`
 
-- [ ] 6. **MuJoCo Wrapper Core**
+- [x] 6. **MuJoCo Wrapper Core**
 
   **What to do**:
   - Implement `src/<ship_name>/backends/mujoco.py`:
@@ -1020,7 +1020,7 @@ Wave classification table:
   - Files: src/<ship_name>/backends/mujoco.py, tests/unit/test_mujoco_backend.py, tests/fixtures/pendulum.xml, NOTICE (Apache-2.0 attribution)
   - Pre-commit: `ruff check . && mypy src/<ship_name>/backends/ && pytest tests/unit/test_mujoco_backend.py`
 
-- [ ] 7. **Mock Backend (Contract Test Substrate)**
+- [x] 7. **Mock Backend (Contract Test Substrate)**
 
   **What to do**:
   - Implement `src/<ship_name>/backends/mock.py`:
@@ -1111,7 +1111,7 @@ Wave classification table:
   - Files: src/<ship_name>/backends/mock.py, tests/integration/test_backend_contract.py
   - Pre-commit: `pytest tests/integration/test_backend_contract.py -v`
 
-- [ ] 8. **Env API + Task Registry**
+- [x] 8. **Env API + Task Registry**
 
   **What to do**:
   - Implement `src/<ship_name>/env.py`:
@@ -1225,7 +1225,7 @@ Wave classification table:
   - Files: src/<ship_name>/env.py, src/<ship_name>/registry.py, src/<ship_name>/__init__.py (re-exports), tests/unit/test_env.py, tests/unit/test_registry.py
   - Pre-commit: `pytest tests/unit/test_env.py tests/unit/test_registry.py -v`
 
-- [ ] 9. **First Toy Task — Cartpole (Smoke Test)**
+- [x] 9. **First Toy Task — Cartpole (Smoke Test)**
 
   **What to do**:
   - Implement `src/<ship_name>/tasks/cartpole.py`:
@@ -1319,7 +1319,7 @@ Wave classification table:
   - Files: src/<ship_name>/tasks/cartpole.py, src/<ship_name>/assets/cartpole.xml, tests/integration/test_cartpole.py, NOTICE (dm_control attribution)
   - Pre-commit: `pytest tests/integration/test_cartpole.py -v`
 
-- [ ] 10. **MCP Server Skeleton (TypeScript, JSON-RPC)**
+- [x] 10. **MCP Server Skeleton (TypeScript, JSON-RPC)**
 
   **What to do**:
   - Implement `mcp-server/src/server.ts`:
@@ -1415,7 +1415,7 @@ Wave classification table:
   - Files: mcp-server/src/server.ts, mcp-server/src/tools/ping.ts, mcp-server/tests/server.test.ts, mcp-server/package.json (deps)
   - Pre-commit: `bun run typecheck && bun test mcp-server/tests/server.test.ts`
 
-- [ ] 11. **MCP Sim Tools (sim.make/reset/step/observe + task.list)**
+- [x] 11. **MCP Sim Tools (sim.make/reset/step/observe + task.list)**
 
   **What to do**:
   - Implement `mcp-server/src/tools/sim.ts` with 5 tools:
@@ -1514,7 +1514,7 @@ Wave classification table:
   - Files: mcp-server/src/tools/sim.ts, mcp-server/src/worker.ts, mcp-server/tests/sim_tools.test.ts, tools/gen_schemas.py
   - Pre-commit: `bun test mcp-server/tests/sim_tools.test.ts && python tools/gen_schemas.py --check`
 
-- [ ] 12. **Vertical Slice Integration Test (CLI → MCP → MuJoCo → Cartpole)**
+- [x] 12. **Vertical Slice Integration Test (CLI → MCP → MuJoCo → Cartpole)**
 
   **What to do**:
   - Create `examples/hello_cartpole.py`:

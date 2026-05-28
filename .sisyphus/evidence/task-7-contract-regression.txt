@@ -1,0 +1,36 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 2 items
+
+tests/integration/test_backend_contract.py::test_reset_determinism[MuJoCoBackend] PASSED [ 50%]
+tests/integration/test_backend_contract.py::test_reset_determinism[MockBackend] FAILED [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_reset_determinism[MockBackend] ______________________
+
+case = BackendCase(name='MockBackend', factory=<class 'physlab.backends.mock.MockBackend'>, spec={'nq': 1, 'nv': 1, 'nu': 1}, action=array([0.1]))
+
+    @pytest.mark.parametrize("case", CASES, ids=str)
+    def test_reset_determinism(case: BackendCase) -> None:
+        backend, handle = _load(case)
+        try:
+            first = backend.reset(handle, seed=42).copy()
+            backend.step(handle, case.action)
+            second = backend.reset(handle, seed=42).copy()
+>           assert first.tobytes() == second.tobytes()
+E           AssertionError: assert b'\xc5\x90\xd...\x96\xbeFC|N?' == b'\xcf\xb7\xd...\xc0\x86L\xbf'
+E             
+E             At index 0 diff: b'\xc5' != b'\xcf'
+E             
+E             Full diff:
+E             - (b'\xcf\xb7\xde\xaaPf\x14\xbf\x19\xfe\xdc\x03\xc0\x86L\xbf')
+E             + (b'\xc5\x90\xd2\x15\x7f\x87\x00?\xb6\x96\xbeFC|N?')
+
+tests/integration/test_backend_contract.py:59: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_backend_contract.py::test_reset_determinism[MockBackend]
+========================= 1 failed, 1 passed in 0.09s ==========================

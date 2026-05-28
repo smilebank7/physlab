@@ -3,7 +3,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "check": "ruff check . && biome check mcp-server/"
+    "check": "ruff check . && biome check mcp-server/",
+    "mcp-server": "bun run --cwd mcp-server mcp-server"
   },
   "workspaces": ["mcp-server"]
 }
