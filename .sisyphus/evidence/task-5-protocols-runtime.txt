@@ -1,0 +1,3 @@
+$ python - <<PY
+runtime-checkable Backend accepted
+exit_code=0

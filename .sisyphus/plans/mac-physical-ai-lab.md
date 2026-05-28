@@ -802,7 +802,7 @@ Wave classification table:
   - Files: tools/check_licenses.py, .github/workflows/licenses.yml, CONTRIBUTING.md (stub), tests/fixtures/gpl_violator.json
   - Pre-commit: `python tools/check_licenses.py`
 
-- [ ] 5. **Type & Protocol Definitions (Backend, Env, Task, Specs)**
+- [x] 5. **Type & Protocol Definitions (Backend, Env, Task, Specs)**
 
   **What to do**:
   - Create `src/<ship_name>/protocols.py` defining (using `typing.Protocol` + `runtime_checkable`):

@@ -1,0 +1,3 @@
+$ python - <<PY
+incomplete Backend rejected
+exit_code=0
