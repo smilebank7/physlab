@@ -1,0 +1,164 @@
+{
+  "python_client_transcript": [
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "tools": [
+          {
+            "name": "ping",
+            "description": "Return pong with the provided message.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "msg"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "sim.make",
+            "description": "Create a task environment handle.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "task": {
+                  "type": "string"
+                },
+                "backend": {
+                  "type": "string",
+                  "enum": [
+                    "mujoco",
+                    "mock"
+                  ]
+                },
+                "seed": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "task"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "sim.reset",
+            "description": "Reset an environment handle.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "handle_id": {
+                  "type": "string"
+                },
+                "seed": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "handle_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "sim.step",
+            "description": "Advance an environment handle by one action.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "handle_id": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              },
+              "required": [
+                "handle_id",
+                "action"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "sim.observe",
+            "description": "Read the latest observation without advancing.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "handle_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "handle_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "task.list",
+            "description": "List registered physlab tasks.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "error": {
+        "code": -32601,
+        "message": "method not found: tools/unknown"
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "error": {
+        "code": -32602,
+        "message": "invalid tool arguments",
+        "data": [
+          {
+            "instancePath": "",
+            "schemaPath": "#/required",
+            "keyword": "required",
+            "params": {
+              "missingProperty": "msg"
+            },
+            "message": "must have required property 'msg'"
+          }
+        ]
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "pong: evidence"
+          }
+        ]
+      }
+    }
+  ],
+  "ts_client_exit": 0,
+  "ts_client_stdout": "bun test v1.3.10 (30e609e0)\n{\"level\":30,\"time\":1779949412042,\"pid\":61110,\"hostname\":\"MacBook-Pro-3.local\",\"name\":\"physlab-mcp\",\"host\":\"127.0.0.1\",\"port\":58188,\"msg\":\"listening on stdio + http\"}\n{\"level\":30,\"time\":1779949412063,\"pid\":61110,\"hostname\":\"MacBook-Pro-3.local\",\"name\":\"physlab-mcp\",\"host\":\"127.0.0.1\",\"port\":58190,\"msg\":\"listening on stdio + http\"}\n",
+  "ts_client_stderr": "\ntests/protocol_compliance.test.ts:\n(pass) tools/list schemas and descriptions are MCP-client portable [21.23ms]\n(pass) TypeScript JSON-RPC client sees spec error codes and tool round-trip [9.18ms]\n\n 2 pass\n 0 fail\n 26 expect() calls\nRan 2 tests across 1 file. [87.00ms]\n"
+}

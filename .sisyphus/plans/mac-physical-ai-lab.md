@@ -2847,7 +2847,7 @@ Wave classification table:
   - Files: examples/plugins/hello_task/{hello_task.py,pyproject.toml,README.md}, tests/integration/test_extension_freedom.py
   - Pre-commit: `pytest tests/integration/test_extension_freedom.py -v && ! grep -rE "entry_points" src/<ship_name>/`
 
-- [ ] 27. **CI Test #5: Agent/LLM Freedom (MCP Protocol Compliance)**
+- [x] 27. **CI Test #5: Agent/LLM Freedom (MCP Protocol Compliance)**
 
   **What to do**:
   - Add `tests/integration/test_agent_freedom.py`:

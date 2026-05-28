@@ -24,3 +24,10 @@ For a quick smoke path that does not run PPO, use:
 ```bash
 python examples/eureka_franka.py --iterations=1 --llm=mock --seed=42 --run-id=smoke
 ```
+
+## MCP Clients
+
+Use any MCP-speaking client: Claude Desktop, opencode, Codex, or a custom local
+JSON-RPC client can call the same `ping`, `sim.*`, and `task.list` tools. The
+MCP layer has no opencode-specific authentication or adapter requirement in
+v0.1; opencode is only the canonical local loop driver for the anchor demo.
