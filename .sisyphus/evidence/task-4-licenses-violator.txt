@@ -1,0 +1,3 @@
+$ python tools/check_licenses.py --fixture=tests/fixtures/gpl_violator.json
+fixture:bad-copyleft-lib: rejected license GPL-3.0
+exit_code=1

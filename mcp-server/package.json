@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "license": "MIT",
   "description": "TypeScript MCP server scaffold for physlab.",
   "scripts": {
     "check": "biome check .",
@@ -10,6 +11,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.8",
+    "license-checker-rseidelsohn": "^5.0.1",
     "typescript": "^5.9.3"
   },
   "engines": {

@@ -1,6 +1,7 @@
 {
   "name": "physlab-workspace",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "check": "ruff check . && biome check mcp-server/"
   },
