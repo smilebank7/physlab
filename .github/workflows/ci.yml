@@ -32,6 +32,7 @@ jobs:
       - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" mypy src/
       - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" pytest -v --cov=physlab --cov-report=xml
       - run: cd mcp-server && bun test
+      - run: cd mcp-server && bun run build && npm pack --dry-run
       - uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.os }}-py${{ matrix.python-version }}

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import Ajv from "ajv";
 import pino from "pino";
@@ -258,6 +260,15 @@ function isObject(value: unknown): value is Record<string, unknown> {
 }
 
 if (import.meta.main) {
+  if (process.argv.includes("--help") || process.argv.includes("-h")) {
+    console.log(`physlab-mcp-server
+
+Usage:
+  physlab-mcp-server [--host 127.0.0.1] [--port 8765]
+
+Starts the physlab MCP JSON-RPC server with sim.make/reset/step/observe and task.list tools.`);
+    process.exit(0);
+  }
   await startHttpServer({
     host: process.env.PHYSLAB_MCP_HOST ?? "127.0.0.1",
     port: Number(process.env.PHYSLAB_MCP_PORT ?? "8765"),

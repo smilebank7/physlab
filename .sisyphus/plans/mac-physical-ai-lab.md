@@ -3662,7 +3662,7 @@ Wave classification table:
   - Files: pyproject.toml, MANIFEST.in, .github/workflows/release.yml
   - Pre-commit: `python -m build && twine check dist/*`
 
-- [ ] 38. **npm Packaging Setup (MCP Server)**
+- [x] 38. **npm Packaging Setup (MCP Server)**
 
   **What to do**:
   - Finalize `mcp-server/package.json` for npm publish:
@@ -3704,10 +3704,10 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `cd mcp-server && bun run build` produces `dist/server.js` + types
-  - [ ] `npm pack` produces a `.tgz` (or bun's equivalent); inspect via `tar -tzf` — only `dist/` + `README.md` + `package.json` + `LICENSE`
-  - [ ] Installable in fresh node project; CLI bin `<ship_name>-mcp-server` works
-  - [ ] No source maps shipped (or only `.d.ts.map` / cleaned source maps)
+  - [x] `cd mcp-server && bun run build` produces `dist/server.js` + types
+  - [x] `npm pack` produces a `.tgz` (or bun's equivalent); inspect via `tar -tzf` — only `dist/` + `README.md` + `package.json` + `LICENSE`
+  - [x] Installable in fresh node project; CLI bin `<ship_name>-mcp-server` works
+  - [x] No source maps shipped (or only `.d.ts.map` / cleaned source maps)
 
   **QA Scenarios**:
 

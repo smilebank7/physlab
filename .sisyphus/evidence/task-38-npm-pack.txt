@@ -1,0 +1,46 @@
+$ cd mcp-server && bun run build && npm pack
+$ rm -rf dist && tsc --project tsconfig.build.json && node scripts/fix-dts.mjs && bun build src/server.ts --outdir=dist --target=node --external @modelcontextprotocol/sdk --external ajv --external pino --external zod
+Bundled 4 modules in 2ms
+
+  server.js  10.93 KB  (entry point)
+
+npm notice
+npm notice 📦  @physlab/mcp-server@0.0.0
+npm notice Tarball Contents
+npm notice 1.1kB LICENSE
+npm notice 322B README.md
+npm notice 1.3kB dist/server.d.ts
+npm notice 10.9kB dist/server.js
+npm notice 162B dist/tools/sim.d.ts
+npm notice 516B dist/worker.d.ts
+npm notice 1.5kB package.json
+npm notice Tarball Details
+npm notice name: @physlab/mcp-server
+npm notice version: 0.0.0
+npm notice filename: physlab-mcp-server-0.0.0.tgz
+npm notice package size: 5.5 kB
+npm notice unpacked size: 15.8 kB
+npm notice shasum: 628fb9b7b79af6632ddd1c7776163453bcec8bdb
+npm notice integrity: sha512-SWlyMtOBya/Z8[...]xuEkz04fmXxZQ==
+npm notice total files: 7
+npm notice
+physlab-mcp-server-0.0.0.tgz
+
+$ tar -tzf mcp-server/physlab-mcp-server-0.0.0.tgz
+package/LICENSE
+package/dist/server.js
+package/package.json
+package/README.md
+package/dist/server.d.ts
+package/dist/tools/sim.d.ts
+package/dist/worker.d.ts
+
+$ tar -tzf ... | grep -E '(map|node_modules|src/)'
+PACKAGE_CONTENTS_OK
+$ cd /var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/tmp.AIxT4bIyn7 && npm init -y && npm install /Users/jhin/Documents/Git/private/playground/isaac-mac/mcp-server/physlab-mcp-server-0.0.0.tgz && npx physlab-mcp-server --help
+physlab-mcp-server
+
+Usage:
+  physlab-mcp-server [--host 127.0.0.1] [--port 8765]
+
+Starts the physlab MCP JSON-RPC server with sim.make/reset/step/observe and task.list tools.
