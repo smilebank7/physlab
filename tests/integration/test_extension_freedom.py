@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 PLUGIN = ROOT / "examples" / "plugins" / "hello_task"
 SOURCE = PLUGIN / "hello_task.py"
+SRC = ROOT / "src" / "physlab"
 
 
 def test_plugin_source_is_50_lines_or_less() -> None:
@@ -59,15 +60,13 @@ def test_plugin_is_not_auto_discovered_without_import() -> None:
 
 
 def test_no_entry_points_machinery_in_src() -> None:
-    result = subprocess.run(
-        ["rg", r"from importlib\.metadata import entry_points|entry_points\(", "src/physlab"],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    matches = [
+        path
+        for path in SRC.rglob("*.py")
+        if "entry_points" in path.read_text(encoding="utf-8")
+    ]
 
-    assert result.returncode == 1, result.stdout
+    assert matches == []
 
 
 def _install_plugin() -> None:
