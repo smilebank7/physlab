@@ -31,16 +31,22 @@ class AntStandTask:
 
     @property
     def model_spec(self) -> Path:
+        """Return the MJCF asset path for the standing ant task."""
+
         if self.asset_path is not None:
             return self.asset_path
         return Path(__file__).resolve().parents[1] / "assets" / "ant_stand.xml"
 
     def make_env(self) -> Env:
+        """Create a default MuJoCo environment for ant standing."""
+
         from physlab.registry import make
 
         return make(self.name)
 
     def on_reset(self, handle: ModelHandle, seed: int | None) -> None:
+        """Reset torso pose and seed joint perturbations."""
+
         model, data = _mujoco(handle)
         rng = np.random.default_rng(seed)
         data.qpos[:] = 0.0
@@ -55,11 +61,15 @@ class AntStandTask:
         backend_observation: np.ndarray[Any, Any],
         info: Info,
     ) -> np.ndarray[Any, Any]:
+        """Build the full ant state observation from MuJoCo data."""
+
         del backend_observation, info
         _, data = _mujoco(handle)
         return np.concatenate((data.qpos, data.qvel)).astype(np.float64, copy=False)
 
     def info(self, handle: ModelHandle, observation: np.ndarray[Any, Any]) -> Info:
+        """Return uprightness, height, drift, and success metrics."""
+
         del observation
         model, data = _mujoco(handle)
         torso = _body_id(model, "torso")
@@ -89,6 +99,8 @@ class AntStandTask:
         action: np.ndarray[Any, Any],
         info: Info,
     ) -> float:
+        """Reward forward motion, upright posture, and height."""
+
         del observation
         upright = _float_info(info, "upright")
         height = _float_info(info, "torso_height")
@@ -97,16 +109,22 @@ class AntStandTask:
         return forward + upright + 0.5 * height - control_cost
 
     def terminate(self, observation: np.ndarray[Any, Any], info: Info) -> bool:
+        """Terminate when the ant has fallen below height or upright limits."""
+
         del observation
         return bool(_float_info(info, "torso_height") < 0.16 or _float_info(info, "upright") < 0.2)
 
     def success_metric(self, rollout: object) -> float:
+        """Compute the fraction of rollout records marked successful."""
+
         if not isinstance(rollout, list) or not rollout:
             return 0.0
         successes = [bool(step.get("success", False)) for step in rollout if isinstance(step, dict)]
         return float(sum(successes) / max(len(successes), 1))
 
     def reward_signature(self) -> str:
+        """Describe the ant standing reward contract."""
+
         return "reward=forward_velocity+upright+0.5*height-0.02*control_cost"
 
 

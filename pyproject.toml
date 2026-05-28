@@ -41,7 +41,11 @@ test = [
   "pytest-cov>=7.0",
 ]
 docs = [
+  "furo>=2025.9.25",
+  "interrogate>=1.7",
+  "myst-parser>=4.0",
   "pdoc>=15.0",
+  "sphinx>=8.0",
 ]
 
 [tool.uv.sources]
@@ -82,3 +86,14 @@ addopts = "-ra"
 markers = [
   "slow: extended RL convergence checks",
 ]
+
+[tool.interrogate]
+fail-under = 80
+ignore-init-method = true
+ignore-init-module = true
+ignore-magic = true
+ignore-nested-functions = true
+ignore-private = true
+ignore-semiprivate = true
+omit-covered-files = true
+verbose = 1

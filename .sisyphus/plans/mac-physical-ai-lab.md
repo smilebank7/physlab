@@ -3362,7 +3362,7 @@ Wave classification table:
   - Files: docs/tutorial-eureka-franka.md
   - Pre-commit: `pytest tests/integration/test_readme_snippets.py -v`
 
-- [ ] 34. **Documentation — Auto-Generated API Reference**
+- [x] 34. **Documentation — Auto-Generated API Reference**
 
   **What to do**:
   - Set up Sphinx (Python) + TypeDoc (TS):
@@ -3399,11 +3399,11 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `cd docs && sphinx-build -W .` succeeds (warnings as errors)
-  - [ ] `cd mcp-server && bun run docs` builds TS docs
-  - [ ] `sphinx-linkcheck` passes (no broken links)
-  - [ ] Docstring coverage ≥80% (measured by interrogate or similar)
-  - [ ] Docs publish on release tag via GitHub Pages
+  - [x] `cd docs && sphinx-build -W .` succeeds (warnings as errors)
+  - [x] `cd mcp-server && bun run docs` builds TS docs
+  - [x] `sphinx-linkcheck` passes (no broken links)
+  - [x] Docstring coverage ≥80% (measured by interrogate or similar)
+  - [x] Docs publish on release tag via GitHub Pages
 
   **QA Scenarios**:
 

@@ -23,17 +23,23 @@ class UnknownBackendError(ValueError):
 
 
 def register_task(name: str, task_factory: TaskFactory) -> None:
+    """Register a task factory under an explicit user-facing name."""
+
     if not name:
         raise ValueError("task name must be non-empty")
     _TASKS[name] = task_factory
 
 
 def list_tasks() -> list[str]:
+    """Return all explicitly registered task names, including built-ins."""
+
     _load_builtin_tasks()
     return sorted(_TASKS)
 
 
 def make(name: str, backend: Backend | str = "mujoco", seed: int | None = None) -> Environment:
+    """Construct an environment from a registered task and backend."""
+
     _load_builtin_tasks()
     if name not in _TASKS:
         available = ", ".join(sorted(_TASKS)) or "<none>"

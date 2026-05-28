@@ -31,16 +31,22 @@ class FrankaPickTask:
 
     @property
     def model_spec(self) -> Path:
+        """Return the MJCF asset path for the pick-place task."""
+
         if self.asset_path is not None:
             return self.asset_path
         return Path(__file__).resolve().parents[1] / "assets" / "franka_pick.xml"
 
     def make_env(self) -> Env:
+        """Create a default MuJoCo environment for Franka pick-place."""
+
         from physlab.registry import make
 
         return make(self.name)
 
     def on_reset(self, handle: ModelHandle, seed: int | None) -> None:
+        """Randomize cube and target poses for a seeded episode."""
+
         model, data = _mujoco(handle)
         rng = np.random.default_rng(seed)
         cube_xy = np.array([0.55, 0.0]) + rng.uniform(-0.15, 0.15, size=2)
@@ -69,6 +75,8 @@ class FrankaPickTask:
         backend_observation: np.ndarray[Any, Any],
         info: Info,
     ) -> np.ndarray[Any, Any]:
+        """Build the compact task observation from MuJoCo state."""
+
         del backend_observation, info
         model, data = _mujoco(handle)
         cube_body = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, "cube")
@@ -84,6 +92,8 @@ class FrankaPickTask:
         ).astype(np.float64, copy=False)
 
     def info(self, handle: ModelHandle, observation: np.ndarray[Any, Any]) -> Info:
+        """Return task metrics derived from the current observation."""
+
         del handle
         cube_pos = observation[14:17].copy()
         target_pos = observation[21:24].copy()
@@ -102,6 +112,8 @@ class FrankaPickTask:
         action: np.ndarray[Any, Any],
         info: Info,
     ) -> float:
+        """Reward proximity to target with a success bonus."""
+
         del action
         raw_distance = info.get("distance_to_target", 1.0)
         distance = float(raw_distance) if isinstance(raw_distance, int | float | str) else 1.0
@@ -109,16 +121,22 @@ class FrankaPickTask:
         return (1.0 if success else 0.0) - distance
 
     def terminate(self, observation: np.ndarray[Any, Any], info: Info) -> bool:
+        """End the episode once the pick-place success predicate is true."""
+
         del observation
         return bool(info.get("success", False))
 
     def success_metric(self, rollout: object) -> float:
+        """Compute the fraction of rollout records marked successful."""
+
         if not isinstance(rollout, list) or not rollout:
             return 0.0
         successes = [bool(step.get("success", False)) for step in rollout if isinstance(step, dict)]
         return float(sum(successes) / max(len(successes), 1))
 
     def reward_signature(self) -> str:
+        """Describe the Franka pick-place reward contract."""
+
         return "reward=-distance(cube,target)+1_success; success=cube_z>0.5 and distance<0.1"
 
 

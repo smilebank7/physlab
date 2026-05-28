@@ -25,6 +25,8 @@ class MuJoCoBackend:
         self._closed: set[str] = set()
 
     def load_model(self, spec: object) -> ModelHandle:
+        """Load or reuse a MuJoCo model from a path or XML string."""
+
         source = _model_source(spec)
         with self._lock:
             model = self._model_cache.get(source.cache_key)
@@ -41,6 +43,8 @@ class MuJoCoBackend:
             )
 
     def reset(self, handle: ModelHandle, seed: int | None = None) -> Observation:
+        """Reset MuJoCo state and apply deterministic seed jitter."""
+
         self._ensure_open(handle)
         model, data = _as_mujoco(handle)
         mujoco.mj_resetData(model, data)
@@ -52,6 +56,8 @@ class MuJoCoBackend:
         return _observation(data)
 
     def step(self, handle: ModelHandle, action: Action) -> StepResult:
+        """Clamp controls, step MuJoCo once, and return observation info."""
+
         self._ensure_open(handle)
         model, data = _as_mujoco(handle)
         action_array = np.asarray(action, dtype=np.float64)
@@ -81,12 +87,18 @@ class MuJoCoBackend:
         )
 
     def close(self, handle: ModelHandle) -> None:
+        """Mark a MuJoCo model handle as closed."""
+
         self._closed.add(handle.model_id)
 
     def name(self) -> str:
+        """Return the backend registry name."""
+
         return "mujoco"
 
     def is_deterministic_for(self, device: str) -> bool:
+        """Report deterministic support for CPU execution."""
+
         return device == "cpu"
 
     def _ensure_open(self, handle: ModelHandle) -> None:

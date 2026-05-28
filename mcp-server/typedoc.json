@@ -1,0 +1,14 @@
+{
+  "entryPoints": ["src/server.ts", "src/tools/sim.ts", "src/worker.ts"],
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "intentionallyNotExported": [
+    "ToolHandler",
+    "JsonRpcResponse",
+    "ToolRegistry"
+  ],
+  "name": "physlab MCP Server",
+  "out": "../docs/_build/ts",
+  "readme": "none",
+  "tsconfig": "tsconfig.json"
+}

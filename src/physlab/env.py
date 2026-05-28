@@ -54,6 +54,8 @@ class Environment:
             self.reset(seed=seed)
 
     def reset(self, seed: int | None = None) -> tuple[np.ndarray[Any, Any], Info]:
+        """Reset backend and task state, then return the task observation."""
+
         self._ensure_open()
         self._step_count = 0
         backend_observation = self.backend.reset(self._handle, seed=seed)
@@ -67,6 +69,8 @@ class Environment:
         return observation, info
 
     def step(self, action: Action) -> tuple[np.ndarray[Any, Any], float, bool, bool, Info]:
+        """Validate an action and advance the backend by one task step."""
+
         self._ensure_open()
         action_array = np.asarray(action, dtype=np.float64)
         if not self.action_space.contains(action_array):
@@ -86,11 +90,15 @@ class Environment:
         return observation, reward, terminated, truncated, info
 
     def close(self) -> None:
+        """Close the underlying backend handle once."""
+
         if not self._closed:
             self.backend.close(self._handle)
             self._closed = True
 
     def observe(self) -> tuple[np.ndarray[Any, Any], Info]:
+        """Return the latest observation, resetting first if needed."""
+
         self._ensure_open()
         if self._last_observation is None:
             return self.reset()

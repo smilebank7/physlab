@@ -18,6 +18,8 @@ _ALLOWED_IMPORT_ROOTS = frozenset({"numpy", "math", "physlab"})
 
 @dataclass(frozen=True)
 class EvalResult:
+    """Structured result from evaluating generated reward code."""
+
     success_rate: float
     mean_episode_reward: float
     train_steps_used: int

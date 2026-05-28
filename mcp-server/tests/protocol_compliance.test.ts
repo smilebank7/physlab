@@ -1,5 +1,5 @@
-import Ajv2020 from "ajv/dist/2020";
 import { afterEach, expect, test } from "bun:test";
+import Ajv2020 from "ajv/dist/2020";
 import { type StartedHttpServer, startHttpServer } from "../src/server.ts";
 
 const requiredTools = [

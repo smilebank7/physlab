@@ -36,7 +36,7 @@ PY
 ```
 
 For a third-party task, see
-[`examples/plugins/hello_task`](../examples/plugins/hello_task). v0.1 uses an
+`examples/plugins/hello_task`. v0.1 uses an
 explicit pattern: install the package, import the module, and let its top-level
 `register_task(...)` call run. There is no auto-discovery machinery.
 

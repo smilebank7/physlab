@@ -18,10 +18,14 @@ class RunStoreError(RuntimeError):
 
 
 class RunStore:
+    """Filesystem-backed storage for orchestrator run artifacts."""
+
     def __init__(self, root: Path | str = "runs") -> None:
         self.root = Path(root)
 
     def path_for(self, run_id: str) -> Path:
+        """Return the directory path for a run id."""
+
         return self.root / run_id
 
     def create(
@@ -32,6 +36,8 @@ class RunStore:
         config: dict[str, object],
         started_at: str | None = None,
     ) -> Run:
+        """Create a new run directory and write its config manifest."""
+
         run_dir = self.path_for(run_id)
         if run_dir.exists() and any(run_dir.iterdir()):
             raise RunStoreError(f"run {run_id!r} already exists")
@@ -47,6 +53,8 @@ class RunStore:
         return run
 
     def write_iteration(self, run: Run, iteration: Iteration, reward_code: str) -> None:
+        """Persist one iteration directory and append the run manifest."""
+
         run_dir = self.path_for(run.run_id)
         if not run_dir.exists():
             raise RunStoreError(f"run {run.run_id!r} does not exist")
@@ -60,6 +68,8 @@ class RunStore:
             handle.write(json.dumps(iteration.manifest_record(), sort_keys=True) + "\n")
 
     def read(self, run_id: str) -> Run:
+        """Read a stored run and reconstruct its iteration records."""
+
         run_dir = self.path_for(run_id)
         try:
             raw_config = _read_json(run_dir / "config.json")
@@ -86,6 +96,8 @@ class RunStore:
 
 
 def default_run_id(task: str) -> str:
+    """Return a timestamped run id scoped to a task name."""
+
     return f"{_utc_stamp()}_{_slug(task)}"
 
 

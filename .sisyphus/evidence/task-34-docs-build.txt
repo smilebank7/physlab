@@ -1,0 +1,71 @@
+$ export PATH="/Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin:$PATH"
+$ cd docs && sphinx-build -W . _build/python
+Running Sphinx v9.0.4
+loading translations [en]... done
+loading pickled environment... The configuration has changed (1 option: 'pygments_dark_style')
+done
+myst v5.1.0: MdParserConfig(commonmark_only=False, gfm_only=False, enable_extensions=set(), disable_syntax=[], all_links_external=False, links_external_new_tab=False, url_schemes=('http', 'https', 'mailto', 'ftp'), ref_domains=None, fence_as_directive=set(), number_code_blocks=[], title_to_header=False, heading_anchors=0, heading_slug_func=None, html_meta={}, footnote_sort=True, footnote_transition=True, words_per_minute=200, substitutions={}, linkify_fuzzy_links=True, dmath_allow_labels=True, dmath_allow_space=True, dmath_allow_digits=True, dmath_double_inline=False, update_mathjax=True, mathjax_classes='tex2jax_process|mathjax_process|math|output_area', enable_checkboxes=False, strikethrough_single_tilde=False, colon_fence_exact_match=False, suppress_warnings=[], highlight_code_blocks=True)
+building [mo]: targets for 0 po files that are out of date
+writing output...
+building [html]: targets for 0 source files that are out of date
+updating environment: 0 added, 0 changed, 0 removed
+reading sources...
+looking for now-outdated files... none found
+no targets are out of date.
+preparing documents... done
+copying assets...
+copying static files...
+Writing evaluated template result to /Users/jhin/Documents/Git/private/playground/isaac-mac/docs/_build/python/_static/basic.css
+Writing evaluated template result to /Users/jhin/Documents/Git/private/playground/isaac-mac/docs/_build/python/_static/language_data.js
+Writing evaluated template result to /Users/jhin/Documents/Git/private/playground/isaac-mac/docs/_build/python/_static/documentation_options.js
+copying static files: done
+copying extra files...
+copying extra files: done
+copying assets: done
+generating indices... genindex py-modindex done
+writing additional pages... search done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded.
+
+The HTML pages are in _build/python.
+
+$ cd docs && sphinx-build -b linkcheck -W . _build/linkcheck
+Running Sphinx v9.0.4
+loading translations [en]... done
+loading pickled environment... done
+myst v5.1.0: MdParserConfig(commonmark_only=False, gfm_only=False, enable_extensions=set(), disable_syntax=[], all_links_external=False, links_external_new_tab=False, url_schemes=('http', 'https', 'mailto', 'ftp'), ref_domains=None, fence_as_directive=set(), number_code_blocks=[], title_to_header=False, heading_anchors=0, heading_slug_func=None, html_meta={}, footnote_sort=True, footnote_transition=True, words_per_minute=200, substitutions={}, linkify_fuzzy_links=True, dmath_allow_labels=True, dmath_allow_space=True, dmath_allow_digits=True, dmath_double_inline=False, update_mathjax=True, mathjax_classes='tex2jax_process|mathjax_process|math|output_area', enable_checkboxes=False, strikethrough_single_tilde=False, colon_fence_exact_match=False, suppress_warnings=[], highlight_code_blocks=True)
+building [mo]: targets for 0 po files that are out of date
+writing output...
+building [linkcheck]: targets for 6 source files that are out of date
+updating environment: 0 added, 0 changed, 0 removed
+reading sources...
+looking for now-outdated files... none found
+preparing documents... done
+copying assets...
+copying assets: done
+writing output... [ 17%] api/index
+writing output... [ 33%] api/python
+writing output... [ 50%] api/typescript
+writing output... [ 67%] getting-started
+writing output... [ 83%] index
+writing output... [100%] tutorial-eureka-franka
+
+
+build succeeded.
+
+Look for any errors in the above output or in _build/linkcheck/output.txt
+
+$ cd mcp-server && bun run docs
+$ typedoc --options typedoc.json
+[info] html generated at /Users/jhin/Documents/Git/private/playground/isaac-mac/docs/_build/ts
+
+$ interrogate -c pyproject.toml src/physlab
+= Coverage for /Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/ =
+----------------------------------- Summary ------------------------------------
+| Name             |        Total |        Miss |        Cover |        Cover% |
+|------------------|--------------|-------------|--------------|---------------|
+| TOTAL            |          164 |           0 |          164 |        100.0% |
+|------------------------------------------------------------------------------|
+|              (21 of 21 files omitted due to complete coverage)               |
+--------------- RESULT: PASSED (minimum: 80.0%, actual: 100.0%) ----------------

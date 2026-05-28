@@ -7,6 +7,8 @@ from dataclasses import dataclass, field
 
 @dataclass(frozen=True)
 class Iteration:
+    """One persisted reward-generation iteration."""
+
     idx: int
     prompt: str
     llm_response: str
@@ -17,6 +19,8 @@ class Iteration:
     metadata: dict[str, object] = field(default_factory=dict)
 
     def manifest_record(self) -> dict[str, object]:
+        """Return the JSONL-safe manifest payload for this iteration."""
+
         record = {
             "idx": self.idx,
             "status": self.status,

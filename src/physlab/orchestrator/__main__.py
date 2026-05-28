@@ -22,6 +22,8 @@ from physlab.tasks.franka_pick import FrankaPickTask
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the command-line parser for orchestrator runs."""
+
     parser = argparse.ArgumentParser(description="Run the physlab research orchestrator skeleton.")
     parser.add_argument("--task", required=True)
     parser.add_argument("--iterations", type=int, default=5)
@@ -35,6 +37,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run or resume an orchestrator experiment from the CLI."""
+
     args = build_parser().parse_args(argv)
     store = RunStore(args.runs_dir)
 

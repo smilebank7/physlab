@@ -31,6 +31,8 @@ _FAILURE_ERRORS = {
 
 
 class RewardGeneratorFn(Protocol):
+    """Callable adapter that produces a reward candidate for an iteration."""
+
     def __call__(
         self,
         task: Task,
@@ -41,6 +43,8 @@ class RewardGeneratorFn(Protocol):
 
 
 class EvaluatorFn(Protocol):
+    """Callable adapter that evaluates a reward candidate."""
+
     def __call__(
         self,
         reward_code: RewardCode,
@@ -57,6 +61,8 @@ class IterationAbort(RuntimeError):
 
 @dataclass(frozen=True)
 class ControllerResult:
+    """Summary returned by a completed iteration-controller run."""
+
     run: Run
     best_iteration: int | None
     best_success_rate: float
@@ -66,6 +72,8 @@ class ControllerResult:
 
 
 class IterationController:
+    """Coordinate reward generation, evaluation, reflection, and storage."""
+
     def __init__(
         self,
         *,
@@ -98,6 +106,8 @@ class IterationController:
         self.warnings: list[str] = []
 
     def run(self, run_id: str | None = None) -> ControllerResult:
+        """Execute the configured number of reward-learning iterations."""
+
         resolved_run_id = run_id or default_run_id(self.task.name)
         run = self.store.create(
             run_id=resolved_run_id,
@@ -304,6 +314,8 @@ def _limit_sentences(text: str) -> str:
 def scripted_components(
     entries: list[dict[str, object]],
 ) -> tuple[RewardGeneratorFn, EvaluatorFn]:
+    """Build deterministic reward/evaluator callables from script entries."""
+
     generator = _ScriptedRewardGenerator(entries)
     evaluator = _ScriptedEvaluator(entries)
     return generator, evaluator

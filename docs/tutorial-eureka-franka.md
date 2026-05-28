@@ -3,7 +3,7 @@
 This tutorial walks through the v0.1 anchor demo: local, cached
 Eureka-style reward iteration for the `franka_pick` task. Start with
 [Getting Started](getting-started.md) if you have not installed the editable
-package yet, and keep the [README](../README.md) open for the supported
+package yet, and keep `README.md` open for the supported
 platform and roadmap boundaries.
 
 The goal is not to teach all of reinforcement learning. The goal is to make the
@@ -37,7 +37,7 @@ python examples/eureka_franka.py --headless --seed=42 --iterations=5 --llm=openc
 ```
 
 The canonical reference output is committed under
-[`runs/anchor-v0.1-canonical`](../runs/anchor-v0.1-canonical). Treat that
+`runs/anchor-v0.1-canonical`. Treat that
 directory as a downloadable run bundle: it contains config, prompts, generated
 reward candidates, eval metrics, reflections, `SUMMARY.md`, and
 `BEST_REWARD.py`.
@@ -281,7 +281,7 @@ python -c "from physlab import make; print(make('franka_push', 'mujoco').reset(s
 ```
 
 Then write a small task with the explicit registration pattern in
-[`examples/plugins/hello_task`](../examples/plugins/hello_task). In v0.1,
+`examples/plugins/hello_task`. In v0.1,
 extension freedom means import-and-register: user code imports a module, and
 that module calls `register_task(...)` at top level. There is no plugin
 auto-discovery machinery yet.

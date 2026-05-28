@@ -13,27 +13,8 @@ from physlab.registry import list_tasks
 
 
 class RewardGenerator(Protocol):
-    def generate(
-        self,
-        *,
-        task_name: str,
-        iteration_idx: int,
-        prompt: str,
-        llm_response: str,
-    ) -> str: ...
+    """Legacy reward artifact generator interface."""
 
-
-class Evaluator(Protocol):
-    def evaluate(
-        self,
-        *,
-        task_name: str,
-        artifact_path: Path,
-        iteration_idx: int,
-    ) -> dict[str, float]: ...
-
-
-class MockRewardGenerator:
     def generate(
         self,
         *,
@@ -42,6 +23,37 @@ class MockRewardGenerator:
         prompt: str,
         llm_response: str,
     ) -> str:
+        """Generate reward source for a loop iteration."""
+        ...
+
+
+class Evaluator(Protocol):
+    """Legacy evaluator interface for artifact-based loop runs."""
+
+    def evaluate(
+        self,
+        *,
+        task_name: str,
+        artifact_path: Path,
+        iteration_idx: int,
+    ) -> dict[str, float]:
+        """Evaluate a generated reward artifact and return metrics."""
+        ...
+
+
+class MockRewardGenerator:
+    """Deterministic reward generator used by smoke tests."""
+
+    def generate(
+        self,
+        *,
+        task_name: str,
+        iteration_idx: int,
+        prompt: str,
+        llm_response: str,
+    ) -> str:
+        """Return a no-op reward function artifact."""
+
         del prompt, llm_response
         return (
             f"# mock reward for {task_name}, iteration {iteration_idx}\n"
@@ -51,6 +63,8 @@ class MockRewardGenerator:
 
 
 class MockEvaluator:
+    """Deterministic evaluator used by smoke tests."""
+
     def evaluate(
         self,
         *,
@@ -58,11 +72,15 @@ class MockEvaluator:
         artifact_path: Path,
         iteration_idx: int,
     ) -> dict[str, float]:
+        """Return a predictable success-rate curve for an iteration."""
+
         del task_name, artifact_path
         return {"success_rate": round(float(iteration_idx) * 0.1, 6)}
 
 
 class OrchestratorLoop:
+    """Simple sequential loop that persists prompt, reward, and eval artifacts."""
+
     def __init__(
         self,
         *,
@@ -88,6 +106,8 @@ class OrchestratorLoop:
         self.seed = seed
 
     def run(self, run_id: str | None = None) -> Run:
+        """Run the configured loop and return the persisted run record."""
+
         resolved_run_id = run_id or default_run_id(self.task_name)
         started_at = resolved_run_id if run_id is not None else None
         run = self.store.create(

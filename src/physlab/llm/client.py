@@ -15,9 +15,15 @@ from typing import Protocol, runtime_checkable
 
 @runtime_checkable
 class LLMClient(Protocol):
-    def complete(self, prompt: str, system: str | None = None, **kwargs: object) -> str: ...
+    """Minimal completion interface used by local reward orchestration."""
 
-    def name(self) -> str: ...
+    def complete(self, prompt: str, system: str | None = None, **kwargs: object) -> str:
+        """Return a completion for a prompt and optional system text."""
+        ...
+
+    def name(self) -> str:
+        """Return the stable client name recorded in run artifacts."""
+        ...
 
 
 class _CachedClient:
@@ -86,6 +92,8 @@ class _CachedClient:
 
 
 class MockLLMClient(_CachedClient):
+    """Deterministic cached LLM client for CI and local smoke tests."""
+
     def __init__(
         self,
         canned: str,
@@ -98,6 +106,8 @@ class MockLLMClient(_CachedClient):
         super().__init__(cache_dir=cache_dir, run_dir=run_dir, model_id=f"mock:{canned_hash}")
 
     def name(self) -> str:
+        """Return the mock client name."""
+
         return "mock"
 
     def _complete_uncached(self, prompt: str, system: str | None = None, **kwargs: object) -> str:
@@ -107,6 +117,8 @@ class MockLLMClient(_CachedClient):
 
 
 class OpencodeClient(_CachedClient):
+    """Cached wrapper around the opencode CLI."""
+
     def __init__(
         self,
         executable: str = "opencode",
@@ -117,6 +129,8 @@ class OpencodeClient(_CachedClient):
         super().__init__(cache_dir=cache_dir, run_dir=run_dir, model_id="opencode")
 
     def name(self) -> str:
+        """Return the canonical local-agent client name."""
+
         return "opencode"
 
     def _complete_uncached(self, prompt: str, system: str | None = None, **kwargs: object) -> str:
@@ -137,6 +151,8 @@ class OpencodeClient(_CachedClient):
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run a tiny command-line probe for the configured opencode client."""
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--probe", action="store_true")
     parser.add_argument("--cache-dir", default=".physlab_cache/llm")

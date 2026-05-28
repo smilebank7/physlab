@@ -26,6 +26,8 @@ FloatArray = NDArray[np.float64]
 
 @dataclass(frozen=True)
 class PPOConfig:
+    """Configuration for single-environment PPO training."""
+
     task: str = "cartpole"
     total_steps: int = 100_000
     n_steps: int = 2_048
@@ -46,11 +48,15 @@ class PPOConfig:
     reward_scale: float = 0.01
 
     def with_run_dir(self, run_dir: Path) -> Self:
+        """Return a copy of this config with a concrete run directory."""
+
         return replace(self, run_dir=run_dir)
 
 
 @dataclass(frozen=True)
 class TrainingResult:
+    """Summary produced by a PPO training run."""
+
     log_path: Path
     eval_curve: list[float]
     final_success_rate: float
@@ -59,6 +65,8 @@ class TrainingResult:
 
 
 class ActorCritic(nn.Module):
+    """Small Gaussian actor-critic network for continuous actions."""
+
     def __init__(self, obs_dim: int, action_dim: int) -> None:
         super().__init__()
         self.trunk = nn.Sequential(
@@ -72,18 +80,24 @@ class ActorCritic(nn.Module):
         self.log_std = nn.Parameter(torch.full((action_dim,), -0.7))
 
     def forward(self, obs: Tensor) -> tuple[Tensor, Tensor]:
+        """Return bounded policy mean and scalar value predictions."""
+
         hidden = self.trunk(obs)
         mean = torch.tanh(self.policy_mean(hidden))
         value = self.value_head(hidden).squeeze(-1)
         return mean, value
 
     def distribution(self, obs: Tensor) -> tuple[Normal, Tensor]:
+        """Return the Gaussian policy distribution and value estimate."""
+
         mean, value = self(obs)
         std = torch.exp(self.log_std).expand_as(mean)
         return Normal(mean, std), value
 
 
 def train(config: PPOConfig) -> TrainingResult:
+    """Train a PPO policy for one registered task."""
+
     _validate_config(config)
     _seed_everything(config.seed)
     device = select_device(config.device)
@@ -289,6 +303,8 @@ def evaluate(
     action_low: NDArray[np.float32],
     action_high: NDArray[np.float32],
 ) -> float:
+    """Evaluate a trained policy with deterministic mean actions."""
+
     lengths: list[int] = []
     env = make(task, "mujoco", seed=seed)
     try:
@@ -312,6 +328,8 @@ def evaluate(
 
 
 def select_device(name: DeviceName) -> torch.device:
+    """Resolve an execution device name to a Torch device."""
+
     if name == "mps":
         if not torch.backends.mps.is_available():
             raise RuntimeError("MPS requested but torch.backends.mps is unavailable")
@@ -405,6 +423,8 @@ def _validate_config(config: PPOConfig) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the command-line parser for PPO training."""
+
     parser = argparse.ArgumentParser(description="Train a small PPO policy.")
     parser.add_argument("--task", default="cartpole")
     parser.add_argument("--total-steps", type=int, default=100_000)
@@ -417,6 +437,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Run PPO training from the command line."""
+
     args = build_parser().parse_args(argv)
     try:
         result = train(

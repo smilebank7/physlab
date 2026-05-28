@@ -31,6 +31,10 @@ def test_gpl_fixture_is_rejected() -> None:
     assert violations[0].name == "bad-copyleft-lib"
 
 
+def test_docutils_composite_license_is_allowed() -> None:
+    assert check_licenses.is_allowed("BSD License; GNU General Public License (GPL); Public Domain")
+
+
 def test_markdown_summary_lists_sources() -> None:
     packages = [
         check_licenses.PackageLicense("numpy", "BSD License", "python"),
