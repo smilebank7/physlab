@@ -1,7 +1,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import Ajv, { type JSONSchemaType } from "ajv";
+import Ajv from "ajv";
 import pino from "pino";
 import { z } from "zod/v4";
+import { createSimToolSet } from "./tools/sim.ts";
 
 type JsonRpcId = string | number | null;
 
@@ -32,10 +33,10 @@ type JsonRpcResponse = JsonRpcSuccess | JsonRpcFailure;
 
 type ToolHandler = (args: unknown) => Promise<unknown> | unknown;
 
-type ToolDefinition<T> = {
+export type ToolDefinition = {
   name: string;
   description: string;
-  inputSchema: JSONSchemaType<T>;
+  inputSchema: object;
   handler: ToolHandler;
 };
 
@@ -52,7 +53,7 @@ export type StartedHttpServer = {
 const logger = pino({ name: "physlab-mcp" });
 const ajv = new Ajv({ allErrors: true });
 
-const pingTool: ToolDefinition<PingArgs> = {
+const pingTool: ToolDefinition = {
   name: "ping",
   description: "Return pong with the provided message.",
   inputSchema: {
@@ -69,7 +70,19 @@ const pingTool: ToolDefinition<PingArgs> = {
   },
 };
 
-const tools = [pingTool] as const;
+type ToolRegistry = {
+  tools: ToolDefinition[];
+  close: () => Promise<void>;
+};
+
+export class RpcToolError extends Error {
+  code: number;
+
+  constructor(code: number, message: string) {
+    super(message);
+    this.code = code;
+  }
+}
 
 export function serverName(): string {
   return "physlab";
@@ -92,6 +105,7 @@ export function createMcpServer(): McpServer {
 
 export async function handleJsonRpc(
   payload: unknown,
+  registry = createToolRegistry(),
 ): Promise<JsonRpcResponse> {
   const request = parseRequest(payload);
   if (!request.ok) {
@@ -102,14 +116,14 @@ export async function handleJsonRpc(
   switch (request.value.method) {
     case "tools/list":
       return success(id, {
-        tools: tools.map((tool) => ({
+        tools: registry.tools.map((tool) => ({
           name: tool.name,
           description: tool.description,
           inputSchema: tool.inputSchema,
         })),
       });
     case "tools/call":
-      return callTool(id, request.value.params);
+      return callTool(id, request.value.params, registry.tools);
     case "resources/list":
       return success(id, { resources: [] });
     case "resources/read":
@@ -123,6 +137,7 @@ export async function startHttpServer(
   options: { host?: string; port?: number } = {},
 ): Promise<StartedHttpServer> {
   createMcpServer();
+  const registry = createToolRegistry();
   const host = options.host ?? "127.0.0.1";
   const port = options.port ?? 8765;
   const server = Bun.serve({
@@ -144,7 +159,7 @@ export async function startHttpServer(
       } catch {
         return Response.json(failure(null, -32700, "parse error"));
       }
-      return Response.json(await handleJsonRpc(payload));
+      return Response.json(await handleJsonRpc(payload, registry));
     },
   });
   const actualPort = server.port ?? port;
@@ -152,13 +167,17 @@ export async function startHttpServer(
   return {
     port: actualPort,
     url: `http://${host}:${actualPort}`,
-    close: async () => server.stop(true),
+    close: async () => {
+      await registry.close();
+      server.stop(true);
+    },
   };
 }
 
 async function callTool(
   id: JsonRpcId,
   params: unknown,
+  tools: ToolDefinition[],
 ): Promise<JsonRpcResponse> {
   if (!isObject(params) || typeof params.name !== "string") {
     return failure(id, -32602, "tools/call params must include a tool name");
@@ -172,7 +191,26 @@ async function callTool(
   if (!validate(args)) {
     return failure(id, -32602, "invalid tool arguments", validate.errors ?? []);
   }
-  return success(id, await tool.handler(args));
+  try {
+    return success(id, await tool.handler(args));
+  } catch (error) {
+    if (error instanceof RpcToolError) {
+      return failure(id, error.code, error.message);
+    }
+    return failure(
+      id,
+      -32603,
+      error instanceof Error ? error.message : "tool failed",
+    );
+  }
+}
+
+function createToolRegistry(): ToolRegistry {
+  const simTools = createSimToolSet();
+  return {
+    tools: [pingTool, ...simTools.tools],
+    close: () => simTools.close(),
+  };
 }
 
 function parseRequest(

@@ -1415,7 +1415,7 @@ Wave classification table:
   - Files: mcp-server/src/server.ts, mcp-server/src/tools/ping.ts, mcp-server/tests/server.test.ts, mcp-server/package.json (deps)
   - Pre-commit: `bun run typecheck && bun test mcp-server/tests/server.test.ts`
 
-- [ ] 11. **MCP Sim Tools (sim.make/reset/step/observe + task.list)**
+- [x] 11. **MCP Sim Tools (sim.make/reset/step/observe + task.list)**
 
   **What to do**:
   - Implement `mcp-server/src/tools/sim.ts` with 5 tools:

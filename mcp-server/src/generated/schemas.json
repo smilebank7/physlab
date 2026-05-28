@@ -1,0 +1,64 @@
+{
+  "sim.make": {
+    "type": "object",
+    "properties": {
+      "task": {
+        "type": "string"
+      },
+      "backend": {
+        "type": "string",
+        "enum": ["mujoco", "mock"]
+      },
+      "seed": {
+        "type": "integer"
+      }
+    },
+    "required": ["task"],
+    "additionalProperties": false
+  },
+  "sim.reset": {
+    "type": "object",
+    "properties": {
+      "handle_id": {
+        "type": "string"
+      },
+      "seed": {
+        "type": "integer"
+      }
+    },
+    "required": ["handle_id"],
+    "additionalProperties": false
+  },
+  "sim.step": {
+    "type": "object",
+    "properties": {
+      "handle_id": {
+        "type": "string"
+      },
+      "action": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      }
+    },
+    "required": ["handle_id", "action"],
+    "additionalProperties": false
+  },
+  "sim.observe": {
+    "type": "object",
+    "properties": {
+      "handle_id": {
+        "type": "string"
+      }
+    },
+    "required": ["handle_id"],
+    "additionalProperties": false
+  },
+  "task.list": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  }
+}

@@ -35,11 +35,10 @@ test("server starts and tools/list returns ping", async () => {
     method: "tools/list",
     id: 1,
   });
-  expect(result).toMatchObject({
-    jsonrpc: "2.0",
-    id: 1,
-    result: { tools: [{ name: "ping" }] },
-  });
+  expect(result.jsonrpc).toBe("2.0");
+  expect(result.id).toBe(1);
+  const tools = (result.result as { tools: Array<{ name: string }> }).tools;
+  expect(tools[0]?.name).toBe("ping");
 });
 
 test("tools/call ping returns pong with echo arg", async () => {
