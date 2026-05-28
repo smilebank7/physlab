@@ -14,5 +14,9 @@ franka_emika_panda (BSD-3-Clause), robosuite Lift, and Eureka-style Franka
 tasks. The MJCF shipped in physlab is authored for this project for the
 v0.1 headless state-vector target.
 
+Franka push task conventions are informed by common MuJoCo tabletop
+manipulation and object-pushing benchmarks. The MJCF shipped in physlab is
+authored for this project.
+
 Ant standing task conventions are informed by common MuJoCo ant/quadruped
 balance benchmarks. The MJCF shipped in physlab is authored for this project.

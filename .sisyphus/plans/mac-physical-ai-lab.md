@@ -3150,7 +3150,7 @@ Wave classification table:
   - Files: src/<ship_name>/tasks/locomotion.py, src/<ship_name>/assets/ant.xml, tests/integration/test_locomotion.py, NOTICE update
   - Pre-commit: `pytest tests/integration/test_locomotion.py -v`
 
-- [ ] 31. **Third High-Quality Task — Manipulation Variant (Franka Push or Drawer-Open)**
+- [x] 31. **Third High-Quality Task — Manipulation Variant (Franka Push or Drawer-Open)**
 
   **What to do**:
   - Add `src/<ship_name>/tasks/franka_push.py` (or `franka_drawer.py`) + asset
