@@ -901,7 +901,7 @@ Wave classification table:
   - Files: src/<ship_name>/protocols.py, src/<ship_name>/py.typed, tests/unit/test_protocols.py
   - Pre-commit: `ruff check . && mypy --strict src/<ship_name>/protocols.py && pytest tests/unit/test_protocols.py`
 
-- [ ] 6. **MuJoCo Wrapper Core**
+- [x] 6. **MuJoCo Wrapper Core**
 
   **What to do**:
   - Implement `src/<ship_name>/backends/mujoco.py`:
@@ -1020,7 +1020,7 @@ Wave classification table:
   - Files: src/<ship_name>/backends/mujoco.py, tests/unit/test_mujoco_backend.py, tests/fixtures/pendulum.xml, NOTICE (Apache-2.0 attribution)
   - Pre-commit: `ruff check . && mypy src/<ship_name>/backends/ && pytest tests/unit/test_mujoco_backend.py`
 
-- [ ] 7. **Mock Backend (Contract Test Substrate)**
+- [x] 7. **Mock Backend (Contract Test Substrate)**
 
   **What to do**:
   - Implement `src/<ship_name>/backends/mock.py`:
@@ -1319,7 +1319,7 @@ Wave classification table:
   - Files: src/<ship_name>/tasks/cartpole.py, src/<ship_name>/assets/cartpole.xml, tests/integration/test_cartpole.py, NOTICE (dm_control attribution)
   - Pre-commit: `pytest tests/integration/test_cartpole.py -v`
 
-- [ ] 10. **MCP Server Skeleton (TypeScript, JSON-RPC)**
+- [x] 10. **MCP Server Skeleton (TypeScript, JSON-RPC)**
 
   **What to do**:
   - Implement `mcp-server/src/server.ts`:

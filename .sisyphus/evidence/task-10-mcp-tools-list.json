@@ -1,0 +1,1 @@
+{"jsonrpc":"2.0","id":1,"result":{"tools":[{"name":"ping","description":"Return pong with the provided message.","inputSchema":{"type":"object","properties":{"msg":{"type":"string"}},"required":["msg"],"additionalProperties":false}}]}}

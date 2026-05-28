@@ -1,0 +1,17 @@
+$ tsc --noEmit
+bun test v1.3.10 (30e609e0)
+
+tests/server.test.ts:
+{"level":30,"time":1779930876941,"pid":54892,"hostname":"MacBook-Pro-3.local","name":"physlab-mcp","host":"127.0.0.1","port":63642,"msg":"listening on stdio + http"}
+(pass) server starts and tools/list returns ping [6.09ms]
+{"level":30,"time":1779930876944,"pid":54892,"hostname":"MacBook-Pro-3.local","name":"physlab-mcp","host":"127.0.0.1","port":63644,"msg":"listening on stdio + http"}
+(pass) tools/call ping returns pong with echo arg [16.97ms]
+{"level":30,"time":1779930876961,"pid":54892,"hostname":"MacBook-Pro-3.local","name":"physlab-mcp","host":"127.0.0.1","port":63646,"msg":"listening on stdio + http"}
+(pass) invalid tool name returns JSON-RPC -32601 [2.57ms]
+{"level":30,"time":1779930876963,"pid":54892,"hostname":"MacBook-Pro-3.local","name":"physlab-mcp","host":"127.0.0.1","port":63648,"msg":"listening on stdio + http"}
+(pass) schema validation returns JSON-RPC -32602 [1.78ms]
+
+ 4 pass
+ 0 fail
+ 8 expect() calls
+Ran 4 tests across 1 file. [103.00ms]

@@ -19,6 +19,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
+  "mujoco>=3.2,<4",
   "numpy>=1.26",
 ]
 
@@ -55,6 +56,10 @@ python_version = "3.11"
 strict = true
 files = ["src", "tests", "tools"]
 exclude = ["\\.venv/", "mcp-server/node_modules/"]
+
+[[tool.mypy.overrides]]
+module = ["mujoco"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

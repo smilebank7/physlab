@@ -1,0 +1,6 @@
+physlab includes an optional runtime dependency on MuJoCo.
+
+MuJoCo
+Copyright 2021 DeepMind Technologies Limited
+License: Apache License, Version 2.0
+Source: https://github.com/google-deepmind/mujoco
