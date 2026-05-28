@@ -4,6 +4,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from examples.eureka_franka import TimeoutLLM
+
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -51,3 +53,24 @@ def test_eureka_franka_missing_opencode_reports_path_error(tmp_path: Path) -> No
 
     assert result.returncode != 0
     assert "opencode not found on PATH" in result.stderr
+
+
+def test_timeout_wrapper_passes_timeout_to_live_llm() -> None:
+    class DummyLLM:
+        def __init__(self) -> None:
+            self.kwargs: dict[str, object] = {}
+
+        def complete(self, prompt: str, system: str | None = None, **kwargs: object) -> str:
+            del prompt, system
+            self.kwargs = kwargs
+            return "ok"
+
+        def name(self) -> str:
+            return "dummy"
+
+    dummy = DummyLLM()
+    wrapped = TimeoutLLM(dummy, timeout_s=600.0)
+
+    assert wrapped.complete("prompt", seed=42) == "ok"
+    assert dummy.kwargs["timeout"] == 600.0
+    assert dummy.kwargs["seed"] == 42

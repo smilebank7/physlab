@@ -2376,7 +2376,7 @@ Wave classification table:
   - Files: examples/eureka_franka.py, examples/README.md, tests/integration/test_eureka_franka_smoke.py
   - Pre-commit: `pytest tests/integration/test_eureka_franka_smoke.py -v`
 
-- [ ] 21. **⚡ DEMO FEASIBILITY GATE (Mid-Week 5, BLOCKING)**
+- [x] 21. **⚡ DEMO FEASIBILITY GATE (Mid-Week 5, BLOCKING)**
 
   **What to do**:
   - This task is a **GATE**, not a feature. It is a measurement + decision task.

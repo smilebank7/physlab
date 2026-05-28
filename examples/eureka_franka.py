@@ -31,6 +31,19 @@ class FixtureLLM:
         return "mock"
 
 
+class TimeoutLLM:
+    def __init__(self, inner: object, timeout_s: float) -> None:
+        self._inner = inner
+        self._timeout_s = timeout_s
+
+    def complete(self, prompt: str, system: str | None = None, **kwargs: object) -> str:
+        kwargs.setdefault("timeout", self._timeout_s)
+        return str(self._inner.complete(prompt, system=system, **kwargs))
+
+    def name(self) -> str:
+        return str(self._inner.name())
+
+
 class MockFrankaEvaluator:
     def __init__(self) -> None:
         self._idx = 0
@@ -64,6 +77,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--iterations", type=int, default=5)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--llm", choices=["opencode", "mock"], default="opencode")
+    parser.add_argument("--llm-timeout", type=float, default=600.0)
     parser.add_argument("--train-steps-per-iter", type=int, default=30_000)
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--runs-dir", type=Path, default=Path("runs"))
@@ -95,7 +109,10 @@ def main(argv: list[str] | None = None) -> int:
         evaluator = MockFrankaEvaluator()
     else:
         executable = str(shutil.which("opencode"))
-        llm = OpencodeClient(executable=executable, run_dir=run_dir)
+        llm = TimeoutLLM(
+            OpencodeClient(executable=executable, run_dir=run_dir),
+            timeout_s=float(args.llm_timeout),
+        )
 
     controller = IterationController(
         task=FrankaPickTask(),

@@ -300,19 +300,33 @@ def validate_reward_code(code: str) -> str | None:
 
 def load_reward_namespace(code: str) -> dict[str, object]:
     safe_builtins = {
+        "Exception": Exception,
+        "TypeError": TypeError,
+        "ValueError": ValueError,
         "__import__": safe_import,
         "abs": abs,
+        "all": all,
+        "any": any,
         "bool": bool,
         "dict": dict,
+        "enumerate": enumerate,
         "float": float,
+        "getattr": getattr,
+        "hasattr": hasattr,
         "int": int,
+        "isinstance": isinstance,
         "len": len,
         "list": list,
         "max": max,
         "min": min,
         "range": range,
+        "repr": repr,
+        "set": set,
+        "slice": slice,
+        "str": str,
         "sum": sum,
         "tuple": tuple,
+        "zip": zip,
     }
     namespace = {"__builtins__": safe_builtins, "math": math, "np": np}
     exec(compile(code, "<reward_fn>", "exec"), namespace)

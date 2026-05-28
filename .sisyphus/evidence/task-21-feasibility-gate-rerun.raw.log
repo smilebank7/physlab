@@ -1,0 +1,10 @@
+iteration | success_rate | wall_clock | reward_signature
+0 | 0.0000 | 0.96s | b8dab5b85514c74745c36825324e84c9bb590037b8d7ec6058c51073f0bf9b6f
+1 | 0.0000 | 0.67s | 2c64c11c6e97b33c3ac4d334b03e5beaa4866da0d31bbbb4146542f99ec837e2
+2 | 0.0000 | 0.66s | 57274a9ce09831ce50e11745efae4c2ca7248dbe5a7bca5837087d3ef90caf05
+3 | 1.0000 | 7.23s | 8810ee8ec7966d685b6e4a4b3183ce1f50fcd6fbd9117b9c3eec592d38beb0d1
+4 | 0.0000 | 0.69s | bf12901905560de44fa4ff99bca9da66c24b8c442bba8030d8e4607231accc90
+run_dir=runs/feas-gate-2
+best_iteration=3 best_success_rate=1.0000
+exit_status=0
+wall_clock_s=931

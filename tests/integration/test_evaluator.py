@@ -73,6 +73,30 @@ def reward_fn(obs, action, info):
     assert result.error == "forbidden_import"
 
 
+def test_evaluate_safe_builtins_reward_does_not_crash() -> None:
+    result = evaluate_reward(
+        _reward(
+            """
+import numpy as np
+
+def reward_fn(obs, action, info):
+    try:
+        if isinstance(info, dict) and all(key in info for key in ("step_count",)):
+            return float(np.asarray(obs).reshape(-1)[0] * 0.0)
+    except Exception:
+        return 0.0
+    return 0.0
+"""
+        ),
+        CartpoleTask(),
+        num_rollouts=1,
+        train_steps=16,
+        seed=42,
+    )
+
+    assert result.error is None
+
+
 def test_evaluate_timeout_kills_subprocess() -> None:
     result = evaluate_reward(
         _reward(BASELINE_CODE),
