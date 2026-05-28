@@ -2626,7 +2626,7 @@ Wave classification table:
   - Files: tools/check_licenses.py (updates), .github/workflows/licenses.yml (updates), mcp-server/package.json (script)
   - Pre-commit: `bun run check:licenses`
 
-- [ ] 24. **CI Test #2: API/Backend Freedom (Contract Test in CI)**
+- [x] 24. **CI Test #2: API/Backend Freedom (Contract Test in CI)**
 
   **What to do**:
   - Ensure `tests/integration/test_backend_contract.py` (from T7) runs in CI matrix

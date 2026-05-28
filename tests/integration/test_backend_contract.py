@@ -13,6 +13,7 @@ import pytest
 from physlab.backends.mock import MockBackend
 from physlab.backends.mujoco import MuJoCoBackend
 from physlab.protocols import Backend, ModelHandle
+from tests.fixtures.tutorial_backend import TutorialBackend
 
 FIXTURE = Path(__file__).resolve().parents[1] / "fixtures" / "pendulum.xml"
 
@@ -38,6 +39,12 @@ CASES = [
     BackendCase(
         name="MockBackend",
         factory=MockBackend,
+        spec={"nq": 1, "nv": 1, "nu": 1},
+        action=np.array([0.1], dtype=np.float64),
+    ),
+    BackendCase(
+        name="TutorialBackend",
+        factory=TutorialBackend,
         spec={"nq": 1, "nv": 1, "nu": 1},
         action=np.array([0.1], dtype=np.float64),
     ),
@@ -92,3 +99,8 @@ def test_close_releases(case: BackendCase) -> None:
     del handle
     gc.collect()
     assert model_ref() is None
+
+
+def test_tutorial_backend_is_short_enough_for_docs() -> None:
+    tutorial_path = Path(__file__).resolve().parents[1] / "fixtures" / "tutorial_backend.py"
+    assert len(tutorial_path.read_text(encoding="utf-8").splitlines()) <= 50
