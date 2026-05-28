@@ -1,0 +1,1 @@
+random_success_rate=0.00

@@ -1607,7 +1607,7 @@ Wave classification table:
   - Files: examples/hello_cartpole.py, examples/hello_cartpole_via_mcp.ts, tests/integration/test_vertical_slice.py
   - Pre-commit: `pytest tests/integration/test_vertical_slice.py -v`
 
-- [ ] 13. **Franka Pick-Place Task (Anchor Demo Target)**
+- [x] 13. **Franka Pick-Place Task (Anchor Demo Target)**
 
   **What to do**:
   - Implement `src/<ship_name>/tasks/franka_pick.py` + `assets/franka_pick.xml`

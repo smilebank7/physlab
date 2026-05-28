@@ -17,6 +17,23 @@ class _TerminateTask(Protocol):
     def terminate(self, observation: np.ndarray[Any, Any], info: Info) -> bool: ...
 
 
+class _ResetTask(Protocol):
+    def on_reset(self, handle: ModelHandle, seed: int | None) -> None: ...
+
+
+class _ObserveTask(Protocol):
+    def observe(
+        self,
+        handle: ModelHandle,
+        backend_observation: np.ndarray[Any, Any],
+        info: Info,
+    ) -> np.ndarray[Any, Any]: ...
+
+
+class _InfoTask(Protocol):
+    def info(self, handle: ModelHandle, observation: np.ndarray[Any, Any]) -> Info: ...
+
+
 class Environment:
     """Gymnasium-shaped environment built from a backend and task object."""
 
@@ -39,15 +56,15 @@ class Environment:
     def reset(self, seed: int | None = None) -> tuple[np.ndarray[Any, Any], Info]:
         self._ensure_open()
         self._step_count = 0
-        observation = self.backend.reset(self._handle, seed=seed)
+        backend_observation = self.backend.reset(self._handle, seed=seed)
+        _task_on_reset(self.task, self._handle, seed)
+        info: Info = {"seed": seed, "step_count": self._step_count, "backend": self.backend.name()}
+        observation = _task_observation(self.task, self._handle, backend_observation, info)
+        info.update(_task_info(self.task, self._handle, observation))
         self._last_observation = observation
         if not self.observation_space.contains(observation):
             raise ValueError("backend observation does not match task observation_space")
-        return observation, {
-            "seed": seed,
-            "step_count": self._step_count,
-            "backend": self.backend.name(),
-        }
+        return observation, info
 
     def step(self, action: Action) -> tuple[np.ndarray[Any, Any], float, bool, bool, Info]:
         self._ensure_open()
@@ -58,7 +75,8 @@ class Environment:
         self._step_count += 1
         info: Info = dict(result.info)
         info["step_count"] = self._step_count
-        observation = result.observation
+        observation = _task_observation(self.task, self._handle, result.observation, info)
+        info.update(_task_info(self.task, self._handle, observation))
         if not self.observation_space.contains(observation):
             raise ValueError("backend observation does not match task observation_space")
         reward = _task_reward(self.task, observation, action_array, info, result.reward)
@@ -129,6 +147,28 @@ def _task_reward(
     if hasattr(task, "reward"):
         return float(cast(_RewardTask, task).reward(observation, action, info))
     return float(fallback)
+
+
+def _task_on_reset(task: Task, handle: ModelHandle, seed: int | None) -> None:
+    if hasattr(task, "on_reset"):
+        cast(_ResetTask, task).on_reset(handle, seed)
+
+
+def _task_observation(
+    task: Task,
+    handle: ModelHandle,
+    backend_observation: np.ndarray[Any, Any],
+    info: Info,
+) -> np.ndarray[Any, Any]:
+    if hasattr(task, "observe"):
+        return cast(_ObserveTask, task).observe(handle, backend_observation, info)
+    return backend_observation
+
+
+def _task_info(task: Task, handle: ModelHandle, observation: np.ndarray[Any, Any]) -> Info:
+    if hasattr(task, "info"):
+        return cast(_InfoTask, task).info(handle, observation)
+    return {}
 
 
 def _task_terminated(task: Task, observation: np.ndarray[Any, Any], info: Info) -> bool:
