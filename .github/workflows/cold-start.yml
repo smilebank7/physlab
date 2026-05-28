@@ -1,0 +1,41 @@
+name: Cold Start
+
+on:
+  pull_request:
+    paths:
+      - pyproject.toml
+      - uv.lock
+      - mcp-server/package.json
+      - mcp-server/bun.lock
+      - examples/hello_*
+      - scripts/cold_start_bench.sh
+      - .github/workflows/cold-start.yml
+  push:
+    branches: [main]
+    paths:
+      - pyproject.toml
+      - uv.lock
+      - mcp-server/package.json
+      - mcp-server/bun.lock
+      - examples/hello_*
+      - scripts/cold_start_bench.sh
+      - .github/workflows/cold-start.yml
+
+jobs:
+  cold-start:
+    name: macOS-15 cold start <=300s
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - uses: astral-sh/setup-uv@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.10"
+      - run: bash scripts/cold_start_bench.sh --threshold 300 --evidence .sisyphus/evidence/cold_start_ci.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cold-start-evidence
+          path: .sisyphus/evidence/cold_start_ci.txt

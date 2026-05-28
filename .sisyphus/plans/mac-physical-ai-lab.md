@@ -2995,7 +2995,7 @@ Wave classification table:
   - Files: .github/workflows/ci.yml (gate enforcement), README.md (Supported Platforms section), CONTRIBUTING.md (branch protection note)
   - Pre-commit: `yq eval . .github/workflows/ci.yml > /dev/null`
 
-- [ ] 29. **CI Test #7: Research Freedom (Cold-Start Benchmark ≤120s on M5 Pro)**
+- [x] 29. **CI Test #7: Research Freedom (Cold-Start Benchmark ≤120s on M5 Pro)**
 
   **What to do**:
   - Add `tests/integration/test_research_freedom.py` and `scripts/cold_start_bench.sh`:
