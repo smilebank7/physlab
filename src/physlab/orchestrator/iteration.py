@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass(frozen=True)
@@ -14,9 +14,10 @@ class Iteration:
     eval_metrics: dict[str, float]
     status: str
     reflection: str
+    metadata: dict[str, object] = field(default_factory=dict)
 
     def manifest_record(self) -> dict[str, object]:
-        return {
+        record = {
             "idx": self.idx,
             "status": self.status,
             "artifact_path": self.artifact_path,
@@ -24,3 +25,5 @@ class Iteration:
             "reflection": self.reflection,
             "llm_response_length": len(self.llm_response),
         }
+        record.update(self.metadata)
+        return record

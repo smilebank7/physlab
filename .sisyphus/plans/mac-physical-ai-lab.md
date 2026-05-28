@@ -2212,7 +2212,7 @@ Wave classification table:
   - Files: src/<ship_name>/orchestrator/evaluator.py, src/<ship_name>/tasks/cartpole_baseline_reward.py, tests/integration/test_evaluator.py
   - Pre-commit: `pytest tests/integration/test_evaluator.py -v -m "not slow"`
 
-- [ ] 19. **Iteration Controller (Best-Reward Tracking + Reflection)**
+- [x] 19. **Iteration Controller (Best-Reward Tracking + Reflection)**
 
   **What to do**:
   - Implement `src/<ship_name>/orchestrator/controller.py`:

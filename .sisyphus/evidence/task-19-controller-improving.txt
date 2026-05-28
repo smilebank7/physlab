@@ -1,0 +1,2 @@
+{"best_iteration": 4, "best_success_rate": 0.8, "run_dir": "runs/t19-happy", "run_id": "t19-happy"}
+best_iteration=4 best_success_rate=0.8
