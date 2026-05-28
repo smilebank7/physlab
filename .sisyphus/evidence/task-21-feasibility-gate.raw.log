@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/examples/eureka_franka.py", line 158, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/examples/eureka_franka.py", line 110, in main
+    result = controller.run(run_id=run_id)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/orchestrator/controller.py", line 119, in run
+    reward_code = self.reward_generator(
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/orchestrator/reward_gen.py", line 52, in generate_reward
+    response = llm.complete(prompt, seed=ctx_seed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/llm/client.py", line 47, in complete
+    completion = self._complete_uncached(prompt, system=system, **kwargs).strip()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/llm/client.py", line 126, in _complete_uncached
+    result = subprocess.run(
+             ^^^^^^^^^^^^^^^
+  File "/Users/jhin/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/subprocess.py", line 2116, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/Users/jhin/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/subprocess.py", line 1253, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/Users/jhin/.opencode/bin/opencode', 'run', '--format', 'default']' timed out after 120.0 seconds
+exit_status=1
+wall_clock_s=120
