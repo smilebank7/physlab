@@ -1,0 +1,10 @@
+{
+  "reflection": "worked: distance shaping is stable. failed: grasp timing is still untested. next: keep lift and target terms explicit.",
+  "rewards": [
+    "```python\nimport numpy as np\n\n\ndef reward_fn(obs: np.ndarray, action: np.ndarray, info: dict) -> float:\n    distance = float(info.get('distance_to_target', np.linalg.norm(obs[14:17] - obs[21:24])))\n    lift = max(float(obs[16]) - 0.42, 0.0)\n    return -distance + 0.25 * lift\n```",
+    "```python\nimport numpy as np\n\n\ndef reward_fn(obs: np.ndarray, action: np.ndarray, info: dict) -> float:\n    distance = float(info.get('distance_to_target', np.linalg.norm(obs[14:17] - obs[21:24])))\n    action_penalty = 0.01 * float(np.linalg.norm(action))\n    return -distance - action_penalty + (1.0 if bool(info.get('success', False)) else 0.0)\n```",
+    "```python\nimport numpy as np\n\n\ndef reward_fn(obs: np.ndarray, action: np.ndarray, info: dict) -> float:\n    cube = obs[14:17]\n    target = obs[21:24]\n    return -float(np.linalg.norm(cube - target)) + 0.5 * max(float(cube[2]) - 0.45, 0.0)\n```",
+    "```python\nimport numpy as np\n\n\ndef reward_fn(obs: np.ndarray, action: np.ndarray, info: dict) -> float:\n    distance = float(info.get('distance_to_target', np.linalg.norm(obs[14:17] - obs[21:24])))\n    return 2.0 * float(bool(info.get('success', False))) - distance\n```",
+    "```python\nimport numpy as np\n\n\ndef reward_fn(obs: np.ndarray, action: np.ndarray, info: dict) -> float:\n    cube = obs[14:17]\n    target = obs[21:24]\n    reach = -float(np.linalg.norm(cube - target))\n    lift = max(float(cube[2]) - 0.42, 0.0)\n    return reach + 0.3 * lift + 2.0 * float(bool(info.get('success', False)))\n```"
+  ]
+}

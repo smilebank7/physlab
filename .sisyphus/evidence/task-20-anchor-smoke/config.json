@@ -1,0 +1,13 @@
+{
+  "config": {
+    "controller": "iteration",
+    "iterations": 1,
+    "llm": "mock",
+    "num_rollouts": 5,
+    "seed": 42,
+    "train_steps": 30000
+  },
+  "run_id": "smoke",
+  "started_at": "smoke",
+  "task": "franka_pick"
+}

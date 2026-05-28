@@ -2296,7 +2296,7 @@ Wave classification table:
   - Files: src/<ship_name>/orchestrator/controller.py, src/<ship_name>/orchestrator/prompts/reflection.md, tests/unit/test_controller.py, tests/fixtures/{improving_rewards,all_failures}.json
   - Pre-commit: `pytest tests/unit/test_controller.py -v`
 
-- [ ] 20. **Anchor Demo Script — `examples/eureka_franka.py`**
+- [x] 20. **Anchor Demo Script — `examples/eureka_franka.py`**
 
   **What to do**:
   - Wire T13-19 into the canonical demo:
