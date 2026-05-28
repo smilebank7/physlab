@@ -2106,7 +2106,7 @@ Wave classification table:
   - Files: src/<ship_name>/orchestrator/reward_gen.py, src/<ship_name>/orchestrator/prompts/reward_gen.md, tests/unit/test_reward_gen.py
   - Pre-commit: `pytest tests/unit/test_reward_gen.py -v`
 
-- [ ] 18. **Reward Sandbox + Evaluator (Rollout-Based Scoring)**
+- [x] 18. **Reward Sandbox + Evaluator (Rollout-Based Scoring)**
 
   **What to do**:
   - Implement `src/<ship_name>/orchestrator/evaluator.py`:

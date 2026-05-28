@@ -1,0 +1,1 @@
+sr=0.8276 err=None steps=20000 wall=4.092 curve=[0.8276]
