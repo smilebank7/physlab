@@ -112,6 +112,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--llm-timeout", type=float, default=600.0)
     parser.add_argument("--use-cache", nargs="?", const=True, default=False, type=_parse_bool)
     parser.add_argument("--train-steps-per-iter", type=int, default=30_000)
+    parser.add_argument("--headless", action="store_true", help="explicit no-GUI mode")
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--runs-dir", type=Path, default=Path("runs"))
     return parser

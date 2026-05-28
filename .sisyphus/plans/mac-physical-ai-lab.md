@@ -2689,7 +2689,7 @@ Wave classification table:
   - Files: tests/integration/test_backend_contract.py (extend), tests/fixtures/tutorial_backend.py
   - Pre-commit: `pytest tests/integration/test_backend_contract.py -v`
 
-- [ ] 25. **CI Test #3: Workflow Freedom (Headless / Scriptable / CI-Friendly)**
+- [x] 25. **CI Test #3: Workflow Freedom (Headless / Scriptable / CI-Friendly)**
 
   **What to do**:
   - Add `tests/integration/test_workflow_freedom.py`:

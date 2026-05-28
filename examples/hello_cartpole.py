@@ -9,6 +9,7 @@ from physlab import make
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--headless", action="store_true", help="explicit no-GUI mode")
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
