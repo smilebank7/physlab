@@ -3070,7 +3070,7 @@ Wave classification table:
   - Files: scripts/cold_start_bench.sh, tests/integration/test_research_freedom.py, .github/workflows/cold-start.yml, .sisyphus/evidence/cold-start-baseline-m5pro.txt
   - Pre-commit: `bash scripts/cold_start_bench.sh --quick`
 
-- [ ] 30. **Second High-Quality Task — Locomotion (Quadruped Stand or Hop)**
+- [x] 30. **Second High-Quality Task — Locomotion (Quadruped Stand or Hop)**
 
   **What to do**:
   - Add `src/<ship_name>/tasks/locomotion.py` + MJCF: pick `ant` (smaller, simpler from mujoco_menagerie) or `quadruped` standing task

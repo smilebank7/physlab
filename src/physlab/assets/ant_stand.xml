@@ -1,0 +1,65 @@
+<mujoco model="physlab_ant_stand">
+  <compiler angle="radian"/>
+  <option timestep="0.02" integrator="RK4"/>
+  <default>
+    <joint damping="0.4" armature="0.01" limited="true"/>
+    <geom friction="1.0 0.1 0.1"/>
+  </default>
+  <worldbody>
+    <geom name="floor" type="plane" size="2 2 0.05" rgba="0.7 0.72 0.76 1"/>
+    <body name="torso" pos="0 0 0.34">
+      <freejoint name="root"/>
+      <geom name="torso_geom" type="ellipsoid" size="0.18 0.12 0.07" mass="2.0"/>
+
+      <body name="front_left_upper" pos="0.12 0.10 0">
+        <joint name="front_left_hip" type="hinge" axis="0 0 1" range="-0.8 0.8"/>
+        <geom type="capsule" fromto="0 0 0 0.12 0.08 -0.10" size="0.025" mass="0.18"/>
+        <body name="front_left_lower" pos="0.12 0.08 -0.10">
+          <joint name="front_left_knee" type="hinge" axis="0 1 0" range="-1.2 0.5"/>
+          <geom type="capsule" fromto="0 0 0 0.08 0.04 -0.20" size="0.02" mass="0.14"/>
+          <geom name="front_left_foot" type="sphere" pos="0.08 0.04 -0.20" size="0.03" mass="0.05"/>
+        </body>
+      </body>
+
+      <body name="front_right_upper" pos="0.12 -0.10 0">
+        <joint name="front_right_hip" type="hinge" axis="0 0 1" range="-0.8 0.8"/>
+        <geom type="capsule" fromto="0 0 0 0.12 -0.08 -0.10" size="0.025" mass="0.18"/>
+        <body name="front_right_lower" pos="0.12 -0.08 -0.10">
+          <joint name="front_right_knee" type="hinge" axis="0 1 0" range="-1.2 0.5"/>
+          <geom type="capsule" fromto="0 0 0 0.08 -0.04 -0.20" size="0.02" mass="0.14"/>
+          <geom name="front_right_foot" type="sphere" pos="0.08 -0.04 -0.20" size="0.03" mass="0.05"/>
+        </body>
+      </body>
+
+      <body name="rear_left_upper" pos="-0.12 0.10 0">
+        <joint name="rear_left_hip" type="hinge" axis="0 0 1" range="-0.8 0.8"/>
+        <geom type="capsule" fromto="0 0 0 -0.12 0.08 -0.10" size="0.025" mass="0.18"/>
+        <body name="rear_left_lower" pos="-0.12 0.08 -0.10">
+          <joint name="rear_left_knee" type="hinge" axis="0 1 0" range="-1.2 0.5"/>
+          <geom type="capsule" fromto="0 0 0 -0.08 0.04 -0.20" size="0.02" mass="0.14"/>
+          <geom name="rear_left_foot" type="sphere" pos="-0.08 0.04 -0.20" size="0.03" mass="0.05"/>
+        </body>
+      </body>
+
+      <body name="rear_right_upper" pos="-0.12 -0.10 0">
+        <joint name="rear_right_hip" type="hinge" axis="0 0 1" range="-0.8 0.8"/>
+        <geom type="capsule" fromto="0 0 0 -0.12 -0.08 -0.10" size="0.025" mass="0.18"/>
+        <body name="rear_right_lower" pos="-0.12 -0.08 -0.10">
+          <joint name="rear_right_knee" type="hinge" axis="0 1 0" range="-1.2 0.5"/>
+          <geom type="capsule" fromto="0 0 0 -0.08 -0.04 -0.20" size="0.02" mass="0.14"/>
+          <geom name="rear_right_foot" type="sphere" pos="-0.08 -0.04 -0.20" size="0.03" mass="0.05"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor joint="front_left_hip" gear="4" ctrllimited="true" ctrlrange="-1 1"/>
+    <motor joint="front_left_knee" gear="4" ctrllimited="true" ctrlrange="-1 1"/>
+    <motor joint="front_right_hip" gear="4" ctrllimited="true" ctrlrange="-1 1"/>
+    <motor joint="front_right_knee" gear="4" ctrllimited="true" ctrlrange="-1 1"/>
+    <motor joint="rear_left_hip" gear="4" ctrllimited="true" ctrlrange="-1 1"/>
+    <motor joint="rear_left_knee" gear="4" ctrllimited="true" ctrlrange="-1 1"/>
+    <motor joint="rear_right_hip" gear="4" ctrllimited="true" ctrlrange="-1 1"/>
+    <motor joint="rear_right_knee" gear="4" ctrllimited="true" ctrlrange="-1 1"/>
+  </actuator>
+</mujoco>
