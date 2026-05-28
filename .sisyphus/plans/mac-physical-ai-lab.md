@@ -1111,7 +1111,7 @@ Wave classification table:
   - Files: src/<ship_name>/backends/mock.py, tests/integration/test_backend_contract.py
   - Pre-commit: `pytest tests/integration/test_backend_contract.py -v`
 
-- [ ] 8. **Env API + Task Registry**
+- [x] 8. **Env API + Task Registry**
 
   **What to do**:
   - Implement `src/<ship_name>/env.py`:

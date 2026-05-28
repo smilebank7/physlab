@@ -1,0 +1,22 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 12 items
+
+tests/unit/test_env.py::test_environment_implements_protocol_and_runs_steps PASSED [  8%]
+tests/unit/test_env.py::test_environment_truncates_at_task_max_steps PASSED [ 16%]
+tests/unit/test_env.py::test_environment_rejects_action_outside_spec PASSED [ 25%]
+tests/unit/test_env.py::test_environment_observe_and_closed_errors PASSED [ 33%]
+tests/unit/test_env.py::test_environment_supports_callable_specs_and_fallback_reward PASSED [ 41%]
+tests/unit/test_env.py::test_environment_requires_model_spec_and_positive_max_steps PASSED [ 50%]
+tests/unit/test_registry.py::test_register_make_and_list_tasks PASSED    [ 58%]
+tests/unit/test_registry.py::test_unknown_task_lists_available_tasks PASSED [ 66%]
+tests/unit/test_registry.py::test_backend_string_and_instance_resolution PASSED [ 75%]
+tests/unit/test_registry.py::test_unknown_backend_raises_typed_error PASSED [ 83%]
+tests/unit/test_registry.py::test_register_task_rejects_empty_name_and_mujoco_resolves PASSED [ 91%]
+tests/unit/test_registry.py::test_registry_has_no_automatic_discovery PASSED [100%]
+
+============================== 12 passed in 0.10s ==============================
