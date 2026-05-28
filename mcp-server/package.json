@@ -7,6 +7,7 @@
   "description": "TypeScript MCP server scaffold for physlab.",
   "scripts": {
     "check": "biome check .",
+    "check:licenses": "python ../tools/check_licenses.py --all",
     "mcp-server": "bun src/server.ts",
     "test": "bun test",
     "typecheck": "tsc --noEmit"

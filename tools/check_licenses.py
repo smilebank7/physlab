@@ -45,6 +45,13 @@ REJECTED_MARKERS = (
     "unknown",
     "unlicensed",
 )
+REQUIRED_NOTICE_MARKERS = (
+    "MuJoCo",
+    "Apache",
+    "DeepMind Control Suite",
+    "Franka",
+    "BSD-3-Clause",
+)
 
 
 @dataclass(frozen=True)
@@ -130,22 +137,74 @@ def find_violations(packages: list[PackageLicense]) -> list[PackageLicense]:
     return [package for package in packages if not is_allowed(package.license)]
 
 
+def check_project_license(root: Path = ROOT) -> list[str]:
+    license_path = root / "LICENSE"
+    if not license_path.exists():
+        return ["LICENSE file is missing"]
+    text = license_path.read_text(encoding="utf-8")
+    if not text.startswith("MIT License") or "Permission is hereby granted" not in text:
+        return ["LICENSE must be MIT and contain the standard MIT grant"]
+    return []
+
+
+def check_notice(root: Path = ROOT) -> list[str]:
+    notice_path = root / "NOTICE"
+    if not notice_path.exists():
+        return ["NOTICE file is missing"]
+    text = notice_path.read_text(encoding="utf-8")
+    return [
+        f"NOTICE missing required attribution: {marker}"
+        for marker in REQUIRED_NOTICE_MARKERS
+        if marker not in text
+    ]
+
+
+def render_summary(packages: list[PackageLicense], policy_failures: list[str]) -> str:
+    violations = set(find_violations(packages))
+    rows = [
+        "# License Freedom Summary",
+        "",
+        "| Source | Package | License | Status |",
+        "| --- | --- | --- | --- |",
+    ]
+    for package in sorted(packages, key=lambda item: (item.source, item.name.lower())):
+        status = "rejected" if package in violations else "ok"
+        rows.append(f"| {package.source} | {package.name} | {package.license} | {status} |")
+    rows.extend(["", "## Project Policy"])
+    if policy_failures:
+        rows.extend(f"- FAIL: {failure}" for failure in policy_failures)
+    else:
+        rows.append("- ok: MIT LICENSE and NOTICE attributions present")
+    return "\n".join(rows) + "\n"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Audit dependency licenses.")
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        help="Run dependency and project policy checks",
+    )
     parser.add_argument("--fixture", type=Path, help="Read dependency records from JSON fixture")
+    parser.add_argument("--summary-file", type=Path, help="Write markdown summary for PR comments")
     args = parser.parse_args()
 
     packages = packages_from_fixture(args.fixture) if args.fixture else scan_python() + scan_npm()
     violations = find_violations(packages)
-    if violations:
+    policy_failures = [] if args.fixture else check_project_license(ROOT) + check_notice(ROOT)
+    if args.summary_file is not None:
+        args.summary_file.write_text(render_summary(packages, policy_failures), encoding="utf-8")
+    if violations or policy_failures:
         for package in violations:
             print(
                 f"{package.source}:{package.name}: rejected license {package.license}",
                 file=sys.stderr,
             )
+        for failure in policy_failures:
+            print(f"project:{failure}", file=sys.stderr)
         return 1
 
-    print(f"Scanned {len(packages)} dependencies; 0 violations")
+    print(f"Scanned {len(packages)} dependencies; 0 violations; project policy ok")
     return 0
 
 

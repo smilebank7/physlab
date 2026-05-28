@@ -2557,7 +2557,7 @@ Wave classification table:
   - Files: examples/eureka_franka.py (tuning), examples/anchor_demo_cache/*.json, runs/anchor-v0.1-canonical/ (or reference), README.md updates, .sisyphus/evidence/anchor-demo-recording.cast
   - Pre-commit: `pytest tests/integration/test_eureka_franka_smoke.py -v`
 
-- [ ] 23. **CI Test #1: License Freedom (Encoded)**
+- [x] 23. **CI Test #1: License Freedom (Encoded)**
 
   **What to do**:
   - Enhance `tools/check_licenses.py` (from T4) to be the canonical "License Freedom" check

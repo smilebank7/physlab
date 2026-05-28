@@ -5,6 +5,10 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   audit:
     name: License audit
@@ -20,4 +24,9 @@ jobs:
           bun-version: "1.3.10"
       - run: uv venv && uv pip install -e ".[dev]"
       - run: cd mcp-server && bun install
-      - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$GITHUB_WORKSPACE/mcp-server/node_modules/.bin:$PATH" python tools/check_licenses.py
+      - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$GITHUB_WORKSPACE/mcp-server/node_modules/.bin:$PATH" python tools/check_licenses.py --all --summary-file license-summary.md
+      - name: Comment license summary
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr comment "${{ github.event.pull_request.number }}" --body-file license-summary.md
