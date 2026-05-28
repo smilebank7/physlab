@@ -3590,7 +3590,7 @@ Wave classification table:
   - Files: examples/plugins/hello_task/pyproject.toml (build-system additions), examples/plugins/README.md
   - Pre-commit: `python -m build examples/plugins/hello_task/`
 
-- [ ] 37. **PyPI Packaging Setup**
+- [x] 37. **PyPI Packaging Setup**
 
   **What to do**:
   - Finalize `pyproject.toml` for PyPI release:
@@ -3630,10 +3630,10 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `python -m build` produces wheel + sdist with no warnings
-  - [ ] `twine check dist/*` passes
-  - [ ] Wheel installs in fresh venv and runs CLI commands
-  - [ ] Classifiers and metadata complete (no "UNKNOWN" fields)
+  - [x] `python -m build` produces wheel + sdist with no warnings
+  - [x] `twine check dist/*` passes
+  - [x] Wheel installs in fresh venv and runs CLI commands
+  - [x] Classifiers and metadata complete (no "UNKNOWN" fields)
 
   **QA Scenarios**:
 

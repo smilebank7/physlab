@@ -10,13 +10,26 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [{ name = "Jhin" }]
-keywords = ["mujoco", "robotics", "physical-ai", "macos"]
+keywords = [
+  "agentic",
+  "macos",
+  "mcp",
+  "mujoco",
+  "physical-ai",
+  "reinforcement-learning",
+  "robotics",
+  "simulation",
+]
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Science/Research",
   "License :: OSI Approved :: MIT License",
+  "Operating System :: MacOS",
+  "Operating System :: POSIX :: Linux",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
   "mujoco>=3.2,<4",
@@ -26,6 +39,13 @@ dependencies = [
 
 [project.scripts]
 physlab-hello = "examples.hello_cartpole:main"
+physlab-orchestrator = "physlab.orchestrator.__main__:main"
+
+[project.urls]
+Documentation = "https://smilebank7.github.io/physlab/"
+Homepage = "https://github.com/smilebank7/physlab"
+Issues = "https://github.com/smilebank7/physlab/issues"
+Repository = "https://github.com/smilebank7/physlab"
 
 [project.optional-dependencies]
 dev = [
@@ -36,6 +56,7 @@ dev = [
   "pytest>=8.0",
   "pytest-cov>=7.0",
   "ruff>=0.14",
+  "twine>=6.2",
 ]
 test = [
   "pytest>=8.0",

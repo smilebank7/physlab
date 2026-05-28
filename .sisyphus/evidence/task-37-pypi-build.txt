@@ -1,0 +1,32 @@
+$ export PATH="/Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin:$PATH"
+$ rm -rf dist && python -m build
+* Creating isolated environment: virtualenv+pip...
+* Installing packages in isolated environment:
+  - hatchling>=1.27
+* Getting build dependencies for sdist...
+* Building sdist...
+* Building wheel from sdist
+* Creating isolated environment: virtualenv+pip...
+* Installing packages in isolated environment:
+  - hatchling>=1.27
+* Getting build dependencies for wheel...
+* Building wheel...
+Successfully built physlab-0.0.0.tar.gz and physlab-0.0.0-py3-none-any.whl
+
+$ twine check dist/*
+Checking dist/physlab-0.0.0-py3-none-any.whl: PASSED
+Checking dist/physlab-0.0.0.tar.gz: PASSED
+
+$ ls dist/ | grep -E '\.whl$|\.tar\.gz$'
+physlab-0.0.0-py3-none-any.whl
+physlab-0.0.0.tar.gz
+
+$ python - <<'PY'  # metadata/assets smoke
+METADATA_AND_ASSETS_OK
+
+$ python -m venv /var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/tmp.DXnLXTHeGG/physlab-wheel
+$ /var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/tmp.DXnLXTHeGG/physlab-wheel/bin/pip install dist/physlab-0.0.0-py3-none-any.whl
+$ /var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/tmp.DXnLXTHeGG/physlab-wheel/bin/physlab-hello --headless --steps=2 --seed=1
+episode_reward=2.000 steps=2
+$ /var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/tmp.DXnLXTHeGG/physlab-wheel/bin/physlab-orchestrator --task cartpole --iterations=1 --llm=mock --run-id=pypi-smoke --runs-dir /var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/tmp.DXnLXTHeGG/runs
+{"run_id": "pypi-smoke", "run_dir": "/var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/tmp.DXnLXTHeGG/runs/pypi-smoke"}

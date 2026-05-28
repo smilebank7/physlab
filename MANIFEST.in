@@ -1,0 +1,8 @@
+include LICENSE
+include NOTICE
+include README.md
+include pyproject.toml
+recursive-include examples *.py
+recursive-include src/physlab/assets *.xml
+recursive-include src/physlab/orchestrator/prompts *.md
+include src/physlab/py.typed
