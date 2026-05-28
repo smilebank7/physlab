@@ -3,3 +3,13 @@ __pycache__/
 *.py[cod]
 .venv/
 .sisyphus/run-continuation/
+node_modules/
+mcp-server/node_modules/
+dist/
+build/
+*.egg-info/
+.coverage
+coverage.xml
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

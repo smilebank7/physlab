@@ -470,7 +470,7 @@ Wave classification table:
   - Files: `.sisyphus/evidence/phase-0-assessment.md`, `tools/validate_phase_0.py`
   - Pre-commit: `python tools/validate_phase_0.py`
 
-- [ ] 2. **Monorepo Scaffolding & Toolchain Setup**
+- [x] 2. **Monorepo Scaffolding & Toolchain Setup**
 
   **What to do**:
   - Initialize the repository at workspace root: `<ship-name>/` (using the name decided in Task 1)
@@ -560,7 +560,7 @@ Wave classification table:
   **Acceptance Criteria**:
 
   - [ ] `pyproject.toml` parses cleanly: `python -c "import tomllib; tomllib.loads(open('pyproject.toml').read())"` exit 0
-  - [ ] `mcp-server/package.json` parses: `bun run --silent -e 'console.log(require("./mcp-server/package.json").name)'` returns ship name
+  - [ ] `mcp-server/package.json` parses: `bun --silent -e 'console.log(require("./mcp-server/package.json").name)'` returns ship name
   - [ ] `uv venv && uv pip install -e .` succeeds in fresh venv
   - [ ] `cd mcp-server && bun install` succeeds
   - [ ] `ruff check .` exits 0 (empty codebase, so trivially passes)

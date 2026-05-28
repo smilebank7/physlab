@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".sisyphus" / "evidence" / "phase-0-assessment.md"
 
@@ -41,7 +40,9 @@ def scope_adjustments(scores: dict[str, int]) -> list[str]:
         adjustments.append("OSS launch: no additional cut triggered.")
 
     robotics_score = scores["robotics"]
-    adjustments.append(f"Robotics control: score {robotics_score}; no automatic cut rule in Phase 0.")
+    adjustments.append(
+        f"Robotics control: score {robotics_score}; no automatic cut rule in Phase 0."
+    )
     return adjustments
 
 
@@ -54,6 +55,24 @@ def render(args: argparse.Namespace) -> str:
         "robotics": args.robotics,
     }
     adjustment_lines = "\n".join(f"- {item}" for item in scope_adjustments(scores))
+    first_user = (
+        "The first user is a solo Apple Silicon robotics researcher building local, "
+        "reproducible physical AI experiments. They are comfortable reading code and "
+        "running command-line workflows, but they need the framework to make the first "
+        "end-to-end episode fast and boring. Their highest-value moment is seeing a "
+        "local opencode-driven reward iteration improve a MuJoCo task without CUDA or "
+        "cloud infrastructure."
+    )
+    success_metric = (
+        "The v0.1 success metric is `python examples/eureka_franka.py --seed=42` "
+        "achieving Franka pick-place >=70% success in <=30 minutes wall-clock on the "
+        "target M5 Pro machine, with evidence captured under `.sisyphus/evidence/`."
+    )
+    kill_switch = (
+        "Week 6: abandon or pivot v0.1 if T21 feasibility evidence shows the Franka "
+        "anchor cannot reach >=50% pick-place success within 30 minutes after the "
+        "reward-iteration loop is implemented and benchmarked."
+    )
     return f"""# Phase 0 Assessment
 
 ## Fluency Scores
@@ -70,15 +89,15 @@ Robotics control fundamentals: {args.robotics}
 
 ## First User
 
-The first user is a solo Apple Silicon robotics researcher building local, reproducible physical AI experiments. They are comfortable reading code and running command-line workflows, but they need the framework to make the first end-to-end episode fast and boring. Their highest-value moment is seeing a local opencode-driven reward iteration improve a MuJoCo task without CUDA or cloud infrastructure.
+{first_user}
 
 ## Success Metric
 
-The v0.1 success metric is `python examples/eureka_franka.py --seed=42` achieving Franka pick-place >=70% success in <=30 minutes wall-clock on the target M5 Pro machine, with evidence captured under `.sisyphus/evidence/`.
+{success_metric}
 
 ## Kill-Switch
 
-Week 6: abandon or pivot v0.1 if T21 feasibility evidence shows the Franka anchor cannot reach >=50% pick-place success within 30 minutes after the reward-iteration loop is implemented and benchmarked.
+{kill_switch}
 
 ## Scope Adjustments
 
@@ -90,11 +109,26 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Generate Phase 0 assessment markdown.")
     parser.add_argument("--mujoco", required=True, type=score, help="MuJoCo Python score, 0-3")
     parser.add_argument("--mcp", required=True, type=score, help="MCP server building score, 0-3")
-    parser.add_argument("--isaaclab", required=True, type=score, help="IsaacLab internals score, 0-3")
+    parser.add_argument(
+        "--isaaclab",
+        required=True,
+        type=score,
+        help="IsaacLab internals score, 0-3",
+    )
     parser.add_argument("--oss", required=True, type=score, help="OSS framework launch score, 0-3")
-    parser.add_argument("--robotics", required=True, type=score, help="Robotics control fundamentals score, 0-3")
+    parser.add_argument(
+        "--robotics",
+        required=True,
+        type=score,
+        help="Robotics control fundamentals score, 0-3",
+    )
     parser.add_argument("--ship-name", default="physlab", help="Chosen non-forbidden ship name")
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="Assessment output path")
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_OUTPUT,
+        help="Assessment output path",
+    )
     args = parser.parse_args()
 
     args.output.parent.mkdir(parents=True, exist_ok=True)

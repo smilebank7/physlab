@@ -1,0 +1,19 @@
+{
+  "name": "physlab",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "TypeScript MCP server scaffold for physlab.",
+  "scripts": {
+    "check": "biome check .",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.8",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20",
+    "bun": ">=1.3"
+  }
+}

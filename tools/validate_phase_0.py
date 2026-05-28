@@ -12,7 +12,6 @@ import re
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ASSESSMENT = ROOT / ".sisyphus" / "evidence" / "phase-0-assessment.md"
 FORBIDDEN_SHIP_TOKENS = ("isaac", "omniverse", "nvidia")
@@ -145,13 +144,20 @@ def _validate_required_sections(sections: dict[str, str], scores: dict[str, int]
     elif not re.search(r"\d|>=|<=|≤|≥|pass|green|success|within", success_metric, re.IGNORECASE):
         errors.append("Success Metric section must contain one measurable criterion")
 
-    kill_switch = _section_contains(sections, "kill-switch") or _section_contains(sections, "kill switch")
+    kill_switch = _section_contains(sections, "kill-switch") or _section_contains(
+        sections,
+        "kill switch",
+    )
     if kill_switch is None:
         errors.append("missing Kill-Switch section")
     else:
         if not re.search(r"\bweek\s*\d+\b", kill_switch, re.IGNORECASE):
             errors.append("Kill-Switch section must include a week")
-        if not re.search(r"evidence|metric|result|benchmark|demo|qa|ci", kill_switch, re.IGNORECASE):
+        if not re.search(
+            r"evidence|metric|result|benchmark|demo|qa|ci",
+            kill_switch,
+            re.IGNORECASE,
+        ):
             errors.append("Kill-Switch section must include a concrete evidence trigger")
 
     scope_adjustments = _section_contains(sections, "scope adjustments")
@@ -183,7 +189,12 @@ def validate(path: Path) -> list[str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate Phase 0 assessment markdown.")
-    parser.add_argument("--file", type=Path, default=DEFAULT_ASSESSMENT, help="Assessment markdown path")
+    parser.add_argument(
+        "--file",
+        type=Path,
+        default=DEFAULT_ASSESSMENT,
+        help="Assessment markdown path",
+    )
     args = parser.parse_args()
 
     errors = validate(args.file)

@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "physlab"
+version = "0.0.0"
+description = "Mac-native physical AI lab scaffold for local MuJoCo and agent workflows."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Jhin" }]
+keywords = ["mujoco", "robotics", "physical-ai", "macos"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.18",
+  "pre-commit>=4.0",
+  "pytest>=8.0",
+  "pytest-cov>=7.0",
+  "ruff>=0.14",
+]
+test = [
+  "pytest>=8.0",
+  "pytest-cov>=7.0",
+]
+docs = [
+  "pdoc>=15.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/physlab"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [".venv", "mcp-server/node_modules"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests", "tools"]
+exclude = ["\\.venv/", "mcp-server/node_modules/"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"

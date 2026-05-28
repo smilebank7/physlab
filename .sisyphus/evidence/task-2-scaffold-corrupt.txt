@@ -1,0 +1,20 @@
+$ uv venv
+warning: Failed to parse `pyproject.toml` during environment creation:
+  TOML parse error at line 5, column 1
+    |
+  5 | [project]
+    | ^^^^^^^^^
+  `pyproject.toml` is using the `[project]` table, but the required `project.name` field is not set
+
+Using CPython 3.11.14
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
+$ source .venv/bin/activate
+$ uv pip install -e .
+error: Failed to parse metadata from built wheel
+  Caused by: TOML parse error at line 5, column 1
+  |
+5 | [project]
+  | ^^^^^^^^^
+`pyproject.toml` is using the `[project]` table, but the required `project.name` field is not set
+exit_code=2

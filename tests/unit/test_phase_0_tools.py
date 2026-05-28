@@ -5,12 +5,23 @@ import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
-
+from types import ModuleType
+from typing import Protocol, cast
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def load_module(name: str, path: Path):
+class ValidatorModule(Protocol):
+    def validate(self, path: Path) -> list[str]: ...
+
+
+class WriterModule(Protocol):
+    def render(self, args: argparse.Namespace) -> str: ...
+
+    def score(self, value: str) -> int: ...
+
+
+def load_module(name: str, path: Path) -> ModuleType:
     spec = importlib.util.spec_from_file_location(name, path)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Could not load module from {path}")
@@ -19,13 +30,27 @@ def load_module(name: str, path: Path):
     return module
 
 
-validate_phase_0 = load_module("validate_phase_0", ROOT / "tools" / "validate_phase_0.py")
-write_phase_0 = load_module("write_phase_0_assessment", ROOT / "tools" / "write_phase_0_assessment.py")
+validate_phase_0 = cast(
+    ValidatorModule,
+    load_module("validate_phase_0", ROOT / "tools" / "validate_phase_0.py"),
+)
+write_phase_0 = cast(
+    WriterModule,
+    load_module(
+        "write_phase_0_assessment",
+        ROOT / "tools" / "write_phase_0_assessment.py",
+    ),
+)
 
 
 class Phase0ToolTests(unittest.TestCase):
     def validate_text(self, text: str) -> list[str]:
-        with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".md", delete=False) as handle:
+        with tempfile.NamedTemporaryFile(
+            "w",
+            encoding="utf-8",
+            suffix=".md",
+            delete=False,
+        ) as handle:
             handle.write(text)
             path = Path(handle.name)
         try:

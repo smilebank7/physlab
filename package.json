@@ -1,0 +1,8 @@
+{
+  "name": "physlab-workspace",
+  "private": true,
+  "scripts": {
+    "check": "ruff check . && biome check mcp-server/"
+  },
+  "workspaces": ["mcp-server"]
+}
