@@ -2930,7 +2930,7 @@ Wave classification table:
   - Files: tests/integration/test_agent_freedom.py, mcp-server/tests/protocol_compliance.test.ts (TS side)
   - Pre-commit: `pytest tests/integration/test_agent_freedom.py -v`
 
-- [ ] 28. **CI Test #6: Hardware Freedom (Matrix Green Across 3 OS)**
+- [x] 28. **CI Test #6: Hardware Freedom (Matrix Green Across 3 OS)**
 
   **What to do**:
   - Verify GitHub Actions matrix (from T3) runs all of: tests, license check, contract, headless, agent, extension on `macos-14`, `macos-15`, `ubuntu-22.04`

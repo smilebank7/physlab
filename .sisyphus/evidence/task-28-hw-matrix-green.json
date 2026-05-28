@@ -1,0 +1,50 @@
+{
+  "workflow": "CI",
+  "url": "https://github.com/smilebank7/physlab/actions/runs/26549122211",
+  "headSha": "4e6ee63018b142c1aed2e02304b36679e74dea80",
+  "createdAt": "2026-05-28T01:31:50Z",
+  "status": "completed",
+  "conclusion": "success",
+  "required_oses": [
+    "macos-14",
+    "macos-15",
+    "ubuntu-22.04"
+  ],
+  "required_python_versions": [
+    "3.11",
+    "3.12"
+  ],
+  "matrix_jobs": [
+    {
+      "name": "ubuntu-22.04 / Python 3.12",
+      "conclusion": "success",
+      "status": "completed"
+    },
+    {
+      "name": "macos-14 / Python 3.12",
+      "conclusion": "success",
+      "status": "completed"
+    },
+    {
+      "name": "macos-15 / Python 3.12",
+      "conclusion": "success",
+      "status": "completed"
+    },
+    {
+      "name": "macos-15 / Python 3.11",
+      "conclusion": "success",
+      "status": "completed"
+    },
+    {
+      "name": "ubuntu-22.04 / Python 3.11",
+      "conclusion": "success",
+      "status": "completed"
+    },
+    {
+      "name": "macos-14 / Python 3.11",
+      "conclusion": "success",
+      "status": "completed"
+    }
+  ],
+  "all_required_green": true
+}

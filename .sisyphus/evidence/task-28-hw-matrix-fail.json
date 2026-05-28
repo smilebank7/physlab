@@ -1,0 +1,5 @@
+{
+  "scenario": "remove macos-15 from matrix",
+  "blocked": true,
+  "error": "missing required OS matrix entries: ['macos-15']"
+}

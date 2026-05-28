@@ -37,6 +37,25 @@ jobs:
           name: coverage-${{ matrix.os }}-py${{ matrix.python-version }}
           path: coverage.xml
 
+  hardware-freedom:
+    name: Hardware freedom / 3 OS matrix
+    runs-on: ubuntu-22.04
+    needs: test
+    if: ${{ always() }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Assert supported OS matrix is complete and green
+        run: |
+          python tools/check_hardware_matrix.py .github/workflows/ci.yml
+          if [ "${{ needs.test.result }}" != "success" ]; then
+            echo "::error::hardware freedom requires macos-14, macos-15, and ubuntu-22.04 matrix success"
+            exit 1
+          fi
+          echo "hardware freedom matrix green: macos-14, macos-15, ubuntu-22.04"
+
   license-audit:
     name: License audit
     runs-on: ubuntu-22.04

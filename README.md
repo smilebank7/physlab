@@ -31,3 +31,14 @@ Use any MCP-speaking client: Claude Desktop, opencode, Codex, or a custom local
 JSON-RPC client can call the same `ping`, `sim.*`, and `task.list` tools. The
 MCP layer has no opencode-specific authentication or adapter requirement in
 v0.1; opencode is only the canonical local loop driver for the anchor demo.
+
+## Supported Platforms
+
+CI runs on `macos-14`, `macos-15`, and `ubuntu-22.04` for Python 3.11 and 3.12.
+The `Hardware freedom / 3 OS matrix` job gates merges on that full matrix.
+
+v0.1 targets Mac-native MuJoCo CPU simulation and local Apple Silicon workflows.
+Windows and CUDA are out of scope. CPU simulation is the bit-exact deterministic
+path; any MPS-accelerated training path should be treated as epsilon-close
+(`<=1e-4`) rather than bit-exact. Expect realistic Mac parallelism in the
+16-64 environment range, not CUDA-scale 4096-environment claims.
