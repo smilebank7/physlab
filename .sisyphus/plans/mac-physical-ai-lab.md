@@ -3738,7 +3738,7 @@ Wave classification table:
   - Files: mcp-server/package.json, mcp-server/tsconfig.build.json, .github/workflows/release.yml (additions)
   - Pre-commit: `cd mcp-server && bun run build && npm pack --dry-run`
 
-- [ ] 39. **Release Process Automation (Semver Bump, CHANGELOG, Signed Tag)**
+- [x] 39. **Release Process Automation (Semver Bump, CHANGELOG, Signed Tag)**
 
   **What to do**:
   - Create `scripts/release.sh`:
@@ -3780,10 +3780,10 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `scripts/release.sh --dry-run --bump=patch` walks through all steps without publishing
-  - [ ] CHANGELOG.md updated with valid Keep-a-Changelog format
-  - [ ] Tag created with valid SemVer
-  - [ ] Release GHA workflow can be triggered via `workflow_dispatch` (manual)
+  - [x] `scripts/release.sh --dry-run --bump=patch` walks through all steps without publishing
+  - [x] CHANGELOG.md updated with valid Keep-a-Changelog format
+  - [x] Tag created with valid SemVer
+  - [x] Release GHA workflow can be triggered via `workflow_dispatch` (manual)
 
   **QA Scenarios**:
 

@@ -19,6 +19,7 @@ jobs:
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v7
       - run: uv venv && uv pip install -e ".[dev]"
+      - run: bash scripts/release.sh --pre-flight-check
       - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" python -m build
       - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" twine check dist/*
       - uses: actions/upload-artifact@v4
