@@ -3,12 +3,22 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
-name = "physlab-hello-task"
+name = "hello-task"
 version = "0.0.0"
 description = "Explicitly registered third-party task example for PhysLab."
+readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 dependencies = ["physlab"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Repository = "https://github.com/smilebank7/physlab"
 
 [tool.hatch.build.targets.wheel]
 only-include = ["hello_task.py"]

@@ -3520,7 +3520,7 @@ Wave classification table:
   - Files: docs/extension-points.md, tests/integration/test_extension_points.py
   - Pre-commit: `pytest tests/integration/test_extension_points.py -v`
 
-- [ ] 36. **Hello-World Plugin Example (PyPI-Installable)**
+- [x] 36. **Hello-World Plugin Example (PyPI-Installable)**
 
   **What to do**:
   - Build on T26 example: package the `hello_task` plugin as a standalone PyPI-installable demo project under `examples/plugins/hello_task/`:
@@ -3553,11 +3553,11 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `python -m build examples/plugins/hello_task/` produces a valid wheel
-  - [ ] Wheel installs cleanly in fresh venv: `pip install dist/hello_task-*.whl`
-  - [ ] After install AND explicit `import hello_task`, `<ship_name>.list_tasks()` includes it
-  - [ ] After install WITHOUT explicit import, `list_tasks()` does NOT include it (proves no auto-discovery)
-  - [ ] `examples/plugins/README.md` is a complete tutorial documenting the "import-and-register" pattern
+  - [x] `python -m build examples/plugins/hello_task/` produces a valid wheel
+  - [x] Wheel installs cleanly in fresh venv: `pip install dist/hello_task-*.whl`
+  - [x] After install AND explicit `import hello_task`, `<ship_name>.list_tasks()` includes it
+  - [x] After install WITHOUT explicit import, `list_tasks()` does NOT include it (proves no auto-discovery)
+  - [x] `examples/plugins/README.md` is a complete tutorial documenting the "import-and-register" pattern
 
   **QA Scenarios**:
 

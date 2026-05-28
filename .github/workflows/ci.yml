@@ -71,3 +71,19 @@ jobs:
       - run: uv venv && uv pip install -e ".[dev]"
       - run: cd mcp-server && bun install
       - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$GITHUB_WORKSPACE/mcp-server/node_modules/.bin:$PATH" python tools/check_licenses.py
+
+  plugin-example:
+    name: hello_task plugin package
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v7
+      - run: uv venv && uv pip install -e ".[dev]"
+      - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" python -m build examples/plugins/hello_task
+      - run: python -m venv /tmp/physlab-plugin-test
+      - run: /tmp/physlab-plugin-test/bin/pip install "$GITHUB_WORKSPACE" examples/plugins/hello_task/dist/hello_task-*.whl
+      - run: /tmp/physlab-plugin-test/bin/python -c "from physlab import list_tasks; assert 'hello_task' not in list_tasks(); print('OK')"
+      - run: /tmp/physlab-plugin-test/bin/python -c "import hello_task; from physlab import list_tasks, make; assert 'hello_task' in list_tasks(); env = make('hello_task'); env.close(); print('OK')"
