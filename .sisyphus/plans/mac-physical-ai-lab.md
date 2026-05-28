@@ -3212,7 +3212,7 @@ Wave classification table:
   - Files: src/<ship_name>/tasks/franka_push.py, src/<ship_name>/assets/franka_push.xml, tests/integration/test_franka_push.py
   - Pre-commit: `pytest tests/integration/test_franka_push.py -v`
 
-- [ ] 32. **Documentation — README + Getting Started**
+- [x] 32. **Documentation — README + Getting Started**
 
   **What to do**:
   - Polish `README.md`:
