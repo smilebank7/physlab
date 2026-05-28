@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "physlab-hello-task"
+version = "0.0.0"
+description = "Explicitly registered third-party task example for PhysLab."
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["physlab"]
+
+[tool.hatch.build.targets.wheel]
+only-include = ["hello_task.py"]

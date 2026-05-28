@@ -2755,7 +2755,7 @@ Wave classification table:
   - Files: tests/integration/test_workflow_freedom.py
   - Pre-commit: `pytest tests/integration/test_workflow_freedom.py -v`
 
-- [ ] 26. **CI Test #4: Extension Freedom (50-Line Explicit-Registration Example)**
+- [x] 26. **CI Test #4: Extension Freedom (50-Line Explicit-Registration Example)**
 
   **What to do**:
   - Create `examples/plugins/hello_task/`:

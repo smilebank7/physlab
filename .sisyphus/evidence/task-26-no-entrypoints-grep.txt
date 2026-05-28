@@ -1,0 +1,2 @@
+$ rg -n "from importlib\.metadata import entry_points|entry_points\(" src/physlab
+OK no entry_points machinery in src/physlab
