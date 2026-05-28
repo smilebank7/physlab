@@ -3294,7 +3294,7 @@ Wave classification table:
   - Files: README.md, docs/getting-started.md, tests/integration/test_readme_snippets.py
   - Pre-commit: `pytest tests/integration/test_readme_snippets.py -v`
 
-- [ ] 33. **Documentation — Tutorial (Eureka-on-Franka Walkthrough)**
+- [x] 33. **Documentation — Tutorial (Eureka-on-Franka Walkthrough)**
 
   **What to do**:
   - Create `docs/tutorial-eureka-franka.md`:
