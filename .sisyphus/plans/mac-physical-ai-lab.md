@@ -3432,7 +3432,7 @@ Wave classification table:
   - Files: docs/conf.py, docs/index.md, docs/api/*, mcp-server/typedoc.json, .github/workflows/docs.yml
   - Pre-commit: `sphinx-build -W docs/ docs/_build/python`
 
-- [ ] 35. **Extension Points Design Doc (Protocol Interfaces Frozen for v0.1)**
+- [x] 35. **Extension Points Design Doc (Protocol Interfaces Frozen for v0.1)**
 
   **What to do**:
   - Create `docs/extension-points.md`:
@@ -3488,10 +3488,10 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `docs/extension-points.md` exists with sections: Current Extension Points, Future Roadmap, Design Principles
-  - [ ] All current EPs have test coverage (cross-link to T24, T26)
-  - [ ] `tests/integration/test_extension_points.py` asserts NO `class PolicyServer` non-stub impl exists in `src/` (scope-creep canary)
-  - [ ] All snippets in doc execute cleanly
+  - [x] `docs/extension-points.md` exists with sections: Current Extension Points, Future Roadmap, Design Principles
+  - [x] All current EPs have test coverage (cross-link to T24, T26)
+  - [x] `tests/integration/test_extension_points.py` asserts NO `class PolicyServer` non-stub impl exists in `src/` (scope-creep canary)
+  - [x] All snippets in doc execute cleanly
 
   **QA Scenarios**:
 

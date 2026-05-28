@@ -5,5 +5,6 @@
 
 getting-started
 tutorial-eureka-franka
+extension-points
 api/index
 ```

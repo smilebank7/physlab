@@ -1,0 +1,34 @@
+$ uv run pytest tests/integration/test_extension_points.py::test_no_policy_server_or_future_extension_impls_exist -v
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 1 item
+
+tests/integration/test_extension_points.py::test_no_policy_server_or_future_extension_impls_exist FAILED [100%]
+
+=================================== FAILURES ===================================
+____________ test_no_policy_server_or_future_extension_impls_exist _____________
+
+    def test_no_policy_server_or_future_extension_impls_exist() -> None:
+        violations = _future_class_violations() + _future_module_violations()
+
+>       assert violations == []
+E       AssertionError: assert ['src/physlab...b/serving.py'] == []
+E
+E         Left contains 2 more items, first extra item: 'src/physlab/serving.py:1:PolicyServer'
+E
+E         Full diff:
+E         - []
+E         + [
+E         +     'src/physlab/serving.py:1:PolicyServer',
+E         +     'src/physlab/serving.py',
+E         + ]
+
+tests/integration/test_extension_points.py:141: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_extension_points.py::test_no_policy_server_or_future_extension_impls_exist
+============================== 1 failed in 0.08s ===============================
+PolicyServer implementation violation blocked as expected with exit code 1
