@@ -1225,7 +1225,7 @@ Wave classification table:
   - Files: src/<ship_name>/env.py, src/<ship_name>/registry.py, src/<ship_name>/__init__.py (re-exports), tests/unit/test_env.py, tests/unit/test_registry.py
   - Pre-commit: `pytest tests/unit/test_env.py tests/unit/test_registry.py -v`
 
-- [ ] 9. **First Toy Task — Cartpole (Smoke Test)**
+- [x] 9. **First Toy Task — Cartpole (Smoke Test)**
 
   **What to do**:
   - Implement `src/<ship_name>/tasks/cartpole.py`:

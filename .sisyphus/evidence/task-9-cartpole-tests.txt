@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 4 items
+
+tests/integration/test_cartpole.py::test_cartpole_registered PASSED      [ 25%]
+tests/integration/test_cartpole.py::test_cartpole_mujoco_random_policy_smoke PASSED [ 50%]
+tests/integration/test_cartpole.py::test_cartpole_episode_finishes_within_500_steps PASSED [ 75%]
+tests/integration/test_cartpole.py::test_cartpole_reset_is_cpu_deterministic PASSED [100%]
+
+============================== 4 passed in 0.09s ===============================

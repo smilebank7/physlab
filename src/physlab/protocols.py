@@ -44,6 +44,16 @@ class ArraySpec:
             return False
         return not (self.high is not None and bool(np.any(candidate > self.high)))
 
+    def sample(self, rng: np.random.Generator | None = None) -> Array:
+        """Draw a sample respecting finite bounds when they are present."""
+
+        generator = rng if rng is not None else np.random.default_rng()
+        low = self.low if self.low is not None else np.full(self.shape, -1.0)
+        high = self.high if self.high is not None else np.full(self.shape, 1.0)
+        if bool(np.all(np.isfinite(low))) and bool(np.all(np.isfinite(high))):
+            return generator.uniform(low, high).astype(np.dtype(self.dtype), copy=False)
+        return generator.normal(size=self.shape).astype(np.dtype(self.dtype), copy=False)
+
 
 @dataclass(frozen=True)
 class ObsSpec(ArraySpec):
