@@ -603,7 +603,7 @@ Wave classification table:
   - Files: pyproject.toml, mcp-server/package.json, mcp-server/tsconfig.json, src/<ship_name>/__init__.py, LICENSE, README.md, CHANGELOG.md, .gitignore, .editorconfig, biome.json (or .eslintrc + .prettierrc)
   - Pre-commit: `ruff check . && biome check mcp-server/`
 
-- [ ] 3. **GitHub Actions CI Matrix Foundation**
+- [x] 3. **GitHub Actions CI Matrix Foundation**
 
   **What to do**:
   - Create `.github/workflows/ci.yml` with matrix:
@@ -707,7 +707,7 @@ Wave classification table:
   - Files: `.github/workflows/ci.yml`, README.md (badge stub)
   - Pre-commit: `yq eval . .github/workflows/ci.yml > /dev/null`
 
-- [ ] 4. **License Audit Infrastructure**
+- [x] 4. **License Audit Infrastructure**
 
   **What to do**:
   - Add `licensee` (Ruby gem) or `scancode-toolkit` (Python) for license detection — prefer scancode for cross-platform Python alignment
