@@ -1906,7 +1906,7 @@ Wave classification table:
   - Files: src/<ship_name>/llm/client.py, src/<ship_name>/llm/__init__.py, tests/unit/test_llm_client.py
   - Pre-commit: `pytest tests/unit/test_llm_client.py -v`
 
-- [ ] 16. **Research Orchestrator Skeleton (Experiment Loop + Artifact Store)**
+- [x] 16. **Research Orchestrator Skeleton (Experiment Loop + Artifact Store)**
 
   **What to do**:
   - Implement `src/<ship_name>/orchestrator/`:
