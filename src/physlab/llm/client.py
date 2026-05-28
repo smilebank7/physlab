@@ -94,7 +94,8 @@ class MockLLMClient(_CachedClient):
     ) -> None:
         self.canned = canned
         self.call_count = 0
-        super().__init__(cache_dir=cache_dir, run_dir=run_dir, model_id="mock")
+        canned_hash = hashlib.sha256(canned.encode()).hexdigest()[:16]
+        super().__init__(cache_dir=cache_dir, run_dir=run_dir, model_id=f"mock:{canned_hash}")
 
     def name(self) -> str:
         return "mock"

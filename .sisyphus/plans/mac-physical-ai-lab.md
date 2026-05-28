@@ -2004,7 +2004,7 @@ Wave classification table:
   - Files: src/<ship_name>/orchestrator/{__init__.py,__main__.py,run.py,iteration.py,store.py,loop.py}, tests/unit/test_orchestrator.py
   - Pre-commit: `pytest tests/unit/test_orchestrator.py -v`
 
-- [ ] 17. **Reward Function Generator (Eureka-Style Prompt + Code Extraction)**
+- [x] 17. **Reward Function Generator (Eureka-Style Prompt + Code Extraction)**
 
   **What to do**:
   - Implement `src/<ship_name>/orchestrator/reward_gen.py`:
