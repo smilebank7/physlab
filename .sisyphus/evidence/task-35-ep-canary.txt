@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 8 items
+
+tests/integration/test_extension_points.py::test_extension_points_doc_has_required_sections PASSED [ 12%]
+tests/integration/test_extension_points.py::test_current_task_extension_requires_explicit_import PASSED [ 25%]
+tests/integration/test_extension_points.py::test_current_backend_extension_accepts_backend_instance PASSED [ 37%]
+tests/integration/test_extension_points.py::test_current_llm_client_extension_runs_controller PASSED [ 50%]
+tests/integration/test_extension_points.py::test_current_reward_generation_accepts_code_string PASSED [ 62%]
+tests/integration/test_extension_points.py::test_no_policy_server_or_future_extension_impls_exist PASSED [ 75%]
+tests/integration/test_extension_points.py::test_no_auto_discovery_or_entry_points_walk_in_src PASSED [ 87%]
+tests/integration/test_extension_points.py::test_extension_points_doc_python_snippets_execute PASSED [100%]
+
+============================== 8 passed in 0.46s ===============================

@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 4 items
+
+tests/integration/test_workflow_freedom.py::test_importing_physlab_modules_does_not_pull_gui_modules PASSED [ 25%]
+tests/integration/test_workflow_freedom.py::test_hello_cartpole_headless_without_display PASSED [ 50%]
+tests/integration/test_workflow_freedom.py::test_anchor_demo_headless_cached_without_display PASSED [ 75%]
+tests/integration/test_workflow_freedom.py::test_forbidden_module_detector_catches_injected_viewer PASSED [100%]
+
+============================== 4 passed in 5.37s ===============================

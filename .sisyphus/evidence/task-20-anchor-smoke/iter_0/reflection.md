@@ -1,0 +1,1 @@
+worked: distance shaping is stable. failed: grasp timing is still untested. next: keep lift and target terms explicit.

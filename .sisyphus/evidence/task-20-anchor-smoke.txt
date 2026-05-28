@@ -1,0 +1,4 @@
+iteration | success_rate | wall_clock | reward_signature
+0 | 0.1200 | 0.01s | 03e1278047fd8aa51ea6ab23bd4d93d18edf9d367d049f6b18307e6164b49260
+run_dir=runs/smoke
+best_iteration=0 best_success_rate=0.1200

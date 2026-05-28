@@ -1,0 +1,15 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 5 items
+
+tests/integration/test_franka_pick.py::test_franka_pick_registered PASSED [ 20%]
+tests/integration/test_franka_pick.py::test_franka_pick_random_policy_runs_200_steps_quickly PASSED [ 40%]
+tests/integration/test_franka_pick.py::test_franka_pick_random_policy_success_rate_is_low PASSED [ 60%]
+tests/integration/test_franka_pick.py::test_franka_pick_reset_seed_is_cpu_deterministic PASSED [ 80%]
+tests/integration/test_franka_pick.py::test_franka_pick_missing_asset_fails_clearly PASSED [100%]
+
+============================== 5 passed in 1.24s ===============================

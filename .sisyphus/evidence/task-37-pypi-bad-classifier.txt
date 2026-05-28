@@ -1,0 +1,31 @@
+$ export PATH="/Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin:$PATH"
+$ python -m build && twine check dist/*  # with injected invalid classifier
+* Creating isolated environment: virtualenv+pip...
+* Installing packages in isolated environment:
+  - hatchling>=1.27
+* Getting build dependencies for sdist...
+* Building sdist...
+Traceback (most recent call last):
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/lib/python3.11/site-packages/pyproject_hooks/_in_process/_in_process.py", line 389, in <module>
+    main()
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/lib/python3.11/site-packages/pyproject_hooks/_in_process/_in_process.py", line 373, in main
+    json_out["return_val"] = hook(**hook_input["kwargs"])
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/lib/python3.11/site-packages/pyproject_hooks/_in_process/_in_process.py", line 335, in build_sdist
+    return backend.build_sdist(sdist_directory, config_settings)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/build-env-sc78de04/lib/python3.11/site-packages/hatchling/build.py", line 34, in build_sdist
+    return os.path.basename(next(builder.build(directory=sdist_directory, versions=["standard"])))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/build-env-sc78de04/lib/python3.11/site-packages/hatchling/builders/plugin/interface.py", line 92, in build
+    self.metadata.validate_fields()
+  File "/private/var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/build-env-sc78de04/lib/python3.11/site-packages/hatchling/metadata/core.py", line 266, in validate_fields
+    self.core.validate_fields()
+  File "/private/var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/build-env-sc78de04/lib/python3.11/site-packages/hatchling/metadata/core.py", line 1366, in validate_fields
+    getattr(self, attribute)
+  File "/private/var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/build-env-sc78de04/lib/python3.11/site-packages/hatchling/metadata/core.py", line 991, in classifiers
+    raise ValueError(message)
+ValueError: Unknown classifier in field `project.classifiers`: License :: Bogus
+
+ERROR Backend subprocess exited when trying to invoke build_sdist
+invalid classifier blocked as expected with exit code 1

@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 3 items
+
+tests/unit/test_controller.py::test_controller_tracks_and_persists_best_iteration PASSED [ 33%]
+tests/unit/test_controller.py::test_controller_aborts_after_five_consecutive_failures PASSED [ 66%]
+tests/unit/test_controller.py::test_reflection_is_invoked_and_fed_to_next_prompt PASSED [100%]
+
+============================== 3 passed in 0.11s ===============================

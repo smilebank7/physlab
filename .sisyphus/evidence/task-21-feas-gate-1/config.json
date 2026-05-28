@@ -1,0 +1,13 @@
+{
+  "config": {
+    "controller": "iteration",
+    "iterations": 5,
+    "llm": "opencode",
+    "num_rollouts": 5,
+    "seed": 42,
+    "train_steps": 30000
+  },
+  "run_id": "feas-gate-1",
+  "started_at": "feas-gate-1",
+  "task": "franka_pick"
+}

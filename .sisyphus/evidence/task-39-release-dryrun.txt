@@ -1,0 +1,55 @@
+release dry-run
+current_version=0.0.0
+next_version=0.0.1
+would update pyproject.toml and mcp-server/package.json
+would update CHANGELOG.md with commits:
+- chore(release): finalize npm packaging for MCP server [T-38]
+- chore(release): finalize pyproject for PyPI [T-37]
+- feat(examples/plugins): PyPI-installable hello_task plugin + tutorial [T-36]
+- docs(extension-points): freeze v0.1 protocol surface + roadmap [T-35]
+- docs(api): auto-gen Python + TS API reference + linkcheck CI [T-34]
+- docs(tutorial): Eureka-on-Franka step-by-step walkthrough [T-33]
+- docs(readme): v0.1 README + Getting Started [T-32]
+- feat(tasks): add franka_push manipulation variant [T-31]
+- feat(tasks): add ant_stand locomotion task [T-30]
+- ci(freedom): research-freedom cold-start benchmark + regression gate [T-29]
+- ci(freedom): hardware-freedom 3-OS matrix gate + supported-platforms doc [T-28]
+- test(ci): remove rg dependency from extension freedom guard [T-26]
+- ci(freedom): agent-freedom MCP protocol compliance test [T-27]
+- ci(freedom): extension-freedom 50-line explicit-register example [T-26]
+- ci(freedom): workflow-freedom test (headless, no implicit GUI imports) [T-25]
+- ci(freedom): API/backend contract test with 3 implementations [T-24]
+- test(ci): encode license freedom check [T-23]
+- feat(examples): polish anchor demo, add canonical run + cached responses [T-22]
+- chore(gate): T-21 feasibility gate verdict [PASS] [T-21]
+- chore(gate): T-21 feasibility gate verdict [FAIL] [T-21]
+- feat(examples): anchor demo eureka_franka.py wiring [T-20]
+- feat(orchestrator/controller): iteration loop with reflection + abort [T-19]
+- feat(orchestrator/eval): sandboxed reward eval with PPO + safety checks [T-18]
+- feat(orchestrator/reward_gen): Eureka-style prompt + AST-validated extraction [T-17]
+- feat(orchestrator): skeleton experiment loop + artifact store [T-16]
+- feat(training): minimal PPO trainer with MPS support [T-14]
+- feat(llm): add opencode client wrapper with deterministic caching [T-15]
+- feat(tasks): add franka_pick anchor task [T-13]
+- Merge pull request #2 from smilebank7/feat/wave-1c-backends-mcp
+- test(integration): add cartpole vertical slice CLI and MCP paths [T-12]
+- feat(mcp/sim): add sim tools and Python worker [T-11]
+- feat(tasks): add cartpole task smoke target [T-9]
+- feat(env): add Environment and explicit task registry [T-8]
+- feat(wave1c): add backends and MCP skeleton [T-6,T-7,T-10]
+- Merge pull request #1 from smilebank7/feat/task-3-ci
+- chore(evidence): refresh final CI workflow results [T-3,T-4]
+- chore(evidence): record CI and license workflow results [T-3,T-4]
+- ci: preserve system PATH for workflow tools [T-3]
+- ci: use available setup-bun action version [T-3]
+- ci: run base matrix on feature branch pushes [T-3]
+- ci: add base matrix workflow (macOS-14/15, ubuntu-22.04, py3.11/12, node20) [T-3]
+- feat(licenses): add license-audit tooling and CI gate [T-4]
+- feat(protocols): define Backend, Env, Task, ObsSpec, ActionSpec protocols [T-5]
+- chore(scaffold): initialize monorepo with Python core + TS MCP server [T-2]
+- chore(phase-0): record fluency self-assessment, ship name, and scope adjustments [T-1]
+would run pre-flight checks
+pre-flight ok for 0.0.0
+would commit: chore: release v0.0.1
+would create signed tag: v0.0.1
+would push commit and tag

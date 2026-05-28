@@ -1,0 +1,72 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 13 items
+
+tests/integration/test_backend_contract.py::test_reset_determinism[MuJoCoBackend] PASSED [  7%]
+tests/integration/test_backend_contract.py::test_reset_determinism[MockBackend] PASSED [ 15%]
+tests/integration/test_backend_contract.py::test_reset_determinism[TutorialBackend] FAILED [ 23%]
+tests/integration/test_backend_contract.py::test_action_shape_validation[MuJoCoBackend] PASSED [ 30%]
+tests/integration/test_backend_contract.py::test_action_shape_validation[MockBackend] PASSED [ 38%]
+tests/integration/test_backend_contract.py::test_action_shape_validation[TutorialBackend] FAILED [ 46%]
+tests/integration/test_backend_contract.py::test_step_monotonic_time[MuJoCoBackend] PASSED [ 53%]
+tests/integration/test_backend_contract.py::test_step_monotonic_time[MockBackend] PASSED [ 61%]
+tests/integration/test_backend_contract.py::test_step_monotonic_time[TutorialBackend] FAILED [ 69%]
+tests/integration/test_backend_contract.py::test_close_releases[MuJoCoBackend] PASSED [ 76%]
+tests/integration/test_backend_contract.py::test_close_releases[MockBackend] PASSED [ 84%]
+tests/integration/test_backend_contract.py::test_close_releases[TutorialBackend] PASSED [ 92%]
+tests/integration/test_backend_contract.py::test_tutorial_backend_is_short_enough_for_docs PASSED [100%]
+
+=================================== FAILURES ===================================
+___________________ test_reset_determinism[TutorialBackend] ____________________
+
+case = BackendCase(name='TutorialBackend', factory=<class 'tests.fixtures.tutorial_backend.TutorialBackend'>, spec={'nq': 1, 'nv': 1, 'nu': 1}, action=array([0.1]))
+
+    @pytest.mark.parametrize("case", CASES, ids=str)
+    def test_reset_determinism(case: BackendCase) -> None:
+        backend, handle = _load(case)
+        try:
+            first = backend.reset(handle, seed=42).copy()
+>           backend.step(handle, case.action)
+            ^^^^^^^^^^^^
+E           AttributeError: 'TutorialBackend' object has no attribute 'step'
+
+tests/integration/test_backend_contract.py:64: AttributeError
+________________ test_action_shape_validation[TutorialBackend] _________________
+
+case = BackendCase(name='TutorialBackend', factory=<class 'tests.fixtures.tutorial_backend.TutorialBackend'>, spec={'nq': 1, 'nv': 1, 'nu': 1}, action=array([0.1]))
+
+    @pytest.mark.parametrize("case", CASES, ids=str)
+    def test_action_shape_validation(case: BackendCase) -> None:
+        backend, handle = _load(case)
+        try:
+            backend.reset(handle, seed=0)
+            with pytest.raises(ValueError, match=r"expected shape"):
+>               backend.step(handle, np.array([1.0, 2.0, 3.0], dtype=np.float64))
+                ^^^^^^^^^^^^
+E               AttributeError: 'TutorialBackend' object has no attribute 'step'
+
+tests/integration/test_backend_contract.py:77: AttributeError
+__________________ test_step_monotonic_time[TutorialBackend] ___________________
+
+case = BackendCase(name='TutorialBackend', factory=<class 'tests.fixtures.tutorial_backend.TutorialBackend'>, spec={'nq': 1, 'nv': 1, 'nu': 1}, action=array([0.1]))
+
+    @pytest.mark.parametrize("case", CASES, ids=str)
+    def test_step_monotonic_time(case: BackendCase) -> None:
+        backend, handle = _load(case)
+        try:
+            backend.reset(handle, seed=0)
+>           first = backend.step(handle, case.action)
+                    ^^^^^^^^^^^^
+E           AttributeError: 'TutorialBackend' object has no attribute 'step'
+
+tests/integration/test_backend_contract.py:87: AttributeError
+=========================== short test summary info ============================
+FAILED tests/integration/test_backend_contract.py::test_reset_determinism[TutorialBackend]
+FAILED tests/integration/test_backend_contract.py::test_action_shape_validation[TutorialBackend]
+FAILED tests/integration/test_backend_contract.py::test_step_monotonic_time[TutorialBackend]
+========================= 3 failed, 10 passed in 0.08s =========================
+exit_status=1

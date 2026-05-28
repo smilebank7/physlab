@@ -17,6 +17,8 @@ from physlab.protocols import ActionSpec, ObsSpec
 
 @dataclass
 class WorkerState:
+    """Mutable handle registry for one JSONL worker process."""
+
     handles: dict[str, Environment]
 
 
@@ -24,6 +26,8 @@ STATE = WorkerState(handles={})
 
 
 def main() -> int:
+    """Read JSONL MCP worker requests from stdin and write responses."""
+
     for line in sys.stdin:
         if not line.strip():
             continue

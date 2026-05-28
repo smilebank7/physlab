@@ -1,0 +1,17 @@
+{
+  "source_run": "feas-gate-3",
+  "seed": 42,
+  "iterations": 5,
+  "llm": "opencode",
+  "train_steps_per_iter": 30000,
+  "best_success_rate": 1.0,
+  "best_iteration": 0,
+  "created_at": "2026-05-28",
+  "responses": [
+    {"reward": "reward_0.py.txt", "reflection": "reflection_0.md.txt"},
+    {"reward": "reward_1.py.txt", "reflection": "reflection_1.md.txt"},
+    {"reward": "reward_2.py.txt", "reflection": "reflection_2.md.txt"},
+    {"reward": "reward_3.py.txt", "reflection": "reflection_3.md.txt"},
+    {"reward": "reward_4.py.txt", "reflection": "reflection_4.md.txt"}
+  ]
+}

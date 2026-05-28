@@ -1,0 +1,7 @@
+bad=[]
+episode_reward=12.000 steps=13
+| iteration | success_rate | wall_clock | reward_signature |
+| --- | ---: | ---: | --- |
+| 0 | 1.0000 | 4.76s | `a11135172f89e147d6496ffb0733bfc95a86c5033b55e95572f8cc3ea8e445e2` |
+run_dir=runs/t25-headless
+best_iteration=0 best_success_rate=1.0000

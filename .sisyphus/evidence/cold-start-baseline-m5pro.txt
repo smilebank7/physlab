@@ -1,0 +1,6 @@
+mode=full
+host=MacBook-Pro-3.local
+cpu=Apple M5 Pro
+total_seconds=10
+threshold_seconds=120
+result=ok

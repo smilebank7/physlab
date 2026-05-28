@@ -1,0 +1,2 @@
+$ python ../tools/check_licenses.py --all
+Scanned 145 dependencies; 0 violations; project policy ok

@@ -1,0 +1,5 @@
+a_device=cpu
+b_device=cpu
+a_curve=[0.8676, 1.0, 1.0]
+b_curve=[0.8676, 1.0, 1.0]
+max_abs_delta=0.0

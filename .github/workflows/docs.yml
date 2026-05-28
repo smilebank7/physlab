@@ -1,0 +1,64 @@
+name: Docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build docs
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.10"
+      - run: uv venv && uv pip install -e ".[docs]"
+      - run: cd mcp-server && bun install
+      - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" sphinx-build -W docs docs/_build/python
+      - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" sphinx-build -b linkcheck -W docs docs/_build/linkcheck
+      - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" interrogate -c pyproject.toml src/physlab
+      - run: cd mcp-server && bun run docs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docs-html
+          path: |
+            docs/_build/python
+            docs/_build/ts
+
+  deploy:
+    name: Publish GitHub Pages
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: docs-html
+          path: site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

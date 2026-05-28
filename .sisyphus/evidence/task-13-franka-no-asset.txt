@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/registry.py", line 41, in make
+    return Environment(_resolve_backend(backend), _TASKS[name](), seed=seed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/env.py", line 41, in __init__
+    self._handle = self.backend.load_model(_task_model_spec(task))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/backends/mujoco.py", line 28, in load_model
+    source = _model_source(spec)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/backends/mujoco.py", line 136, in _model_source
+    return _ModelSource(spec)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/backends/mujoco.py", line 100, in __init__
+    self.cache_key, self.spec_hash = self._hashes(spec)
+                                     ^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/backends/mujoco.py", line 117, in _hashes
+    body = path.read_bytes()
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhin/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/jhin/Documents/Git/private/playground/isaac-mac/src/physlab/assets/franka_pick.xml'

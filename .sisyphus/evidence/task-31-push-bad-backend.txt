@@ -1,0 +1,1 @@
+OK invalid backend failed clearly: unknown backend 'invalid_backend'; expected 'mujoco' or 'mock'

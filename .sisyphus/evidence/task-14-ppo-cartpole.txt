@@ -1,0 +1,1 @@
+{"device": "cpu", "log_path": "runs/task-14-ppo-cartpole/train.jsonl", "success_rate": 1.0, "total_steps": 200000}

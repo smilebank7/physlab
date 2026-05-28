@@ -1,0 +1,2 @@
+$ uv run python - <<PY
+OK hello_task absent without explicit import

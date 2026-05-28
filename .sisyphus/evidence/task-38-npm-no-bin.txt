@@ -1,0 +1,30 @@
+$ npm pack package with bin removed, install, then npx physlab-mcp-server
+npm notice
+npm notice 📦  @physlab/mcp-server@0.0.0
+npm notice Tarball Contents
+npm notice 1.1kB LICENSE
+npm notice 322B README.md
+npm notice 1.3kB dist/server.d.ts
+npm notice 10.9kB dist/server.js
+npm notice 162B dist/tools/sim.d.ts
+npm notice 516B dist/worker.d.ts
+npm notice 1.5kB package.json
+npm notice Tarball Details
+npm notice name: @physlab/mcp-server
+npm notice version: 0.0.0
+npm notice filename: physlab-mcp-server-0.0.0.tgz
+npm notice package size: 5.5 kB
+npm notice unpacked size: 15.7 kB
+npm notice shasum: 017410989a337d7624455783904366c35347359a
+npm notice integrity: sha512-FqXxc3JYPfPHA[...]Y9PcgHlD5Rcug==
+npm notice total files: 7
+npm notice
+npm error code E404
+npm error 404 Not Found - GET https://registry.npmjs.org/physlab-mcp-server - Not found
+npm error 404
+npm error 404  The requested resource 'physlab-mcp-server@*' could not be found or you do not have permission to access it.
+npm error 404
+npm error 404 Note that you can also install from a
+npm error 404 tarball, folder, http url, or git url.
+npm error A complete log of this run can be found in: /Users/jhin/.npm/_logs/2026-05-28T08_25_46_083Z-debug-0.log
+missing bin blocked npx command as expected with exit code 1

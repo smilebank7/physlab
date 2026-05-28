@@ -1,0 +1,15 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 5 items
+
+tests/unit/test_ppo.py::test_actor_critic_shapes_cpu PASSED              [ 20%]
+tests/unit/test_ppo.py::test_train_writes_jsonl_and_is_seed_deterministic PASSED [ 40%]
+tests/unit/test_ppo.py::test_invalid_task_cli_mentions_registry_error PASSED [ 60%]
+tests/unit/test_ppo.py::test_mps_run_does_not_crash_when_available PASSED [ 80%]
+tests/unit/test_ppo.py::test_ppo_cartpole_converges_within_200k_steps PASSED [100%]
+
+============================== 5 passed in 5.38s ===============================

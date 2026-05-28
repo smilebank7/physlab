@@ -90,17 +90,29 @@ class StepResult:
 class Backend(Protocol):
     """Simulation backend contract."""
 
-    def load_model(self, spec: object) -> ModelHandle: ...
+    def load_model(self, spec: object) -> ModelHandle:
+        """Load a backend-specific model from a task model specification."""
+        ...
 
-    def step(self, handle: ModelHandle, action: Action) -> StepResult: ...
+    def step(self, handle: ModelHandle, action: Action) -> StepResult:
+        """Advance one simulation step with a validated action."""
+        ...
 
-    def reset(self, handle: ModelHandle, seed: int | None = None) -> Observation: ...
+    def reset(self, handle: ModelHandle, seed: int | None = None) -> Observation:
+        """Reset backend state and return the initial observation."""
+        ...
 
-    def close(self, handle: ModelHandle) -> None: ...
+    def close(self, handle: ModelHandle) -> None:
+        """Release or invalidate resources associated with a model handle."""
+        ...
 
-    def name(self) -> str: ...
+    def name(self) -> str:
+        """Return the stable backend name used in diagnostics."""
+        ...
 
-    def is_deterministic_for(self, device: str) -> bool: ...
+    def is_deterministic_for(self, device: str) -> bool:
+        """Return whether the backend is deterministic for a device label."""
+        ...
 
 
 @runtime_checkable
@@ -110,11 +122,17 @@ class Env(Protocol):
     action_space: ActionSpec
     observation_space: ObsSpec
 
-    def reset(self, seed: int | None = None) -> tuple[Observation, Info]: ...
+    def reset(self, seed: int | None = None) -> tuple[Observation, Info]:
+        """Reset the environment and return observation plus info."""
+        ...
 
-    def step(self, action: Action) -> tuple[Observation, float, bool, bool, Info]: ...
+    def step(self, action: Action) -> tuple[Observation, float, bool, bool, Info]:
+        """Apply one action and return the Gymnasium-shaped transition."""
+        ...
 
-    def close(self) -> None: ...
+    def close(self) -> None:
+        """Close the environment and release backend resources."""
+        ...
 
 
 @runtime_checkable
@@ -123,11 +141,17 @@ class Task(Protocol):
 
     name: str
 
-    def make_env(self) -> Env: ...
+    def make_env(self) -> Env:
+        """Create a default environment for this task."""
+        ...
 
-    def success_metric(self, rollout: object) -> float: ...
+    def success_metric(self, rollout: object) -> float:
+        """Compute a normalized success score from a rollout payload."""
+        ...
 
-    def reward_signature(self) -> str: ...
+    def reward_signature(self) -> str:
+        """Describe the task reward contract in a compact text form."""
+        ...
 
 
 @runtime_checkable
@@ -147,7 +171,9 @@ class RewardFunction(Protocol):
 class PolicyServer(Protocol):
     """Minimal policy-serving boundary; implementation is deferred."""
 
-    def act(self, observation: Observation, info: Info | None = None) -> Action: ...
+    def act(self, observation: Observation, info: Info | None = None) -> Action:
+        """Return one action for an observation at the policy boundary."""
+        ...
 
 
 __all__ = [

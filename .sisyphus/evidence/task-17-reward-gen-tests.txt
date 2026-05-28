@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 4 items
+
+tests/unit/test_reward_gen.py::test_generate_reward_extracts_good_python_block PASSED [ 25%]
+tests/unit/test_reward_gen.py::test_generate_reward_rejects_forbidden_import PASSED [ 50%]
+tests/unit/test_reward_gen.py::test_generate_reward_reports_parse_error_for_malformed_response PASSED [ 75%]
+tests/unit/test_reward_gen.py::test_prompt_includes_task_specs_and_prior_attempts PASSED [100%]
+
+============================== 4 passed in 0.09s ===============================

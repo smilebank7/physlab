@@ -1,0 +1,11 @@
+$ uv pip install -e examples/plugins/hello_task
+Resolved 19 packages in 3ms
+   Building physlab-hello-task @ file:///Users/jhin/Documents/Git/private/playground/isaac-mac/examples/plugins/hello_task
+      Built physlab-hello-task @ file:///Users/jhin/Documents/Git/private/playground/isaac-mac/examples/plugins/hello_task
+Prepared 1 package in 144ms
+Uninstalled 1 package in 0.43ms
+Installed 1 package in 0.95ms
+ ~ physlab-hello-task==0.0.0 (from file:///Users/jhin/Documents/Git/private/playground/isaac-mac/examples/plugins/hello_task)
+
+$ uv run python - <<PY
+OK hello_task registered and ran 10 steps

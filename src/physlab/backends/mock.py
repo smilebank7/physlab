@@ -40,6 +40,8 @@ class MockBackend:
         self._closed: set[str] = set()
 
     def load_model(self, spec: object) -> ModelHandle:
+        """Create a deterministic linear model from a dictionary spec."""
+
         config = dict(spec) if isinstance(spec, dict) else {}
         nq = int(config.get("nq", 1))
         nv = int(config.get("nv", nq))
@@ -71,6 +73,8 @@ class MockBackend:
         )
 
     def reset(self, handle: ModelHandle, seed: int | None = None) -> Observation:
+        """Reset mock state, optionally adding deterministic seed jitter."""
+
         self._ensure_open(handle)
         model = _as_model(handle.model)
         data = _as_data(handle.data)
@@ -85,6 +89,8 @@ class MockBackend:
         return _observation(data)
 
     def step(self, handle: ModelHandle, action: Action) -> StepResult:
+        """Advance the linear mock dynamics by one fixed time step."""
+
         self._ensure_open(handle)
         model = _as_model(handle.model)
         data = _as_data(handle.data)
@@ -107,12 +113,18 @@ class MockBackend:
         )
 
     def close(self, handle: ModelHandle) -> None:
+        """Mark a model handle closed for future safety checks."""
+
         self._closed.add(handle.model_id)
 
     def name(self) -> str:
+        """Return the backend registry name."""
+
         return "mock"
 
     def is_deterministic_for(self, device: str) -> bool:
+        """Report deterministic support for CPU execution."""
+
         return device == "cpu"
 
     def _ensure_open(self, handle: ModelHandle) -> None:

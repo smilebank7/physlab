@@ -1,0 +1,15 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.14, pytest-9.0.3, pluggy-1.6.0 -- /Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/jhin/Documents/Git/private/playground/isaac-mac
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 6 items / 1 deselected / 5 selected
+
+tests/integration/test_evaluator.py::test_evaluate_nan_reward_returns_error PASSED [ 20%]
+tests/integration/test_evaluator.py::test_evaluate_forbidden_import_rejected_before_training PASSED [ 40%]
+tests/integration/test_evaluator.py::test_evaluate_timeout_kills_subprocess PASSED [ 60%]
+tests/integration/test_evaluator.py::test_reward_code_never_executes_in_main_process PASSED [ 80%]
+tests/integration/test_evaluator.py::test_baseline_reward_file_matches_expected_contract PASSED [100%]
+
+======================= 5 passed, 1 deselected in 2.45s ========================

@@ -1,0 +1,4 @@
+$ export PATH="/Users/jhin/Documents/Git/private/playground/isaac-mac/.venv/bin:$PATH"
+$ interrogate --fail-under 100 --ignore-init-module --ignore-magic --ignore-private --ignore-semiprivate --ignore-nested-functions /var/folders/17/807f1j_90jj671p47ybvjrt40000gn/T/tmp.3BTT3tXgFm/pkg
+RESULT: FAILED (minimum: 100.0%, actual: 50.0%)
+missing docstring gate blocked as expected with exit code 1

@@ -1607,7 +1607,7 @@ Wave classification table:
   - Files: examples/hello_cartpole.py, examples/hello_cartpole_via_mcp.ts, tests/integration/test_vertical_slice.py
   - Pre-commit: `pytest tests/integration/test_vertical_slice.py -v`
 
-- [ ] 13. **Franka Pick-Place Task (Anchor Demo Target)**
+- [x] 13. **Franka Pick-Place Task (Anchor Demo Target)**
 
   **What to do**:
   - Implement `src/<ship_name>/tasks/franka_pick.py` + `assets/franka_pick.xml`
@@ -1709,7 +1709,7 @@ Wave classification table:
   - Files: src/<ship_name>/tasks/franka_pick.py, src/<ship_name>/assets/franka_pick.xml, tests/integration/test_franka_pick.py, NOTICE (Franka Menagerie attribution)
   - Pre-commit: `pytest tests/integration/test_franka_pick.py -v`
 
-- [ ] 14. **Minimal RL Trainer (PPO, Small-Scale)**
+- [x] 14. **Minimal RL Trainer (PPO, Small-Scale)**
 
   **What to do**:
   - Implement `src/<ship_name>/training/ppo.py`:
@@ -1802,7 +1802,7 @@ Wave classification table:
   - Files: src/<ship_name>/training/ppo.py, src/<ship_name>/training/__init__.py, tests/unit/test_ppo.py
   - Pre-commit: `ruff check . && pytest tests/unit/test_ppo.py -v -m "not slow"`
 
-- [ ] 15. **LLM Client Wrapper (opencode Integration)**
+- [x] 15. **LLM Client Wrapper (opencode Integration)**
 
   **What to do**:
   - Implement `src/<ship_name>/llm/client.py`:
@@ -1906,7 +1906,7 @@ Wave classification table:
   - Files: src/<ship_name>/llm/client.py, src/<ship_name>/llm/__init__.py, tests/unit/test_llm_client.py
   - Pre-commit: `pytest tests/unit/test_llm_client.py -v`
 
-- [ ] 16. **Research Orchestrator Skeleton (Experiment Loop + Artifact Store)**
+- [x] 16. **Research Orchestrator Skeleton (Experiment Loop + Artifact Store)**
 
   **What to do**:
   - Implement `src/<ship_name>/orchestrator/`:
@@ -2004,7 +2004,7 @@ Wave classification table:
   - Files: src/<ship_name>/orchestrator/{__init__.py,__main__.py,run.py,iteration.py,store.py,loop.py}, tests/unit/test_orchestrator.py
   - Pre-commit: `pytest tests/unit/test_orchestrator.py -v`
 
-- [ ] 17. **Reward Function Generator (Eureka-Style Prompt + Code Extraction)**
+- [x] 17. **Reward Function Generator (Eureka-Style Prompt + Code Extraction)**
 
   **What to do**:
   - Implement `src/<ship_name>/orchestrator/reward_gen.py`:
@@ -2106,7 +2106,7 @@ Wave classification table:
   - Files: src/<ship_name>/orchestrator/reward_gen.py, src/<ship_name>/orchestrator/prompts/reward_gen.md, tests/unit/test_reward_gen.py
   - Pre-commit: `pytest tests/unit/test_reward_gen.py -v`
 
-- [ ] 18. **Reward Sandbox + Evaluator (Rollout-Based Scoring)**
+- [x] 18. **Reward Sandbox + Evaluator (Rollout-Based Scoring)**
 
   **What to do**:
   - Implement `src/<ship_name>/orchestrator/evaluator.py`:
@@ -2212,7 +2212,7 @@ Wave classification table:
   - Files: src/<ship_name>/orchestrator/evaluator.py, src/<ship_name>/tasks/cartpole_baseline_reward.py, tests/integration/test_evaluator.py
   - Pre-commit: `pytest tests/integration/test_evaluator.py -v -m "not slow"`
 
-- [ ] 19. **Iteration Controller (Best-Reward Tracking + Reflection)**
+- [x] 19. **Iteration Controller (Best-Reward Tracking + Reflection)**
 
   **What to do**:
   - Implement `src/<ship_name>/orchestrator/controller.py`:
@@ -2296,7 +2296,7 @@ Wave classification table:
   - Files: src/<ship_name>/orchestrator/controller.py, src/<ship_name>/orchestrator/prompts/reflection.md, tests/unit/test_controller.py, tests/fixtures/{improving_rewards,all_failures}.json
   - Pre-commit: `pytest tests/unit/test_controller.py -v`
 
-- [ ] 20. **Anchor Demo Script — `examples/eureka_franka.py`**
+- [x] 20. **Anchor Demo Script — `examples/eureka_franka.py`**
 
   **What to do**:
   - Wire T13-19 into the canonical demo:
@@ -2376,7 +2376,7 @@ Wave classification table:
   - Files: examples/eureka_franka.py, examples/README.md, tests/integration/test_eureka_franka_smoke.py
   - Pre-commit: `pytest tests/integration/test_eureka_franka_smoke.py -v`
 
-- [ ] 21. **⚡ DEMO FEASIBILITY GATE (Mid-Week 5, BLOCKING)**
+- [x] 21. **⚡ DEMO FEASIBILITY GATE (Mid-Week 5, BLOCKING)**
 
   **What to do**:
   - This task is a **GATE**, not a feature. It is a measurement + decision task.
@@ -2471,7 +2471,7 @@ Wave classification table:
   - Files: `.sisyphus/evidence/task-21-feasibility-gate.md`, possibly tuned `examples/eureka_franka.py` defaults
   - Pre-commit: `cat .sisyphus/evidence/task-21-feasibility-gate.md | grep -q "VERDICT:"`
 
-- [ ] 22. **Anchor Demo Final Polish + Evidence Capture**
+- [x] 22. **Anchor Demo Final Polish + Evidence Capture**
 
   **What to do**:
   - Apply tuning from T21 if any
@@ -2557,7 +2557,7 @@ Wave classification table:
   - Files: examples/eureka_franka.py (tuning), examples/anchor_demo_cache/*.json, runs/anchor-v0.1-canonical/ (or reference), README.md updates, .sisyphus/evidence/anchor-demo-recording.cast
   - Pre-commit: `pytest tests/integration/test_eureka_franka_smoke.py -v`
 
-- [ ] 23. **CI Test #1: License Freedom (Encoded)**
+- [x] 23. **CI Test #1: License Freedom (Encoded)**
 
   **What to do**:
   - Enhance `tools/check_licenses.py` (from T4) to be the canonical "License Freedom" check
@@ -2626,7 +2626,7 @@ Wave classification table:
   - Files: tools/check_licenses.py (updates), .github/workflows/licenses.yml (updates), mcp-server/package.json (script)
   - Pre-commit: `bun run check:licenses`
 
-- [ ] 24. **CI Test #2: API/Backend Freedom (Contract Test in CI)**
+- [x] 24. **CI Test #2: API/Backend Freedom (Contract Test in CI)**
 
   **What to do**:
   - Ensure `tests/integration/test_backend_contract.py` (from T7) runs in CI matrix
@@ -2689,7 +2689,7 @@ Wave classification table:
   - Files: tests/integration/test_backend_contract.py (extend), tests/fixtures/tutorial_backend.py
   - Pre-commit: `pytest tests/integration/test_backend_contract.py -v`
 
-- [ ] 25. **CI Test #3: Workflow Freedom (Headless / Scriptable / CI-Friendly)**
+- [x] 25. **CI Test #3: Workflow Freedom (Headless / Scriptable / CI-Friendly)**
 
   **What to do**:
   - Add `tests/integration/test_workflow_freedom.py`:
@@ -2755,7 +2755,7 @@ Wave classification table:
   - Files: tests/integration/test_workflow_freedom.py
   - Pre-commit: `pytest tests/integration/test_workflow_freedom.py -v`
 
-- [ ] 26. **CI Test #4: Extension Freedom (50-Line Explicit-Registration Example)**
+- [x] 26. **CI Test #4: Extension Freedom (50-Line Explicit-Registration Example)**
 
   **What to do**:
   - Create `examples/plugins/hello_task/`:
@@ -2847,7 +2847,7 @@ Wave classification table:
   - Files: examples/plugins/hello_task/{hello_task.py,pyproject.toml,README.md}, tests/integration/test_extension_freedom.py
   - Pre-commit: `pytest tests/integration/test_extension_freedom.py -v && ! grep -rE "entry_points" src/<ship_name>/`
 
-- [ ] 27. **CI Test #5: Agent/LLM Freedom (MCP Protocol Compliance)**
+- [x] 27. **CI Test #5: Agent/LLM Freedom (MCP Protocol Compliance)**
 
   **What to do**:
   - Add `tests/integration/test_agent_freedom.py`:
@@ -2930,7 +2930,7 @@ Wave classification table:
   - Files: tests/integration/test_agent_freedom.py, mcp-server/tests/protocol_compliance.test.ts (TS side)
   - Pre-commit: `pytest tests/integration/test_agent_freedom.py -v`
 
-- [ ] 28. **CI Test #6: Hardware Freedom (Matrix Green Across 3 OS)**
+- [x] 28. **CI Test #6: Hardware Freedom (Matrix Green Across 3 OS)**
 
   **What to do**:
   - Verify GitHub Actions matrix (from T3) runs all of: tests, license check, contract, headless, agent, extension on `macos-14`, `macos-15`, `ubuntu-22.04`
@@ -2995,7 +2995,7 @@ Wave classification table:
   - Files: .github/workflows/ci.yml (gate enforcement), README.md (Supported Platforms section), CONTRIBUTING.md (branch protection note)
   - Pre-commit: `yq eval . .github/workflows/ci.yml > /dev/null`
 
-- [ ] 29. **CI Test #7: Research Freedom (Cold-Start Benchmark ≤120s on M5 Pro)**
+- [x] 29. **CI Test #7: Research Freedom (Cold-Start Benchmark ≤120s on M5 Pro)**
 
   **What to do**:
   - Add `tests/integration/test_research_freedom.py` and `scripts/cold_start_bench.sh`:
@@ -3070,7 +3070,7 @@ Wave classification table:
   - Files: scripts/cold_start_bench.sh, tests/integration/test_research_freedom.py, .github/workflows/cold-start.yml, .sisyphus/evidence/cold-start-baseline-m5pro.txt
   - Pre-commit: `bash scripts/cold_start_bench.sh --quick`
 
-- [ ] 30. **Second High-Quality Task — Locomotion (Quadruped Stand or Hop)**
+- [x] 30. **Second High-Quality Task — Locomotion (Quadruped Stand or Hop)**
 
   **What to do**:
   - Add `src/<ship_name>/tasks/locomotion.py` + MJCF: pick `ant` (smaller, simpler from mujoco_menagerie) or `quadruped` standing task
@@ -3150,7 +3150,7 @@ Wave classification table:
   - Files: src/<ship_name>/tasks/locomotion.py, src/<ship_name>/assets/ant.xml, tests/integration/test_locomotion.py, NOTICE update
   - Pre-commit: `pytest tests/integration/test_locomotion.py -v`
 
-- [ ] 31. **Third High-Quality Task — Manipulation Variant (Franka Push or Drawer-Open)**
+- [x] 31. **Third High-Quality Task — Manipulation Variant (Franka Push or Drawer-Open)**
 
   **What to do**:
   - Add `src/<ship_name>/tasks/franka_push.py` (or `franka_drawer.py`) + asset
@@ -3212,7 +3212,7 @@ Wave classification table:
   - Files: src/<ship_name>/tasks/franka_push.py, src/<ship_name>/assets/franka_push.xml, tests/integration/test_franka_push.py
   - Pre-commit: `pytest tests/integration/test_franka_push.py -v`
 
-- [ ] 32. **Documentation — README + Getting Started**
+- [x] 32. **Documentation — README + Getting Started**
 
   **What to do**:
   - Polish `README.md`:
@@ -3294,7 +3294,7 @@ Wave classification table:
   - Files: README.md, docs/getting-started.md, tests/integration/test_readme_snippets.py
   - Pre-commit: `pytest tests/integration/test_readme_snippets.py -v`
 
-- [ ] 33. **Documentation — Tutorial (Eureka-on-Franka Walkthrough)**
+- [x] 33. **Documentation — Tutorial (Eureka-on-Franka Walkthrough)**
 
   **What to do**:
   - Create `docs/tutorial-eureka-franka.md`:
@@ -3362,7 +3362,7 @@ Wave classification table:
   - Files: docs/tutorial-eureka-franka.md
   - Pre-commit: `pytest tests/integration/test_readme_snippets.py -v`
 
-- [ ] 34. **Documentation — Auto-Generated API Reference**
+- [x] 34. **Documentation — Auto-Generated API Reference**
 
   **What to do**:
   - Set up Sphinx (Python) + TypeDoc (TS):
@@ -3399,11 +3399,11 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `cd docs && sphinx-build -W .` succeeds (warnings as errors)
-  - [ ] `cd mcp-server && bun run docs` builds TS docs
-  - [ ] `sphinx-linkcheck` passes (no broken links)
-  - [ ] Docstring coverage ≥80% (measured by interrogate or similar)
-  - [ ] Docs publish on release tag via GitHub Pages
+  - [x] `cd docs && sphinx-build -W .` succeeds (warnings as errors)
+  - [x] `cd mcp-server && bun run docs` builds TS docs
+  - [x] `sphinx-linkcheck` passes (no broken links)
+  - [x] Docstring coverage ≥80% (measured by interrogate or similar)
+  - [x] Docs publish on release tag via GitHub Pages
 
   **QA Scenarios**:
 
@@ -3432,7 +3432,7 @@ Wave classification table:
   - Files: docs/conf.py, docs/index.md, docs/api/*, mcp-server/typedoc.json, .github/workflows/docs.yml
   - Pre-commit: `sphinx-build -W docs/ docs/_build/python`
 
-- [ ] 35. **Extension Points Design Doc (Protocol Interfaces Frozen for v0.1)**
+- [x] 35. **Extension Points Design Doc (Protocol Interfaces Frozen for v0.1)**
 
   **What to do**:
   - Create `docs/extension-points.md`:
@@ -3488,10 +3488,10 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `docs/extension-points.md` exists with sections: Current Extension Points, Future Roadmap, Design Principles
-  - [ ] All current EPs have test coverage (cross-link to T24, T26)
-  - [ ] `tests/integration/test_extension_points.py` asserts NO `class PolicyServer` non-stub impl exists in `src/` (scope-creep canary)
-  - [ ] All snippets in doc execute cleanly
+  - [x] `docs/extension-points.md` exists with sections: Current Extension Points, Future Roadmap, Design Principles
+  - [x] All current EPs have test coverage (cross-link to T24, T26)
+  - [x] `tests/integration/test_extension_points.py` asserts NO `class PolicyServer` non-stub impl exists in `src/` (scope-creep canary)
+  - [x] All snippets in doc execute cleanly
 
   **QA Scenarios**:
 
@@ -3520,7 +3520,7 @@ Wave classification table:
   - Files: docs/extension-points.md, tests/integration/test_extension_points.py
   - Pre-commit: `pytest tests/integration/test_extension_points.py -v`
 
-- [ ] 36. **Hello-World Plugin Example (PyPI-Installable)**
+- [x] 36. **Hello-World Plugin Example (PyPI-Installable)**
 
   **What to do**:
   - Build on T26 example: package the `hello_task` plugin as a standalone PyPI-installable demo project under `examples/plugins/hello_task/`:
@@ -3553,11 +3553,11 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `python -m build examples/plugins/hello_task/` produces a valid wheel
-  - [ ] Wheel installs cleanly in fresh venv: `pip install dist/hello_task-*.whl`
-  - [ ] After install AND explicit `import hello_task`, `<ship_name>.list_tasks()` includes it
-  - [ ] After install WITHOUT explicit import, `list_tasks()` does NOT include it (proves no auto-discovery)
-  - [ ] `examples/plugins/README.md` is a complete tutorial documenting the "import-and-register" pattern
+  - [x] `python -m build examples/plugins/hello_task/` produces a valid wheel
+  - [x] Wheel installs cleanly in fresh venv: `pip install dist/hello_task-*.whl`
+  - [x] After install AND explicit `import hello_task`, `<ship_name>.list_tasks()` includes it
+  - [x] After install WITHOUT explicit import, `list_tasks()` does NOT include it (proves no auto-discovery)
+  - [x] `examples/plugins/README.md` is a complete tutorial documenting the "import-and-register" pattern
 
   **QA Scenarios**:
 
@@ -3590,7 +3590,7 @@ Wave classification table:
   - Files: examples/plugins/hello_task/pyproject.toml (build-system additions), examples/plugins/README.md
   - Pre-commit: `python -m build examples/plugins/hello_task/`
 
-- [ ] 37. **PyPI Packaging Setup**
+- [x] 37. **PyPI Packaging Setup**
 
   **What to do**:
   - Finalize `pyproject.toml` for PyPI release:
@@ -3630,10 +3630,10 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `python -m build` produces wheel + sdist with no warnings
-  - [ ] `twine check dist/*` passes
-  - [ ] Wheel installs in fresh venv and runs CLI commands
-  - [ ] Classifiers and metadata complete (no "UNKNOWN" fields)
+  - [x] `python -m build` produces wheel + sdist with no warnings
+  - [x] `twine check dist/*` passes
+  - [x] Wheel installs in fresh venv and runs CLI commands
+  - [x] Classifiers and metadata complete (no "UNKNOWN" fields)
 
   **QA Scenarios**:
 
@@ -3662,7 +3662,7 @@ Wave classification table:
   - Files: pyproject.toml, MANIFEST.in, .github/workflows/release.yml
   - Pre-commit: `python -m build && twine check dist/*`
 
-- [ ] 38. **npm Packaging Setup (MCP Server)**
+- [x] 38. **npm Packaging Setup (MCP Server)**
 
   **What to do**:
   - Finalize `mcp-server/package.json` for npm publish:
@@ -3704,10 +3704,10 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `cd mcp-server && bun run build` produces `dist/server.js` + types
-  - [ ] `npm pack` produces a `.tgz` (or bun's equivalent); inspect via `tar -tzf` — only `dist/` + `README.md` + `package.json` + `LICENSE`
-  - [ ] Installable in fresh node project; CLI bin `<ship_name>-mcp-server` works
-  - [ ] No source maps shipped (or only `.d.ts.map` / cleaned source maps)
+  - [x] `cd mcp-server && bun run build` produces `dist/server.js` + types
+  - [x] `npm pack` produces a `.tgz` (or bun's equivalent); inspect via `tar -tzf` — only `dist/` + `README.md` + `package.json` + `LICENSE`
+  - [x] Installable in fresh node project; CLI bin `<ship_name>-mcp-server` works
+  - [x] No source maps shipped (or only `.d.ts.map` / cleaned source maps)
 
   **QA Scenarios**:
 
@@ -3738,7 +3738,7 @@ Wave classification table:
   - Files: mcp-server/package.json, mcp-server/tsconfig.build.json, .github/workflows/release.yml (additions)
   - Pre-commit: `cd mcp-server && bun run build && npm pack --dry-run`
 
-- [ ] 39. **Release Process Automation (Semver Bump, CHANGELOG, Signed Tag)**
+- [x] 39. **Release Process Automation (Semver Bump, CHANGELOG, Signed Tag)**
 
   **What to do**:
   - Create `scripts/release.sh`:
@@ -3780,10 +3780,10 @@ Wave classification table:
 
   **Acceptance Criteria**:
 
-  - [ ] `scripts/release.sh --dry-run --bump=patch` walks through all steps without publishing
-  - [ ] CHANGELOG.md updated with valid Keep-a-Changelog format
-  - [ ] Tag created with valid SemVer
-  - [ ] Release GHA workflow can be triggered via `workflow_dispatch` (manual)
+  - [x] `scripts/release.sh --dry-run --bump=patch` walks through all steps without publishing
+  - [x] CHANGELOG.md updated with valid Keep-a-Changelog format
+  - [x] Tag created with valid SemVer
+  - [x] Release GHA workflow can be triggered via `workflow_dispatch` (manual)
 
   **QA Scenarios**:
 

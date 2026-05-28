@@ -1,0 +1,10 @@
+{
+  "config": {
+    "iterations": 3,
+    "llm": "mock",
+    "seed": 42
+  },
+  "run_id": "test-run",
+  "started_at": "test-run",
+  "task": "franka_pick"
+}

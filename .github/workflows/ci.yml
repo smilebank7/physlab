@@ -32,10 +32,30 @@ jobs:
       - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" mypy src/
       - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" pytest -v --cov=physlab --cov-report=xml
       - run: cd mcp-server && bun test
+      - run: cd mcp-server && bun run build && npm pack --dry-run
       - uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.os }}-py${{ matrix.python-version }}
           path: coverage.xml
+
+  hardware-freedom:
+    name: Hardware freedom / 3 OS matrix
+    runs-on: ubuntu-22.04
+    needs: test
+    if: ${{ always() }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Assert supported OS matrix is complete and green
+        run: |
+          python tools/check_hardware_matrix.py .github/workflows/ci.yml
+          if [ "${{ needs.test.result }}" != "success" ]; then
+            echo "::error::hardware freedom requires macos-14, macos-15, and ubuntu-22.04 matrix success"
+            exit 1
+          fi
+          echo "hardware freedom matrix green: macos-14, macos-15, ubuntu-22.04"
 
   license-audit:
     name: License audit
@@ -52,3 +72,19 @@ jobs:
       - run: uv venv && uv pip install -e ".[dev]"
       - run: cd mcp-server && bun install
       - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$GITHUB_WORKSPACE/mcp-server/node_modules/.bin:$PATH" python tools/check_licenses.py
+
+  plugin-example:
+    name: hello_task plugin package
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v7
+      - run: uv venv && uv pip install -e ".[dev]"
+      - run: PATH="$GITHUB_WORKSPACE/.venv/bin:$PATH" python -m build examples/plugins/hello_task
+      - run: python -m venv /tmp/physlab-plugin-test
+      - run: /tmp/physlab-plugin-test/bin/pip install "$GITHUB_WORKSPACE" examples/plugins/hello_task/dist/hello_task-*.whl
+      - run: /tmp/physlab-plugin-test/bin/python -c "from physlab import list_tasks; assert 'hello_task' not in list_tasks(); print('OK')"
+      - run: /tmp/physlab-plugin-test/bin/python -c "import hello_task; from physlab import list_tasks, make; assert 'hello_task' in list_tasks(); env = make('hello_task'); env.close(); print('OK')"
