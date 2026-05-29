@@ -1,0 +1,18 @@
+Task 41 demo site scope cut
+
+Date: 2026-05-29
+
+Phase 0 scope adjustment:
+`.sisyphus/evidence/phase-0-assessment.md` records:
+
+- MCP server building score: 0
+- Scope adjustment: "MCP: extend Tasks 10-11 by 3 days and cut Task 41."
+
+Decision:
+Task 41 is intentionally cut from v0.1 by the Phase 0 gate. No demo site is
+implemented, deployed, or claimed for v0.1.
+
+Verification:
+- No `site/` implementation was added.
+- Docs and README link to package/docs/roadmap surfaces instead of claiming a
+  standalone demo site.

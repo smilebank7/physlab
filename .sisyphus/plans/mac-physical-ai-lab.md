@@ -3884,7 +3884,7 @@ Wave classification table:
   - Files: pyproject.toml (version), mcp-server/package.json (version), CHANGELOG.md (release entry)
   - Pre-commit: `bash scripts/release.sh --pre-flight-check`
 
-- [ ] 41. **Demo Site (Static Site with Embedded Demo)**
+- [x] 41. **Demo Site (Static Site with Embedded Demo) — CUT by Phase 0**
 
   **What to do**:
   - Create static site at `site/` (Astro, Eleventy, or just plain HTML+CSS — choose lightest):
