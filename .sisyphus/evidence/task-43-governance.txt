@@ -1,0 +1,32 @@
+Command:
+for f in RUNBOOK.md CONTRIBUTING.md CODE_OF_CONDUCT.md .github/ISSUE_TEMPLATE/bug.yml .github/ISSUE_TEMPLATE/feature.yml .github/ISSUE_TEMPLATE/plugin-question.yml .github/PULL_REQUEST_TEMPLATE.md; do test -f "$f" || { echo "missing $f"; exit 1; }; done; printf 'QA: PASS governance docs and templates present\n'
+
+Output:
+QA: PASS governance docs and templates present
+
+Command:
+uv run python local markdown link check
+
+Output:
+QA: PASS local markdown links resolve
+
+Command:
+PATH="$PWD/.venv/bin:$PATH" sphinx-build -W docs docs/_build/python
+
+Output:
+build succeeded.
+
+Command:
+npx --yes markdownlint-cli2 RUNBOOK.md CONTRIBUTING.md CODE_OF_CONDUCT.md README.md .github/PULL_REQUEST_TEMPLATE.md
+
+Output:
+markdownlint-cli2 v0.22.1 (markdownlint v0.40.0)
+Summary: 0 error(s)
+
+Command:
+gh issue create --title "[Bug]: T43 governance template smoke" --body-file "$tmp_body" --label bug
+gh issue close "$url" --comment "Governance template smoke completed for T43."
+
+Output:
+Closed issue smilebank7/physlab#4 ([Bug]: T43 governance template smoke)
+QA: PASS test issue created and closed: https://github.com/smilebank7/physlab/issues/4

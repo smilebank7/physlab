@@ -7,7 +7,8 @@
 ![npm](https://img.shields.io/badge/npm-planned-lightgrey.svg)
 ![Docs](https://img.shields.io/badge/docs-local-blue.svg)
 
-Mac-native physical AI experiments with MuJoCo, local reward iteration, and an MCP tool surface.
+Mac-native physical AI experiments with MuJoCo, local reward iteration, and an
+MCP tool surface.
 
 Status: alpha, v0.1 in progress. The current branch has the Franka anchor demo,
 three built-in tasks (`franka_pick`, `ant_stand`, `franka_push`), and CI checks
@@ -27,7 +28,8 @@ the editable install above. For the longer local anchor replay:
 
 ```bash
 rm -rf runs/readme-smoke
-uv run python examples/eureka_franka.py --headless --iterations=1 --llm=mock --seed=42 --run-id=readme-smoke
+uv run python examples/eureka_franka.py --headless --iterations=1 \
+  --llm=mock --seed=42 --run-id=readme-smoke
 ```
 
 ## Why This Exists
@@ -111,5 +113,7 @@ These are deferred features, not v0.1 capabilities. See the
 ## Contributing
 
 Start with [docs/getting-started.md](docs/getting-started.md), then read
-[CONTRIBUTING.md](CONTRIBUTING.md). The project is MIT licensed; see
+[CONTRIBUTING.md](CONTRIBUTING.md). Maintainer practice is documented in
+[RUNBOOK.md](RUNBOOK.md), and project conduct expectations are in
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). The project is MIT licensed; see
 [LICENSE](LICENSE) and [NOTICE](NOTICE).

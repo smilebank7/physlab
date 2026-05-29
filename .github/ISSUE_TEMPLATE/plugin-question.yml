@@ -1,0 +1,28 @@
+name: Extension question
+description: Ask about v0.1 explicit-registration extension points.
+title: "[Extension]: "
+labels: ["question"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What task, backend, or tool are you trying to register?
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Current code
+      description: Share the smallest explicit-registration snippet.
+      render: python
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: v0.1 constraints
+      options:
+        - label: I am not asking for auto-discovery or plug-in lifecycle machinery.
+          required: true
+        - label: I read docs/extension-points.md.
+          required: true
+

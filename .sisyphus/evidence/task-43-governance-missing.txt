@@ -1,0 +1,7 @@
+Command:
+tmp="$(mktemp -d)"; cp -R RUNBOOK.md CONTRIBUTING.md CODE_OF_CONDUCT.md .github "$tmp/"; rm "$tmp/CODE_OF_CONDUCT.md"; (cd "$tmp" && for f in RUNBOOK.md CONTRIBUTING.md CODE_OF_CONDUCT.md .github/ISSUE_TEMPLATE/bug.yml .github/PULL_REQUEST_TEMPLATE.md; do test -f "$f" || { echo "missing $f"; exit 1; }; done); rc=$?; rm -rf "$tmp"; test "$rc" -ne 0 && printf 'QA: PASS missing governance file detected\n'
+
+Output:
+missing CODE_OF_CONDUCT.md
+QA: PASS missing governance file detected
+

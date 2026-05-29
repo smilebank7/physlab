@@ -4037,7 +4037,7 @@ Wave classification table:
   - Files: `.sisyphus/evidence/task-42-isaaclab-decision.md`, optionally `examples/isaaclab-compat/*` or `docs/roadmap.md` update
   - Pre-commit: `cat .sisyphus/evidence/task-42-isaaclab-decision.md | grep -q "DECISION:"`
 
-- [ ] 43. **Post-Release Runbook (Issue Triage, Breaking Changes Policy, Contributor Guide)**
+- [x] 43. **Post-Release Runbook (Issue Triage, Breaking Changes Policy, Contributor Guide)**
 
   **What to do**:
   - Create `RUNBOOK.md`:
