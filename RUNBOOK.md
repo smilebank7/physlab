@@ -25,6 +25,10 @@ v0.1 line.
    uv run python tools/check_release_readiness.py --repo smilebank7/physlab
    ```
 
+   Tag pushes build and validate release artifacts, but public PyPI/npm publish
+   jobs require a manual `workflow_dispatch` run on the release tag plus the
+   `pypi` and `npm` environment approvals.
+
    Follow the registry docs for
    [PyPI trusted publishing](https://docs.pypi.org/trusted-publishers/) and
    [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).

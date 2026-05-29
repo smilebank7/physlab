@@ -11,6 +11,9 @@ from collections.abc import Callable
 from pathlib import Path
 
 REQUIRED_ENVIRONMENTS = frozenset({"pypi", "npm"})
+MANUAL_PUBLISH_CONDITION = (
+    "if: github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/tags/v')"
+)
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -29,6 +32,8 @@ def check_release_workflow(text: str) -> None:
         'node-version: "24"',
     )
     missing = [snippet for snippet in required_snippets if snippet not in text]
+    if text.count(MANUAL_PUBLISH_CONDITION) < 2:
+        missing.append(MANUAL_PUBLISH_CONDITION)
     missing.extend(
         f"environment: {name}" for name in REQUIRED_ENVIRONMENTS if not _has_environment(text, name)
     )
@@ -47,14 +52,18 @@ def check_gpg_ready(signing_key: str, secret_keys: str) -> None:
         raise ReleaseReadinessError(f"GPG secret key for git user.signingkey {key!r} not found")
 
 
-def parse_environment_names(payload: str) -> set[str]:
+def parse_approved_environment_names(payload: str) -> set[str]:
     data = json.loads(payload)
     environments = data.get("environments")
     if not isinstance(environments, list):
         raise ReleaseReadinessError("GitHub environments payload missing environments list")
     names: set[str] = set()
     for environment in environments:
-        if isinstance(environment, dict) and isinstance(environment.get("name"), str):
+        if (
+            isinstance(environment, dict)
+            and isinstance(environment.get("name"), str)
+            and _has_required_reviewers(environment)
+        ):
             names.add(environment["name"])
     return names
 
@@ -77,7 +86,9 @@ def main(argv: list[str] | None = None) -> int:
     _collect(
         errors,
         "GitHub environments",
-        lambda: check_github_environments(parse_environment_names(_github_environments(args.repo))),
+        lambda: check_github_environments(
+            parse_approved_environment_names(_github_environments(args.repo))
+        ),
     )
 
     if errors:
@@ -108,6 +119,16 @@ def _git_signing_key() -> str:
 
 def _has_environment(text: str, name: str) -> bool:
     return f"environment: {name}" in text or f"name: {name}" in text
+
+
+def _has_required_reviewers(environment: dict[object, object]) -> bool:
+    protection_rules = environment.get("protection_rules")
+    if not isinstance(protection_rules, list):
+        return False
+    return any(
+        isinstance(rule, dict) and rule.get("type") == "required_reviewers"
+        for rule in protection_rules
+    )
 
 
 def _gpg_secret_keys() -> str:
