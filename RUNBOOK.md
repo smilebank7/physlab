@@ -15,6 +15,14 @@ v0.1 line.
    bash scripts/release.sh --pre-flight-check
    ```
 
+5. Before the first public release, confirm maintainer-only publishing setup:
+   a configured local GPG signing key for `git tag -s`, PyPI trusted publishing
+   for the `pypi` environment, npm trusted publishing for the `npm`
+   environment, and GitHub environment approval enabled for both publish jobs.
+   Follow the registry docs for
+   [PyPI trusted publishing](https://docs.pypi.org/trusted-publishers/) and
+   [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
+
 There is no guaranteed response-time SLA. Maintainers should prefer clear
 status updates over promises about turnaround time.
 
@@ -54,5 +62,8 @@ physlab uses SemVer after v0.1.0:
 - Patch releases: roughly monthly when fixes exist.
 - Minor releases: roughly every two months when features are ready.
 - Release notes live in `CHANGELOG.md`.
+- PyPI and npm publishing use GitHub Actions OIDC trusted publishing. Do not add
+  long-lived npm or PyPI API tokens unless the release workflow is deliberately
+  redesigned and reviewed.
 - Public communication should update `README.md`, `CHANGELOG.md`, and GitHub
   Discussions or release notes. Do not announce unverified capabilities.
