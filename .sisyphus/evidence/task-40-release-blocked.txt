@@ -3,7 +3,7 @@ Task 40 release execution preflight
 Date: 2026-05-29
 
 Completed:
-- Latest main commit before this check: c5cc117 chore(release): add first-release readiness check [T-40-prep]
+- Latest main commit before this check: b6afa25 chore(release): require manual publish approval [T-40-prep]
 - GitHub Actions after fix:
   - CI 26611613576: success
   - Docs 26611613582: success
@@ -22,6 +22,8 @@ Completed:
     trusted publishing workflow checks, and GitHub publish environments.
   - Release publish jobs now require manual `workflow_dispatch` on a `v*` tag;
     tag pushes only build/validate artifacts and cannot publish by themselves.
+  - Release readiness accepts either GPG or SSH signing, matching `git tag -s`
+    with the maintainer's configured `gpg.format`.
   - GitHub release environments were created:
     - `pypi`: required reviewer `smilebank7`
     - `npm`: required reviewer `smilebank7`
@@ -31,14 +33,14 @@ Completed:
 - Verification after hardening:
   - `uv run ruff check .` -> pass
   - `uv run mypy src tests tools` -> pass
-  - `uv run pytest -q` -> 168 passed, 2 skipped
+  - `uv run pytest -q` -> 170 passed, 2 skipped
   - `PATH="$PWD/.venv/bin:$PWD/mcp-server/node_modules/.bin:$PATH" python tools/check_licenses.py` -> pass
   - `bash scripts/release.sh --dry-run --bump=minor` -> pass
-  - `uv run pytest tests/unit/test_release_readiness.py tests/integration/test_release_workflow.py -q` -> 10 passed
+  - `uv run pytest tests/unit/test_release_readiness.py tests/integration/test_release_workflow.py -q` -> 12 passed
 
 Blocked:
 - `scripts/release.sh --bump=minor` creates a signed tag with `git tag -s`.
-  Local checks found no configured GPG signing key:
+  Local checks found no configured release signing key:
   - `gpg --list-secret-keys --keyid-format=long` -> no secret keys
   - `git config --get user.signingkey` -> empty
 - The npm workflow no longer requires a long-lived `NPM_TOKEN`; it uses GitHub

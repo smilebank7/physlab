@@ -5,8 +5,8 @@ import pytest
 from tools.check_release_readiness import (
     ReleaseReadinessError,
     check_github_environments,
-    check_gpg_ready,
     check_release_workflow,
+    check_signing_ready,
     parse_approved_environment_names,
 )
 
@@ -92,12 +92,21 @@ sec   rsa4096/ABCDEF1234567890 2026-05-29 [SC]
 uid                 [ultimate] Release Bot <release@example.com>
 """
 
-    check_gpg_ready("ABCDEF1234567890", secret_keys)
+    check_signing_ready("ABCDEF1234567890", "openpgp", secret_keys, set())
 
 
 def test_release_readiness_rejects_missing_gpg_secret_key() -> None:
     with pytest.raises(ReleaseReadinessError, match="secret key"):
-        check_gpg_ready("", "")
+        check_signing_ready("", "openpgp", "", set())
+
+
+def test_release_readiness_accepts_ssh_signing_key_file() -> None:
+    check_signing_ready("~/.ssh/release_signing_key.pub", "ssh", "", {"~/.ssh/release_signing_key"})
+
+
+def test_release_readiness_rejects_ssh_signing_without_private_key_file() -> None:
+    with pytest.raises(ReleaseReadinessError, match="SSH signing key"):
+        check_signing_ready("~/.ssh/release_signing_key.pub", "ssh", "", set())
 
 
 def test_parse_github_environment_names() -> None:

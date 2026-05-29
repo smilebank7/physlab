@@ -16,9 +16,10 @@ v0.1 line.
    ```
 
 5. Before the first public release, confirm maintainer-only publishing setup:
-   a configured local GPG signing key for `git tag -s`, PyPI trusted publishing
-   for the `pypi` environment, npm trusted publishing for the `npm`
-   environment, and GitHub environment approval enabled for both publish jobs.
+   a configured local GPG or SSH signing key compatible with `git tag -s`,
+   PyPI trusted publishing for the `pypi` environment, npm trusted publishing
+   for the `npm` environment, and GitHub environment approval enabled for both
+   publish jobs.
    Run the executable readiness check before cutting the tag:
 
    ```bash

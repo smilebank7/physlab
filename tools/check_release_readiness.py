@@ -41,7 +41,19 @@ def check_release_workflow(text: str) -> None:
         raise ReleaseReadinessError(f"release workflow missing: {missing}")
 
 
-def check_gpg_ready(signing_key: str, secret_keys: str) -> None:
+def check_signing_ready(
+    signing_key: str,
+    gpg_format: str,
+    secret_keys: str,
+    existing_ssh_key_paths: set[str],
+) -> None:
+    if gpg_format.strip().lower() == "ssh":
+        _check_ssh_signing_ready(signing_key, existing_ssh_key_paths)
+        return
+    _check_gpg_ready(signing_key, secret_keys)
+
+
+def _check_gpg_ready(signing_key: str, secret_keys: str) -> None:
     key = signing_key.strip()
     if not key:
         raise ReleaseReadinessError(
@@ -82,7 +94,19 @@ def main(argv: list[str] | None = None) -> int:
     errors: list[str] = []
     workflow = ROOT / ".github" / "workflows" / "release.yml"
     _collect(errors, "release workflow", lambda: check_release_workflow(workflow.read_text()))
-    _collect(errors, "GPG signing", lambda: check_gpg_ready(_git_signing_key(), _gpg_secret_keys()))
+    signing_key = _git_config("user.signingkey")
+    gpg_format = _git_config("gpg.format") or "openpgp"
+    normalized_gpg_format = gpg_format.strip().lower()
+    _collect(
+        errors,
+        "release signing",
+        lambda: check_signing_ready(
+            signing_key,
+            gpg_format,
+            _gpg_secret_keys() if normalized_gpg_format != "ssh" else "",
+            _existing_ssh_key_paths(signing_key),
+        ),
+    )
     _collect(
         errors,
         "GitHub environments",
@@ -106,9 +130,9 @@ def _collect(errors: list[str], label: str, check: Callable[[], None]) -> None:
         errors.append(f"{label}: {exc}")
 
 
-def _git_signing_key() -> str:
+def _git_config(key: str) -> str:
     result = subprocess.run(
-        ["git", "config", "--get", "user.signingkey"],
+        ["git", "config", "--get", key],
         check=False,
         capture_output=True,
         text=True,
@@ -129,6 +153,35 @@ def _has_required_reviewers(environment: dict[object, object]) -> bool:
         isinstance(rule, dict) and rule.get("type") == "required_reviewers"
         for rule in protection_rules
     )
+
+
+def _check_ssh_signing_ready(signing_key: str, existing_key_paths: set[str]) -> None:
+    key = signing_key.strip()
+    if not key:
+        raise ReleaseReadinessError("git user.signingkey is not configured for SSH signing")
+    candidates = _ssh_private_key_candidates(key)
+    if candidates.isdisjoint(existing_key_paths):
+        raise ReleaseReadinessError(f"SSH signing key private file not found for {key!r}")
+
+
+def _ssh_private_key_candidates(signing_key: str) -> set[str]:
+    key = signing_key.strip()
+    if key.startswith("ssh-"):
+        return set()
+    path = Path(key).expanduser()
+    if path.suffix == ".pub":
+        path = path.with_suffix("")
+    return {key.removesuffix(".pub"), str(path)}
+
+
+def _existing_ssh_key_paths(signing_key: str) -> set[str]:
+    existing: set[str] = set()
+    for candidate in _ssh_private_key_candidates(signing_key):
+        path = Path(candidate).expanduser()
+        if path.exists():
+            existing.add(candidate)
+            existing.add(str(path))
+    return existing
 
 
 def _gpg_secret_keys() -> str:
