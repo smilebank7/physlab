@@ -6,5 +6,6 @@
 getting-started
 tutorial-eureka-franka
 extension-points
+roadmap
 api/index
 ```

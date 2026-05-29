@@ -98,13 +98,15 @@ path; any MPS-accelerated training path should be treated as epsilon-close
 
 ## Roadmap
 
-v0.2 candidates: plugin machinery, Drake or Taichi experiments, IsaacLab case
-study, and richer task packaging.
+v0.2 candidates: plugin machinery, Drake or Taichi experiments, IsaacLab
+compatibility research, and richer task packaging. IsaacLab is explicitly not a
+v0.1 feature or parity claim.
 
 v0.3 candidates: VLA integration research, full USD asset workflows,
 multi-LLM adapters, and larger-scale training experiments.
 
-These are deferred features, not v0.1 capabilities.
+These are deferred features, not v0.1 capabilities. See the
+[roadmap](docs/roadmap.md) for the current scope decisions.
 
 ## Contributing
 

@@ -3963,7 +3963,7 @@ Wave classification table:
   - Files: site/*, .github/workflows/pages.yml
   - Pre-commit: `site/build.sh && lychee site/dist/`
 
-- [ ] 42. **IsaacLab Compat Decision (Week 10 Gate: ONE Case Study OR Drop)**
+- [x] 42. **IsaacLab Compat Decision (Week 10 Gate: ONE Case Study OR Drop)**
 
   **What to do**:
   - This is a **DECISION TASK** with bounded scope:
