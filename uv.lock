@@ -1196,7 +1196,7 @@ wheels = [
 ]
 
 [[package]]
-name = "physlab"
+name = "physlab-mac"
 version = "0.0.0"
 source = { editable = "." }
 dependencies = [

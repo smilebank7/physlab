@@ -3,9 +3,9 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
-name = "physlab"
+name = "physlab-mac"
 version = "0.0.0"
-description = "Mac-native physical AI lab scaffold for local MuJoCo and agent workflows."
+description = "Mac-native physical AI lab for local MuJoCo and agent workflows."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"

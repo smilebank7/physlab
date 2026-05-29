@@ -1,8 +1,9 @@
-# @physlab/mcp-server
+# physlab-mac-mcp
 
 MCP server package for physlab simulation tools.
 
 ```bash
+npx physlab-mac-mcp --help
 npx physlab-mcp-server --help
 ```
 

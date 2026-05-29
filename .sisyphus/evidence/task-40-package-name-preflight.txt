@@ -1,0 +1,24 @@
+Command:
+python3 -m pip index versions physlab
+
+Output:
+physlab (1.0.8)
+Available versions: 1.0.8, 1.0.7
+
+Command:
+python3 -m pip index versions physlab-mac
+
+Output:
+ERROR: No matching distribution found for physlab-mac
+
+Command:
+npm view physlab-mac-mcp version --json
+
+Output:
+npm error code E404
+npm error 404 Not Found - GET https://registry.npmjs.org/physlab-mac-mcp - Not found
+
+Decision:
+Use `physlab-mac` as the PyPI distribution name and `physlab-mac-mcp` as the
+npm package name for v0.1. The Python import package remains `physlab`.
+

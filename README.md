@@ -3,8 +3,8 @@
 [![CI](https://github.com/smilebank7/physlab/actions/workflows/ci.yml/badge.svg)](https://github.com/smilebank7/physlab/actions/workflows/ci.yml)
 [![License](https://github.com/smilebank7/physlab/actions/workflows/licenses.yml/badge.svg)](https://github.com/smilebank7/physlab/actions/workflows/licenses.yml)
 [![Cold Start](https://github.com/smilebank7/physlab/actions/workflows/cold-start.yml/badge.svg)](https://github.com/smilebank7/physlab/actions/workflows/cold-start.yml)
-![PyPI](https://img.shields.io/badge/PyPI-planned-lightgrey.svg)
-![npm](https://img.shields.io/badge/npm-planned-lightgrey.svg)
+![PyPI](https://img.shields.io/badge/PyPI-physlab--mac%20planned-lightgrey.svg)
+![npm](https://img.shields.io/badge/npm-physlab--mac--mcp%20planned-lightgrey.svg)
 ![Docs](https://img.shields.io/badge/docs-local-blue.svg)
 
 Mac-native physical AI experiments with MuJoCo, local reward iteration, and an
@@ -23,8 +23,9 @@ uv pip install -e ".[dev]"
 uv run python examples/hello_cartpole.py --headless --steps 10
 ```
 
-The v0.1 release target is `pip install physlab`; until the release is cut, use
-the editable install above. For the longer local anchor replay:
+The v0.1 release target is `pip install physlab-mac`; the Python import package
+remains `physlab`. Until the release is cut, use the editable install above.
+For the longer local anchor replay:
 
 ```bash
 rm -rf runs/readme-smoke
