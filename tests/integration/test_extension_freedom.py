@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -12,6 +13,12 @@ SRC = ROOT / "src" / "physlab"
 
 def test_plugin_source_is_50_lines_or_less() -> None:
     assert len(SOURCE.read_text(encoding="utf-8").splitlines()) <= 50
+
+
+def test_plugin_depends_on_release_distribution_name() -> None:
+    metadata = tomllib.loads((PLUGIN / "pyproject.toml").read_text(encoding="utf-8"))
+
+    assert metadata["project"]["dependencies"] == ["physlab-mac"]
 
 
 def test_explicit_import_registers_plugin_task() -> None:

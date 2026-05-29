@@ -22,3 +22,28 @@ Decision:
 Use `physlab-mac` as the PyPI distribution name and `physlab-mac-mcp` as the
 npm package name for v0.1. The Python import package remains `physlab`.
 
+CI packaging fix:
+The hello_task example package originally depended on the old `physlab`
+distribution name. In CI, `uv pip install -e examples/plugins/hello_task`
+resolved PyPI's unrelated `physlab` package and shadowed the local import
+package. The example package now depends on `physlab-mac`, and
+tests/integration/test_extension_freedom.py asserts this release distribution
+name so the regression is caught before publish.
+
+Verification:
+- Added failing regression test:
+  `uv run pytest tests/integration/test_extension_freedom.py::test_plugin_depends_on_release_distribution_name -q`
+- After fix:
+  `uv run pytest tests/integration/test_extension_freedom.py -q` -> 6 passed
+- Fresh CI-style venv:
+  install project, install hello_task, import `physlab`, confirm `make`,
+  `list_tasks`, `hello_task` registration, and `Requires-Dist: physlab-mac`
+- Full local gates:
+  `uv run ruff check .`
+  `uv run mypy src tests tools`
+  `uv run pytest -q` -> 158 passed, 2 skipped
+  `PATH="$PWD/.venv/bin:$PWD/mcp-server/node_modules/.bin:$PATH" python tools/check_licenses.py`
+  `cd mcp-server && bun test`
+  `uv run python -m build && uv run twine check dist/*`
+  `cd mcp-server && bun run build && npm pack --dry-run`
+  `bash scripts/release.sh --dry-run --bump=minor`

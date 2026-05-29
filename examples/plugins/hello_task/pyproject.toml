@@ -9,7 +9,7 @@ description = "Explicitly registered third-party task example for PhysLab."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
-dependencies = ["physlab"]
+dependencies = ["physlab-mac"]
 classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
