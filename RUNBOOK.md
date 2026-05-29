@@ -19,6 +19,12 @@ v0.1 line.
    a configured local GPG signing key for `git tag -s`, PyPI trusted publishing
    for the `pypi` environment, npm trusted publishing for the `npm`
    environment, and GitHub environment approval enabled for both publish jobs.
+   Run the executable readiness check before cutting the tag:
+
+   ```bash
+   uv run python tools/check_release_readiness.py --repo smilebank7/physlab
+   ```
+
    Follow the registry docs for
    [PyPI trusted publishing](https://docs.pypi.org/trusted-publishers/) and
    [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
